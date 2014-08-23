@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+<addon id="plugin.audio.madsonic" version="0.5.2" name="Madsonic" provider-name="Madevil">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.simplejson" version="3.3.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>audio</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Access your Madsonic server</summary>
+        <description>Provides basic access to your Madsonic audio server.</description>
+        <disclaimer>You need a Madsonic server to connect to - check addon settings</disclaimer>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="plugin.video.madsonic" version="0.5.2" name="Madsonic (Video)" provider-name="Madevil">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.simplejson" version="3.3.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point= "xbmc.addon.metadata">
+        <summary>Access your Madsonic server</summary>
+        <description>Provides basic access to videos on your Madsonic server.</description>
+        <disclaimer>You need a Madsonic server to connect to - check addon settings</disclaimer>
+        <platform>all</platform>
+    </extension>
+</addon>
+</addons>

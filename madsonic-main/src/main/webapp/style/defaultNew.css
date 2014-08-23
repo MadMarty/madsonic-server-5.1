@@ -1,0 +1,356 @@
+@import "ui-lightness/jquery-ui-1.10.2.custom.css";
+
+@import "niceforms-default2.css";
+
+@import "playericonsSilver.css";
+
+/*
+ * CSS styleshet for default theme.
+ *
+ * Note that attributes that are typically changed by theme authors are
+ * placed at the top.
+  *
+ * Author: Sindre Mehus
+ */
+
+/* The primary background color (light gray). */
+.bgcolor1 {
+    background-color: #F9F9F9;
+}
+
+/* The secondary background color (darker gray). */
+.bgcolor2, .ruleTableHeader, .log {
+    background-color: #F1F1F1
+}
+
+.headerSelected {
+    border-bottom: 3px solid darkorange;
+}
+
+/* Put stuff here if you need to customize any of the frames. */
+.mainframe {
+}
+.topframe {
+}
+.leftframe {
+}
+.rightframe {
+}
+.playlistframe {
+}
+
+
+/* Background color for form controls (use default). */
+input, select {
+}
+
+/* Hover color for form controls (use default). */
+input:hover, select:hover {
+}
+
+/* The primary foreground color (black). */
+body {
+    color: black;
+}
+
+/* The secondary foreground color used for h1, details etc (gray). */
+h1, .detail, .albumComment {
+    color: #696969;
+}
+
+/* Foreground color used for h2, bold and tr. */
+h2, b, tr {
+    color: #333333;
+}
+
+/* Link color */
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    color: #006699
+}
+
+/* Link hover color */
+a:hover, a:hover * {
+    text-decoration: underline;
+    color: #DD6900
+}
+
+/* Color for warning messages. */
+.warning {
+    color: red;
+}
+
+/* Simple dark border. */
+.border1, .ruleTableHeader, .ruleTableCell, .log {
+    border: 1px solid black;
+}
+
+/* Scrollbar colors (supported on IE and Opera) */
+body {
+    scrollbar-face-color: #DEE3E7;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-shadow-color: #DEE3E7;
+    scrollbar-3dlight-color: #D1D7DC;
+    scrollbar-arrow-color: #006699;
+    scrollbar-track-color: #EFEFEF;
+    scrollbar-darkshadow-color: #98AAB1;
+}
+
+body, form, label, table, a {
+    font-family: 'Roboto', arial, sans-serif;
+}
+
+h1, h1 a {
+    font-family: 'Ubuntu', arial, sans-serif;
+    font-weight: normal;
+}
+
+h2, h2 a, .topHeader a {
+    font-family: 'Roboto', arial, sans-serif;
+    font-weight: normal;
+}
+
+/***************************************************************************************
+ * The rest of the CSS is typically not changed in other themes (but not necessarily so).
+ ***************************************************************************************/
+
+body {
+    padding:0;
+    border:0;
+    margin:0.75em;
+    font-size: 10.1pt;
+    line-height: 1.5em;
+}
+
+p {
+    padding:0;
+    border:0;
+    margin:0 0 1em 0;
+}
+
+.dense {
+    white-space: nowrap;
+    margin: 0;
+    line-height: 1.3em
+}
+
+h1 {
+    white-space: nowrap;
+    font-size: 150%;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+h2 {
+    white-space: nowrap;
+    font-size: 102%;
+    margin: 0.8em 0 0.2em 0;
+}
+
+form {
+    font-size: 100%;
+    line-height: 140%;
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+input, select, textarea {
+    font-size: 90%;
+}
+input#query {
+	width: 150px;
+}
+
+label {
+    font-size: 100%;
+    line-height: 140%;
+}
+
+table {
+    font-size: 100%;
+    line-height: 140%;
+    padding: 0;
+    border: 0;
+    margin: 0 0 0.4em 0;
+}
+
+/* Table with some white space above it.*/
+table.indent {
+    margin: 1em 0 0.4em 0;
+}
+
+a {
+    font-size: 100%;
+    text-decoration: none;
+}
+
+img {
+    border-style: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.header, .headerSelected {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    vertical-align: middle;
+}
+
+.detail {
+    white-space: nowrap;
+    font-size: 90%;
+    line-height: 1.25em;
+}
+
+.songTitle {
+    font-style: italic;
+}
+
+.warning {
+    white-space: nowrap;
+}
+
+.topHeader, .topHeader a {
+    font-size: 102%;
+    padding: 0.15em 0 0 0;
+    margin: 0;
+    border: 0;
+}
+
+.back {
+    background-position:center left;
+    background-repeat:no-repeat;
+    padding-left: 20px;
+    line-height: 16px;
+}
+
+
+.forward {
+    background-position:center left;
+    background-repeat:no-repeat;
+    padding-left: 20px;
+    line-height: 16px;
+}
+
+.forwardright {
+    background-position:center right;
+    background-repeat:no-repeat;
+    padding-right: 20px;
+    line-height: 16px;
+}
+
+.back {
+    background-image:url("../icons/default_light/back.gif");
+}
+
+.forward, .forwardright {
+    background-image:url("../icons/default_light/forward.gif");
+}
+
+.albumComment {
+    width: 50em;
+    font-size: 90%;
+    line-height: 1.4em;
+    padding-top: 0.25em;
+}
+
+.albumThumb {
+    display:inline-block;
+    vertical-align: top;
+    padding-bottom: 1em;
+    padding-right: 1em;
+}
+
+.log {
+    white-space: nowrap;
+    font-size: 90%;
+    line-height: 1em;
+}
+
+.checkbox {
+}
+
+/* Table with simple lines between the cells. */
+.ruleTable {
+    border-collapse: collapse;
+}
+
+
+.ruleTableCellDB {
+    border: 1px solid black;
+    white-space: nowrap;
+    font-size: 7pt;
+    margin: 1px;
+    padding: 1px;
+}
+.ruleTableCellPL {
+    border: 0px solid black;
+    white-space: nowrap;
+    font-size: 8pt;
+    margin: 1px;
+    padding: 1px;
+    padding-right: 8px;
+}
+
+.ruleTableHeader, .ruleTableCell {
+    margin: 5px;
+    padding: 5px;
+}
+
+.ruleTableHeader {
+    font-weight: bold;
+}
+
+img.starSong {
+    margin-right: 3px;
+}
+.artistindex {
+    font-size: 16pt;
+}
+
+.artisthub {
+background-image:url("../icons/default/artisthub.png");
+background-position: 0px 0px; 
+background-repeat:no-repeat; 
+}
+
+.maincontrol a img {
+	padding-bottom: 3px;
+	padding-right: 1px;
+	padding-left: 1px;
+	/* display:none;*/
+	width:0px;
+	hight:0px;
+}
+
+.context-menu-item {
+    color: black;
+}
+
+div#content_1 .mCSB_container{
+	padding-top: 130px;
+}
+
+div#content_1_2 .mCSB_container{
+	padding-top: 160px;
+}
+div#content_1 .mCustomScrollBox>.mCSB_scrollTools{
+	width:16px;
+	height:300px;
+	top:200px;
+	right:0;
+}
+
+div#content_1_2 .mCustomScrollBox>.mCSB_scrollTools{
+	width:16px;
+	height:300px;
+	top:200px;
+	right:0;
+}
+.divIdCoverBack {
+top: -58px; 
+left: 0px;
+}

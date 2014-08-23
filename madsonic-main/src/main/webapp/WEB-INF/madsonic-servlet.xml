@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <bean id="artistController" class="org.madsonic.controller.ArtistController">
+        <property name="viewName" value="artist"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="musicIndexService" ref="musicIndexService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="lastFMService" ref="lastFMService"/>
+    </bean>
+	<bean id="leftController" class="org.madsonic.controller.LeftController">
+        <property name="viewName" value="left"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="musicIndexService" ref="musicIndexService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="playlistService" ref="playlistService"/>
+    </bean>
+    <bean id="rightController" class="org.madsonic.controller.RightController">
+        <property name="viewName" value="right"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="chatController" class="org.madsonic.controller.ChatController">
+        <property name="viewName" value="chat"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+	<bean id="arrowchatController" class="org.madsonic.controller.arrowChatController">
+        <property name="viewName" value="arrowchat"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="statusController" class="org.madsonic.controller.StatusController">
+        <property name="viewName" value="status"/>
+        <property name="statusService" ref="statusService"/>
+    </bean>
+    <bean id="serverStatusController" class="org.madsonic.controller.ServerStatusController">
+        <property name="viewName" value="serverstatus"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="mainController" class="org.madsonic.controller.MainController">
+        <property name="viewName" value="main"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="ratingService" ref="musicInfoService"/>
+        <property name="hotService" ref="hotService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="lastFMService" ref="lastFMService"/>
+        <property name="artistDao" ref="artistDao"/>
+		
+    </bean>
+    <bean id="playlistController" class="org.madsonic.controller.PlaylistController">
+        <property name="viewName" value="playlist"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="playlistEditorController" class="org.madsonic.controller.PlaylistEditorController">
+        <property name="viewName" value="playlistEditor"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="playerService" ref="playerService"/>
+    </bean>
+    <bean id="importPlaylistController" class="org.madsonic.controller.ImportPlaylistController">
+        <property name="viewName" value="importPlaylist"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="playlistService" ref="playlistService"/>
+    </bean>
+    <bean id="topController" class="org.madsonic.controller.TopController">
+        <property name="viewName" value="top"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="versionService" ref="versionService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="helpController" class="org.madsonic.controller.HelpController">
+        <property name="viewName" value="help"/>
+        <property name="versionService" ref="versionService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="LogController" class="org.madsonic.controller.LogController">
+        <property name="viewName" value="logs"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>	
+    <bean id="moreController" class="org.madsonic.controller.MoreController">
+        <property name="viewName" value="more"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="playerService" ref="playerService"/>
+    </bean>
+   <bean id="moreeController" class="org.madsonic.controller.MoreController">
+        <property name="viewName" value="moree"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="playerService" ref="playerService"/>
+    </bean>
+    <bean id="uploadController" class="org.madsonic.controller.UploadController">
+        <property name="viewName" value="upload"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="upwinController" class="org.madsonic.controller.UploadController">
+        <property name="viewName" value="upwin"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="statisticsController" class="org.madsonic.controller.StatisticsController">
+        <property name="viewName" value="statistics"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="ratingService" ref="musicInfoService"/>
+    </bean>
+    <bean id="historyController" class="org.madsonic.controller.HistoryController">
+        <property name="viewName" value="history"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="lyricsController" class="org.madsonic.controller.LyricsController">
+        <property name="viewName" value="lyrics"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="metaDataParserFactory" ref="metaDataParserFactory"/>
+	</bean>
+    <bean id="allmusicController" class="org.madsonic.controller.AllmusicController">
+        <property name="viewName" value="allmusic"/>
+    </bean>
+    <bean id="podcastController" class="org.madsonic.controller.PodcastController">
+        <property name="viewName" value="podcast"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="podcastReceiverController" class="org.madsonic.controller.PodcastReceiverController">
+        <property name="viewName" value="podcastReceiver"/>
+        <property name="podcastService" ref="podcastService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="podcastReceiverAdminController"
+          class="org.madsonic.controller.PodcastReceiverAdminController">
+        <property name="podcastService" ref="podcastService"/>
+    </bean>
+    <bean id="setMediaFileController" class="org.madsonic.controller.SetMediaFileController">
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="createURLFileController" class="org.madsonic.controller.CreateURLFileController">
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>	
+    <bean id="setMusicFileInfoController" class="org.madsonic.controller.SetMusicFileInfoController">
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="shareManagementController" class="org.madsonic.controller.ShareManagementController">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="shareService" ref="shareService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="setRatingController" class="org.madsonic.controller.SetRatingController">
+        <property name="ratingService" ref="musicInfoService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="setHotController" class="org.madsonic.controller.SetHotController">
+        <property name="hotService" ref="hotService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>	
+	    <bean id="randomPlayQueueController" class="org.madsonic.controller.RandomPlayQueueController">
+        <property name="viewName" value="reload"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="reloadFrames">
+            <list>
+                <bean class="org.madsonic.controller.ReloadFrame">
+                    <property name="frame" value="playQueue"/>
+                    <property name="view" value="playQueue.view?"/>
+                </bean>
+                <bean class="org.madsonic.controller.ReloadFrame">
+                    <property name="frame" value="main"/>
+                    <property name="view" value="more.view"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+	<bean id="groupSettingsController" class="org.madsonic.controller.GroupSettingsController">
+        <property name="viewName" value="groupSettings"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+	<bean id="accessSettingsController" class="org.madsonic.controller.AccessSettingsController">
+        <property name="viewName" value="accessSettings"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+	<bean id="cleanupSettingsController" class="org.madsonic.controller.CleanupSettingsController">
+        <property name="viewName" value="cleanupSettings"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="artistDao" ref="artistDao"/>
+        <property name="albumDao" ref="albumDao"/>
+        <property name="transcodingDao" ref="transcodingDao"/>
+        <property name="mediaFolderDao" ref="mediaFileDao"/>
+        <property name="musicFolderDao" ref="musicFolderDao"/>	
+        <property name="playlistDao" ref="playlistDao"/>		
+        <property name="playlistService" ref="playlistService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+	<bean id="lastfmSettingsController" class="org.madsonic.controller.LastFMSettingsController">
+        <property name="viewName" value="lastfmSettings"/>
+        <property name="artistDao" ref="artistDao"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="lastFMService" ref="lastFMService"/>		
+    </bean>
+    <bean id="welcomeController" class="org.madsonic.controller.WelcomeController">
+        <property name="viewName" value="welcome"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="lastFMService" ref="lastFMService"/>		
+    </bean>
+	
+	<bean id="iconSettingsController" class="org.madsonic.controller.IconSettingsController">
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="loadPlaylistController" class="org.madsonic.controller.LoadPlaylistController">
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="playlistService" ref="playlistService"/>
+    </bean>
+    <bean id="changeCoverArtController" class="org.madsonic.controller.ChangeCoverArtController">
+        <property name="viewName" value="changeCoverArt"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="nowPlayingController" class="org.madsonic.controller.NowPlayingController">
+        <property name="playerService" ref="playerService"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="starredController" class="org.madsonic.controller.StarredController">
+        <property name="viewName" value="starred"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="searchController" class="org.madsonic.controller.SearchController">
+        <property name="commandClass" value="org.madsonic.command.SearchCommand"/>
+        <property name="successView" value="search"/>
+        <property name="formView" value="search"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="playerService" ref="playerService"/>
+    </bean>
+    <bean id="settingsController" class="org.madsonic.controller.SettingsController">
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="playerSettingsController" class="org.madsonic.controller.PlayerSettingsController">
+        <property name="commandClass" value="org.madsonic.command.PlayerSettingsCommand"/>
+        <property name="successView" value="playerSettings"/>
+        <property name="formView" value="playerSettings"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+    </bean>
+    <bean id="apiSettingsController" class="org.madsonic.controller.apiSettingsController">
+        <property name="viewName" value="apiSettings"/>
+    </bean>	
+    <bean id="dlnaSettingsController" class="org.madsonic.controller.DLNASettingsController">
+        <property name="viewName" value="dlnaSettings"/>
+        <property name="upnpService" ref="upnpService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="shareSettingsController" class="org.madsonic.controller.ShareSettingsController">
+        <property name="viewName" value="shareSettings"/>
+        <property name="shareService" ref="shareService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="musicFolderSettingsController" class="org.madsonic.controller.MusicFolderSettingsController">
+        <property name="commandClass" value="org.madsonic.command.MusicFolderSettingsCommand"/>
+        <property name="successView" value="musicFolderSettings"/>
+        <property name="formView" value="musicFolderSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="artistDao" ref="artistDao"/>
+        <property name="albumDao" ref="albumDao"/>
+        <property name="mediaFolderDao" ref="mediaFileDao"/>
+        <property name="securityService" ref="securityService"/>		
+    </bean>
+    <bean id="networkSettingsController" class="org.madsonic.controller.NetworkSettingsController">
+        <property name="commandClass" value="org.madsonic.command.NetworkSettingsCommand"/>
+        <property name="successView" value="networkSettings"/>
+        <property name="formView" value="networkSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="networkService" ref="networkService"/>
+    </bean>
+    <bean id="transcodingSettingsController" class="org.madsonic.controller.TranscodingSettingsController">
+        <property name="viewName" value="transcodingSettings"/>
+        <property name="transcodingService" ref="transcodingService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>			
+    </bean>
+    <bean id="pandoraSettingsController" class="org.madsonic.controller.PandoraSettingsController">
+        <property name="viewName" value="pandoraSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="internetRadioSettingsController" class="org.madsonic.controller.InternetRadioSettingsController">
+        <property name="viewName" value="internetRadioSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="podcastSettingsController" class="org.madsonic.controller.PodcastSettingsController">
+        <property name="commandClass" value="org.madsonic.command.PodcastSettingsCommand"/>
+        <property name="successView" value="podcastSettings"/>
+        <property name="formView" value="podcastSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="podcastService" ref="podcastService"/>
+    </bean>
+    <bean id="generalSettingsController" class="org.madsonic.controller.GeneralSettingsController">
+        <property name="commandClass" value="org.madsonic.command.GeneralSettingsCommand"/>
+        <property name="successView" value="generalSettings"/>
+        <property name="formView" value="generalSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>		
+    </bean>
+    <bean id="advancedSettingsController" class="org.madsonic.controller.AdvancedSettingsController">
+        <property name="commandClass" value="org.madsonic.command.AdvancedSettingsCommand"/>
+        <property name="successView" value="advancedSettings"/>
+        <property name="formView" value="advancedSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>		
+    </bean>
+    <bean id="personalSettingsController" class="org.madsonic.controller.PersonalSettingsController">
+        <property name="commandClass" value="org.madsonic.command.PersonalSettingsCommand"/>
+        <property name="successView" value="personalSettings"/>
+        <property name="formView" value="personalSettings"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="avatarUploadController" class="org.madsonic.controller.AvatarUploadController">
+        <property name="viewName" value="avatarUploadResult"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="userSettingsController" class="org.madsonic.controller.UserSettingsController">
+        <property name="sessionForm" value="true"/>
+        <property name="commandClass" value="org.madsonic.command.UserSettingsCommand"/>
+        <property name="validator" ref="userSettingsValidator"/>
+        <property name="successView" value="userSettings"/>
+        <property name="formView" value="userSettings"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+    </bean>
+    <bean id="passwordSettingsController" class="org.madsonic.controller.PasswordSettingsController">
+        <property name="sessionForm" value="true"/>
+        <property name="commandClass" value="org.madsonic.command.PasswordSettingsCommand"/>
+        <property name="validator" ref="passwordSettingsValidator"/>
+        <property name="successView" value="passwordSettings"/>
+        <property name="formView" value="passwordSettings"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="homeController" class="org.madsonic.controller.HomeController">
+        <property name="viewName" value="home"/>
+        <property name="ratingService" ref="musicInfoService"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="hotService" ref="hotService"/>
+    </bean>
+    <bean id="editTagsController" class="org.madsonic.controller.EditTagsController">
+        <property name="viewName" value="editTags"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="metaDataParserFactory" ref="metaDataParserFactory"/>
+    </bean>
+    <bean id="radioController" class="org.madsonic.controller.RadioController">
+    	<property name="viewName" value="radio"/>
+        <property name="securityService" ref="securityService"/>		
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="moodsController" class="org.madsonic.controller.MoodsController">
+    	<property name="viewName" value="moods"/>
+        <property name="securityService" ref="securityService"/>		
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="lastfmUserController" class="org.madsonic.controller.LastFMUserController">
+    	<property name="viewName" value="lastfmuser"/>
+        <property name="securityService" ref="securityService"/>		
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>	
+    <bean id="genresController" class="org.madsonic.controller.GenresController">
+    	<property name="viewName" value="genres"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>		
+        <property name="settingsService" ref="settingsService"/>		
+    </bean>
+    <bean id="playQueueController" class="org.madsonic.controller.PlayQueueController">
+        <property name="viewName" value="playQueue"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="coverArtController" class="org.madsonic.controller.CoverArtController">
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="artistDao" ref="artistDao"/>
+        <property name="albumDao" ref="albumDao"/>
+    </bean>
+    <bean id="avatarController" class="org.madsonic.controller.AvatarController">
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="proxyController" class="org.madsonic.controller.ProxyController"/>
+    <bean id="statusChartController" class="org.madsonic.controller.StatusChartController">
+        <property name="statusService" ref="statusService"/>
+    </bean>
+    <bean id="userChartController" class="org.madsonic.controller.UserChartController">
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="folderChartController" class="org.madsonic.controller.FolderChartController">
+        <property name="musicFolderDao" ref="musicFolderDao"/>	
+        <property name="musicFolderStatisticsDao" ref="musicFolderStatisticsDao"/>
+    </bean>
+    <bean id="m3uController" class="org.madsonic.controller.M3UController">
+        <property name="playerService" ref="playerService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+    </bean>
+    <bean id="streamController" class="org.madsonic.controller.StreamController">
+        <property name="playerService" ref="playerService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+        <property name="audioScrobblerService" ref="audioScrobblerService"/>
+    </bean>
+    <bean id="hlsController" class="org.madsonic.controller.HLSController">
+        <property name="playerService" ref="playerService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="videoPlayerController" class="org.madsonic.controller.VideoPlayerController">
+        <property name="viewName" value="videoPlayer"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="playerService" ref="playerService"/>
+    </bean>
+    <bean id="externalPlayerController" class="org.madsonic.controller.ExternalPlayerController">
+        <property name="viewName" value="externalPlayer"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="shareDao" ref="shareDao"/>
+    </bean>
+    <bean id="downloadController" class="org.madsonic.controller.DownloadController">
+        <property name="playerService" ref="playerService"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    <bean id="premiumController" class="org.madsonic.controller.PremiumController">
+        <property name="commandClass" value="org.madsonic.command.PremiumCommand"/>
+        <property name="successView" value="premium"/>
+        <property name="formView" value="premium"/>
+        <property name="validator" ref="premiumValidator"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+    <bean id="MadsonicController" class="org.madsonic.controller.MadsonicController">
+        <property name="viewName" value="madsonic"/>
+    </bean>
+    <bean id="multiController" class="org.madsonic.controller.MultiController">
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="playlistService" ref="playlistService"/>
+    </bean>
+    <bean id="wapController" class="org.madsonic.controller.WapController">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="musicIndexService" ref="musicIndexService"/>
+    </bean>
+    <bean id="restController" class="org.madsonic.controller.RESTController" init-method="init">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="musicIndexService" ref="musicIndexService"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="jukeboxService" ref="jukeboxService"/>
+        <property name="audioScrobblerService" ref="audioScrobblerService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="playQueueService" ref="ajaxPlayQueueService"/>
+        <property name="ratingService" ref="musicInfoService"/>
+        <property name="chatService" ref="ajaxChatService"/>
+        <property name="lyricsService" ref="ajaxLyricsService"/>
+        <property name="podcastService" ref="podcastService"/>
+        <property name="shareService" ref="shareService"/>
+        <property name="hotService" ref="hotService"/>
+        <property name="lastFMService" ref="lastFMService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="artistDao" ref="artistDao"/>
+        <property name="albumDao" ref="albumDao"/>
+        <property name="bookmarkDao" ref="bookmarkDao"/>
+        <property name="downloadController" ref="downloadController"/>
+        <property name="streamController" ref="streamController"/>
+        <property name="hlsController" ref="hlsController"/>
+        <property name="coverArtController" ref="coverArtController"/>
+        <property name="avatarController" ref="avatarController"/>
+        <property name="userSettingsController" ref="userSettingsController"/>
+        <property name="leftController" ref="leftController"/>
+        <property name="homeController" ref="homeController"/>
+    </bean>
+    <bean id="dbController" class="org.madsonic.controller.DBController">
+        <property name="viewName" value="db"/>
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+    <bean id="premiumValidator" class="org.madsonic.validator.PremiumValidator">
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="userSettingsValidator" class="org.madsonic.validator.UserSettingsValidator">
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+    <bean id="passwordSettingsValidator" class="org.madsonic.validator.PasswordSettingsValidator"/>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="alwaysUseFullPath" value="true"/>
+        <property name="mappings">
+            <props>
+                <prop key="/main.view">mainController</prop>
+                <prop key="/playlist.view">playlistController</prop>
+                <prop key="/arrowchat.view">arrowchatController</prop>
+                <prop key="/chat.view">chatController</prop>
+                <prop key="/help.view">helpController</prop>
+                <prop key="/log.view">LogController</prop>
+                <prop key="/lyrics.view">lyricsController</prop>
+                <prop key="/artist.view">artistController</prop>
+                <prop key="/left.view">leftController</prop>
+                <prop key="/right.view">rightController</prop>
+                <prop key="/status.view">statusController</prop>
+                <prop key="/serverStatus.view">serverStatusController</prop>
+                <prop key="/more.view">moreController</prop>
+                <prop key="/moree.view">moreeController</prop>
+                <prop key="/upload.view">uploadController</prop>
+                <prop key="/upwin.view">upwinController</prop>
+                <prop key="/statistics.view">statisticsController</prop>
+                <prop key="/history.view">historyController</prop>
+                <prop key="/importPlaylist.view">importPlaylistController</prop>
+                <prop key="/exportPlaylist.view">multiController</prop>
+                <prop key="/createURL.view">createURLFileController</prop>				
+                <prop key="/setMusicFileInfo.view">setMusicFileInfoController</prop>
+                <prop key="/setMediaFile.view">setMediaFileController</prop>
+                <prop key="/createPlaylistShare.view">shareManagementController</prop>
+                <prop key="/createShare.view">shareManagementController</prop>
+                <prop key="/setRating.view">setRatingController</prop>
+                <prop key="/setHot.view">setHotController</prop>
+                <prop key="/top.view">topController</prop>
+                <prop key="/randomPlayQueue.view">randomPlayQueueController</prop>
+                <prop key="/playlistEditor.view">playlistEditorController</prop>
+                <prop key="/loadPlaylist.view">loadPlaylistController</prop>
+                <prop key="/loadPlaylistConfirm.view">loadPlaylistController</prop>
+                <prop key="/appendPlaylist.view">loadPlaylistController</prop>
+                <prop key="/appendPlaylistConfirm.view">loadPlaylistController</prop>
+                <prop key="/deletePlaylist.view">loadPlaylistController</prop>
+                <prop key="/changeCoverArt.view">changeCoverArtController</prop>
+                <prop key="/login.view">multiController</prop>
+                <prop key="/loginfb.view">multiController</prop>
+                <prop key="/recover.view">multiController</prop>
+                <prop key="/accessDenied.view">multiController</prop>
+                <prop key="/notFound.view">multiController</prop>
+                <prop key="/gettingStarted.view">multiController</prop>
+                <prop key="/index.view">multiController</prop>
+                <prop key="/videoPlayer.view">videoPlayerController</prop>
+                <prop key="/videoPlayerFlash.view">videoPlayerController</prop>
+                <prop key="/videoPlayerHTML5.view">videoPlayerController</prop>
+                <prop key="/videoPlayerMEDIAELEMENT.view">videoPlayerController</prop>
+                <prop key="/nowPlaying.view">nowPlayingController</prop>
+                <prop key="/starred.view">starredController</prop>
+                <prop key="/search.view">searchController</prop>
+                <prop key="/settings.view">settingsController</prop>
+                <prop key="/welcome.view">welcomeController</prop>
+                <prop key="/apiSettings.view">apiSettingsController</prop>
+                <prop key="/groupSettings.view">groupSettingsController</prop>
+                <prop key="/accessSettings.view">accessSettingsController</prop>
+                <prop key="/cleanupSettings.view">cleanupSettingsController</prop>
+                <prop key="/playlistSettings.view">cleanupSettingsController</prop>
+                <prop key="/folderSettings.view">cleanupSettingsController</prop>
+                <prop key="/iconSettings.view">iconSettingsController</prop>
+                <prop key="/lastfmSettings.view">lastfmSettingsController</prop>
+                <prop key="/playerSettings.view">playerSettingsController</prop>
+                <prop key="/dlnaSettings.view">dlnaSettingsController</prop>
+                <prop key="/shareSettings.view">shareSettingsController</prop>
+                <prop key="/pandoraSettings.view">pandoraSettingsController</prop>
+                <prop key="/musicFolderSettings.view">musicFolderSettingsController</prop>
+                <prop key="/networkSettings.view">networkSettingsController</prop>
+                <prop key="/transcodingSettings.view">transcodingSettingsController</prop>
+                <prop key="/internetRadioSettings.view">internetRadioSettingsController</prop>
+                <prop key="/podcastSettings.view">podcastSettingsController</prop>
+                <prop key="/generalSettings.view">generalSettingsController</prop>
+                <prop key="/advancedSettings.view">advancedSettingsController</prop>
+                <prop key="/personalSettings.view">personalSettingsController</prop>
+                <prop key="/profileSettings.view">personalSettingsController</prop>
+                <prop key="/defaultSettings.view">personalSettingsController</prop>
+                <prop key="/avatarUpload.view">avatarUploadController</prop>
+                <prop key="/userSettings.view">userSettingsController</prop>
+                <prop key="/passwordSettings.view">passwordSettingsController</prop>
+                <prop key="/allmusic.view">allmusicController</prop>
+                <prop key="/home.view">homeController</prop>
+                <prop key="/editTags.view">editTagsController</prop>
+                <prop key="/radio.view">radioController</prop>
+                <prop key="/genres.view">genresController</prop>
+                <prop key="/moods.view">moodsController</prop>
+                <prop key="/lastfmUser.view">lastfmUserController</prop>
+                <prop key="/playQueue.view">playQueueController</prop>
+                <prop key="/coverArt.view">coverArtController</prop>
+                <prop key="/avatar.view">avatarController</prop>
+                <prop key="/proxy.view">proxyController</prop>
+                <prop key="/statusChart.view">statusChartController</prop>
+                <prop key="/folderChart.view">folderChartController</prop>
+                <prop key="/userChart.view">userChartController</prop>
+                <prop key="/download.view">downloadController</prop>
+                <prop key="/premium.view">premiumController</prop>
+                <prop key="/madsonic.view">MadsonicController</prop>
+                <prop key="/db.view">dbController</prop>
+                <prop key="/test.view">multiController</prop>
+                <prop key="/podcastReceiver.view">podcastReceiverController</prop>
+                <prop key="/podcastReceiverAdmin.view">podcastReceiverAdminController</prop>
+                <prop key="/podcast.view">podcastController</prop>
+                <prop key="/podcast/**">podcastController</prop>
+                <prop key="/wap/download.view">downloadController</prop>
+                <prop key="/wap/**">wapController</prop>
+                <prop key="/rest/**">restController</prop>
+                <prop key="/play.m3u">m3uController</prop>
+                <prop key="/stream/**">streamController</prop>
+                <prop key="/hls/**">hlsController</prop>
+                <prop key="/share/**">externalPlayerController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="org.madsonic.i18n.ResourceBundle"/>
+    </bean>
+
+    <bean id="themeSource" class="org.madsonic.theme.SubsonicThemeSource">
+        <property name="basenamePrefix" value="org.madsonic.theme."/>
+        <property name="defaultResourceBundle" value="org.madsonic.theme.default"/>
+    </bean>
+
+    <bean id="localeResolver" class="org.madsonic.i18n.SubsonicLocaleResolver">
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+
+    <bean id="themeResolver" class="org.madsonic.theme.SubsonicThemeResolver">
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>

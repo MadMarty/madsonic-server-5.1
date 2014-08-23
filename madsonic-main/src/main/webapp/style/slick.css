@@ -1,0 +1,297 @@
+/*
+ * CSS styleshet for the "Slick" theme.
+ *
+ * Author: Jeebs (Fisher Evans)
+ */
+
+@import "default.css";
+
+@import "playericonsSilver.css";
+
+@import "jquery.mCustomScrollbar.White.css";
+
+@import url('//fonts.googleapis.com/css?family=Bowlby+One+SC');
+
+table {
+	color: #0e0e0e;
+}
+
+body {
+    background: #222;
+    color: #cdcdcd;
+}
+
+/* The primary background colour. */
+.bgcolor1 {
+    background-color: #222;
+}
+
+/* The secondary background colour, light blue, primary theme colour. */
+.bgcolor2, .ruleTableHeader, .log {
+    background-color: #222;
+    color: #FFFFFF;
+}
+
+/* Background colour for selected header, log etc. */
+.headerSelected {
+    color: #FFFFFF;
+    background-color: #33B5E5;
+    border: 1px solid #000000;
+    border-radius: 3px 3px 3px 3px;
+    padding: 5px 10px;
+}
+
+body.bgcolor2 {
+    border-bottom: 0px solid #67778c;
+}
+
+.bgcolor2 {
+	background-image:url(../icons/slick/top_bg.jpg);
+}
+
+/* Background color for selected header, log etc. 
+.headerSelected {
+    color: #0e0e0e;
+    background-color: #8eacc4;
+}
+*/
+
+/* The primary foreground color. */
+body {
+    color: #ccd5dc;
+}
+
+/* The secondary foreground color used for h1, details etc. */
+h1, .detail, .albumComment {
+    color: #FFFFFF;
+}
+
+h1, .mainframe h1 a{
+	font-size: 1.3rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 400;
+    text-shadow: 0.0em 0.0em 0.15em #FFFFFF;
+	margin: 15px 0 0;
+}
+
+
+.mainframe #anchor_list a:link, .mainframe #anchor_list a:active, .mainframe #anchor_list a:visited, 
+.mainframe #anchor_list a:link *, .mainframe #anchor_list a:active *, .mainframe #anchor_list a:visited * {
+    color: #FFFFFF;
+	font-size: 1.4rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 200;
+	text-shadow: 0.0em 0.0em 0.1em #FFFFFF;	
+	margin: 0 0 0;	
+}
+
+
+.mainframe #anchor_list a:hover, .mainframe #anchor_list a:hover * {
+    text-shadow: 0.0em 0.0em 1.4em #ABABAB;
+}
+
+/* Link colour */
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    color: #C0EEFF;
+    text-shadow: 0.0em 0.0em 0.4em #ABABAB;
+}
+
+/* Link hover colour */
+a:hover, a:hover * {
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 0.0em 0.0em 0.2em #ABABAB;
+}
+
+/* Link hovers. */
+.leftframe a:hover, .leftframe a:hover * {
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 0.0em 0.0em 0.1em #BEEDFF;
+}
+
+/* Foreground color used for h2, bold and tr. */
+h2, b, tr {
+    color: #ccd5dc;
+}
+
+/* Link color */
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    color: #DFDFDF;
+    text-decoration: none;	
+}
+
+/* Link hover color */
+a:hover, a:hover * {
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 0.0em 0.0em 0.1em #BEEDFF;
+}
+
+/* Color for warning messages. */
+.warning {
+    color: #ff4800;
+}
+
+/* Simple border. */
+.border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
+    border: 1px solid #67778c;
+}
+
+/* Scrollbar colors (supported on IE and Opera) */
+body {
+    scrollbar-face-color: #8eacc4;
+    scrollbar-highlight-color: #67778c;
+    scrollbar-shadow-color: #8eacc4;
+    scrollbar-3dlight-color: #8eacc4;
+    scrollbar-arrow-color: #67778c;
+    scrollbar-track-color: #67778c;
+    scrollbar-darkshadow-color: #67778c;
+}
+
+img.starSong {
+    margin-right: 3px;
+}
+
+.back {
+    background-image:url("../icons/slick/back.png");background-position: 0px 0px; background-repeat:no-repeat; padding-left: 18px; line-height: 16px;
+}
+.forward, .forwardright {
+    background-image:url("../icons/slick/forward.png");background-position: 0px 0px; background-repeat:no-repeat; padding-left: 18px; line-height: 16px;
+}
+
+.forwardright {
+    background-position:center right;
+    background-repeat:no-repeat;
+    padding-right: 20px;
+    line-height: 16px;
+}
+
+.logo {
+	padding-right:0.5em;
+}
+
+.topframe .logo a img{
+	width:165px;
+}
+
+
+@charset "UTF-8";
+::-webkit-scrollbar {								
+	width: 14px;
+	height: 14px;
+	background: #222222;
+}
+
+::-webkit-scrollbar-track-piece {					
+	background: transparent none;
+	border: solid 4px transparent;
+	border-right-width: 8px;
+	margin: 4px;
+	-webkit-box-shadow: inset 1px 1px 0 0 rgb(0,100,118), inset -1px -1px 0 0 rgb(0,100,100);
+}
+
+::-webkit-scrollbar-track-piece:horizontal {			
+	border-right-width: 4px;
+	border-bottom-width: 8px;
+}
+::-webkit-scrollbar-thumb {								
+	border: solid 0 transparent;
+	border-right-width: 4px;
+	-webkit-border-radius: 5px;
+	-webkit-border-top-right-radius: 9px 5px;
+	-webkit-border-bottom-right-radius: 9px 5px;
+	-webkit-box-shadow: inset 0 0 0 1px rgb(79,79,79), inset 0 0 0 6px rgb(102,102,102);
+	-webkit-box-shadow: inset 0 0 0 1px rgba(63, 45, 21, 0.49), inset 0 0 0 6px #164F64;
+}
+
+::-webkit-scrollbar-thumb:hover {						
+	-webkit-box-shadow: inset 0 0 0 1px rgba(63, 45, 21, 0.49), inset 0 0 0 6px #33B5E5;
+}
+::-webkit-scrollbar-thumb:horizontal {					
+	border-right-width: 0;
+	border-bottom-width: 4px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px 9px;
+	-webkit-border-bottom-left-radius: 5px 9px;
+}
+::-webkit-scrollbar-corner {							
+	background: #222;
+}
+::-webkit-scrollbar-button {							
+	height: 26px;
+	background: url(../icons/madsonic_tron/webkit-arrows-vert.png) 1px 50% no-repeat, #222;
+}
+::-webkit-scrollbar-button:increment {					
+	background-position: -19px 50%;
+}
+::-webkit-scrollbar-button:horizontal {					
+	width: 26px;
+	background: url(../icons/madsonic_tron/webkit-arrows-horiz.png) 50% 1px no-repeat, #222;
+}
+::-webkit-scrollbar-button:horizontal:increment {		
+	background-position: 50% -19px;
+}
+
+body ::-webkit-scrollbar {
+	background: transparent none;
+}
+
+
+.NFButtonLeft {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+.NFButtonRight {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+
+input, select {
+    background: none repeat scroll 0 0 #ADADAD;
+    border: 1px solid #E6F7FD;
+    border-radius: 5px;
+    color: #333333 !important;
+    font-size: 9pt;	
+    padding: 3px;
+}
+input[type=button],input[type=submit]{
+	color: #dfdfdf !important;
+	text-shadow: 1px 1px 1px #111;
+	padding: 4px 11px;
+	font-size:1.1em;
+}
+
+input[type=button]{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #4c4c4c 50%, #3d3d3d 53%, #2b2b2b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(50%,#4c4c4c), color-stop(53%,#3d3d3d), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* IE10+ */
+	background: linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* W3C */
+	border: 1px solid #111;
+}
+input[type=submit]{
+	background: #33B5E5; /* Old browsers */
+	background: -moz-linear-gradient(top, #33B5E5 0%, #2A9BC4 50%, #43C6F5 53%, #43C6F5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#33B5E5), color-stop(50%,#43C6F5), color-stop(53%,#43C6F5), color-stop(100%,#43C6F5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* IE10+ */
+	background: linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* W3C */
+	border: 1px solid #025877;
+}	
+
+/* Custom */
+.innerbox {
+	border: 2.5px solid #222222;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width: 100%;
+	opacity:0.9;
+	filter:alpha(opacity=90); /* For IE8 and earlier */
+}
+
+.innerbox:hover {
+	opacity:0.70;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+	border: 2.5px solid #2585A8;
+}	

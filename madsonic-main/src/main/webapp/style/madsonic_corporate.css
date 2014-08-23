@@ -1,0 +1,360 @@
+/*
+ * CSS styleshet for the "corporate" theme.
+ *
+ * Author: Madevil
+ *
+*/
+
+@import "default.css";
+
+@import "madsonic-corporate/jquery-ui-1.10.2.custom.css;
+
+@import "playericonsSilver.css";
+
+@import "jquery.mCustomScrollbar.Silver.css";
+
+/* Theme colour.*/
+.mainframe, .bgcolor1, .bgcolor2, .ruleTableHeader, .rightframe, .topframe, .leftframe, .playlistframe, .log {
+}
+
+.bgcolor1 {
+	background-color: #EFEFEF;
+}
+
+.bgcolor2 {
+/*	display: none; */
+/*	background: transparent none; */
+/*	background-color: #55056D; */
+}
+
+.bgcolor2, .ruletableheader {
+/*    background-image:url( "../icons/madsonic_corporate/bg-repeat-middle.png" );
+    background-repeat:repeat;
+    background-attachment:fixed;	*/
+}
+
+/* Text colour used for h1, h2, b, tr, details and albumcomments. */
+h1, h2, b, tr, .detail, .albumComment {
+/*	color: rgba(248, 255, 79, 0.81); */
+}
+
+/* Background colour for selected header, log etc. */
+.headerSelected {
+	color: #7601B5;
+	border: 0px solid #55056D;
+	background: transparent none;
+	text-shadow: 0.1em 0.1em 0.6em #888;
+	color: #ffffff;
+}
+
+.mainframe.bgcolor1 h2 .headerSelected{
+   background: none repeat scroll 0 0 #7B00A1;
+   border: 0px solid #260000;
+   border-radius: 4px;
+   padding: 5px 10px;
+}
+
+/* The primary foreground color (black). */
+body {
+    color: black;
+}
+
+
+/* Force text color left frame. */
+.leftframe {
+    color: #333333;
+}
+
+/* Foreground colour used for h2, bold and tr. */
+h2, b, tr {
+    color: #333333;
+}
+
+/* Table sizing */
+table {
+    font-size: 96%;
+    line-height: 130%;
+    padding: 0;
+    border: 0;
+    margin: 0 0 0 0;
+}
+
+/* frame image. */
+.topframe {
+    background-image:url( "../icons/madsonic_corporate/headerbg.png" );
+    background-repeat:repeat-x;
+    background-attachment:fixed;
+}
+
+.leftframe {
+    background-image:url( "../icons/madsonic_corporate/bg-repeat-left.png" );
+    background-repeat:repeat;
+    background-attachment:fixed;	
+}
+
+.mainframe, .rightframe, .playlistframe {
+    background-image:url( "../icons/madsonic_corporate/bg-repeat.png" );
+    background-repeat:repeat;
+    background-attachment:fixed;
+}
+
+.rightframe {
+    background-image:url( "../icons/madsonic_corporate/bg-repeat-dark.png" );
+    background-repeat:repeat;
+    background-attachment:fixed;
+}
+
+/* Back image. */
+.back {
+    background-image:url( "../icons/madsonic_corporate/back.png" );
+}
+
+/* Forward image. */
+.forward , .forwardright{
+    background-image:url( "../icons/madsonic_corporate/forward.png" );
+}
+
+.topframe a:link , .topframe  a:active, .topframe a:visited, .topframe a:link *, .topframe a:active *,.topframe a:visited * {
+	color: #FFF;
+	text-shadow: 0.1em 0.1em 0.2em gray;
+    text-decoration: none;
+}
+
+.topframe a:hover, .topframe a:hover * {
+	color: #A600FF;
+    text-shadow: 0.2em 0.2em 0.2em gray;
+}
+
+/* Links. */
+.leftframe a:link, .leftframe a:active, .leftframe a:visited, .leftframe a:link *, .leftframe a:active *, .leftframe a:visited * {
+    color: #55056D;
+    text-decoration: none;		
+    text-shadow: 0.1em 0.1em 0.5em white; 
+}
+
+.mainframe a:link, .mainframe a:active, .mainframe a:visited, .mainframe a:link *, .mainframe a:active *, .mainframe a:visited * {
+    color: #55056D;
+    text-decoration: none;	
+	text-shadow: 0.1em 0.1em 0.6em white;
+}
+
+.playlistframe a:link, .playlistframe a:active, .playlistframe a:visited, .playlistframe a:link *, .playlistframe a:active *, .playlistframe a:visited * {
+    color: #55056D;
+    text-decoration: none;		
+	text-shadow: 0.1em 0.1em 0.6em white;
+}
+
+a {
+    font-size: 99%;
+    text-decoration: none;
+}
+
+/* Link hovers. */
+.mainframe a:hover, .mainframe a:hover * {
+    color: #A600FF;
+    text-shadow: 0.1em 0.1em 0.6em #E2ABFF;
+    text-decoration: bold;
+}
+
+/* Link hovers. */
+.leftframe a:hover, .leftframe a:hover * {
+    color: #A600FF;
+    text-shadow: 0.1em 0.1em 0.6em #E2ABFF;
+    text-decoration: bold;
+}
+
+/* Link hovers. */
+.playlistframe a:hover, .playlistframe a:hover * {
+    color: #A600FF;
+    text-shadow: 0.1em 0.1em 0.6em #E2ABFF;
+    text-decoration: bold;
+}
+
+/* Warning messages. */
+.warning {
+    color: #B40000;
+}
+
+/* The album comments. */
+.albumComment {
+    width: 50em;
+    font-size: 8pt;
+    line-height: 1.4em;
+    padding-top: 0.25em;
+}
+
+/* The log. */
+.log {
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 8pt;
+    line-height: 1em;
+    background-color:transparent;
+}
+
+/* The help, status & web payer settings tables. */
+.ruleTableHeader, .ruleTableCell {
+    margin: 5px;
+    padding: 5px;
+}
+/* Simple white border. */
+.border1, .ruleTableHeader, .ruleTableCell, .log {
+    border: 1px solid black;
+	background-image:url( "../icons/madsonic_corporate/bg-repeat-dark.png" );
+    background-repeat:repeat;
+}
+
+.ruleTableCellDB {
+    border: 1px solid black;
+    white-space: nowrap;
+    font-size: 7pt;
+    margin: 1px;
+    padding: 1px;
+	color: #464646; 
+}
+
+.topframe .logo a img{
+	width:155px;
+}
+
+/* Web-Kit Scrollbars (Chrome / Safari). */
+
+@charset "UTF-8";
+::-webkit-scrollbar {								
+	width: 14px;
+	height: 14px;
+	background: #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 repeat;
+}
+
+::-webkit-scrollbar-track-piece {					
+	background: transparent none;
+	border: solid 4px transparent;
+	border-right-width: 8px;
+	margin: 4px;
+	-webkit-box-shadow: inset 1px 1px 0 0 rgb(137,131,117), inset -1px -1px 0 0 rgb(224,220,210);
+}
+
+::-webkit-scrollbar-track-piece:horizontal {			
+	border-right-width: 4px;
+	border-bottom-width: 8px;
+}
+::-webkit-scrollbar-thumb {								
+	border: solid 0 transparent;
+	border-right-width: 4px;
+	-webkit-border-radius: 5px;
+	-webkit-border-top-right-radius: 9px 5px;
+	-webkit-border-bottom-right-radius: 9px 5px;
+	-webkit-box-shadow: inset 0 0 0 1px rgb(79,79,79), inset 0 0 0 6px rgb(102,102,102);
+	
+	-webkit-box-shadow: inset 0 0 0 1px rgba(63, 45, 21, 0.49), inset 0 0 0 6px #CFCFD0;
+}
+
+::-webkit-scrollbar-thumb:hover {						
+	-webkit-box-shadow: inset 0 0 0 1px rgba(63, 45, 21, 0.49), inset 0 0 0 6px #9B00EE;
+}
+::-webkit-scrollbar-thumb:horizontal {					
+	border-right-width: 0;
+	border-bottom-width: 4px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px 9px;
+	-webkit-border-bottom-left-radius: 5px 9px;
+}
+::-webkit-scrollbar-corner {							
+	background: #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button {							
+	height: 26px;
+	background: url(../icons/madsonic_corporate/webkit-arrows-vert.png) 1px 50% no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button:increment {					
+	background-position: -19px 50%;
+}
+::-webkit-scrollbar-button:horizontal {					
+	width: 26px;
+	background: url(../icons/madsonic_corporate/webkit-arrows-horiz.png) 50% 1px no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button:horizontal:increment {		
+	background-position: 50% -19px;
+}
+
+body ::-webkit-scrollbar {
+	background: transparent none;
+}
+
+body ::-webkit-scrollbar-button:horizontal:decrement {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.1)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-horiz.png) 50% 1px no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-horiz.png) 50% 1px no-repeat, #bfb6a3 url(../icons/bg-blog-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-horiz.png) 50% 1px no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+}
+body ::-webkit-scrollbar-button:horizontal:increment {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.1)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-horiz.png) 50% -19px no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-horiz.png) 50% -19px no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-horiz.png) 50% -19px no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	-webkit-border-radius: 0 0 6px 0;
+}
+
+body ::-webkit-scrollbar-button:vertical:decrement {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-vert.png) 1px 50% no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-vert.png) 1px 50% no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-vert.png) 1px 50% no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+}
+body ::-webkit-scrollbar-button:vertical:increment {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-vert.png) -19px 50% no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-vert.png) -19px 50% no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_corporate/webkit-arrows-vert.png) -19px 50% no-repeat, #bfb6a3 url(../icons/madsonic_corporate/bg-repeat.png) 0 0 no-repeat;
+	-webkit-border-radius: 0 0 6px 0;
+}
+
+input, select {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #909090;
+    border-radius: 4px;
+    color: #333333 !important;
+    font-size: 9pt;	
+    padding: 3px;
+}
+input[type=button],input[type=submit]{
+	color: #dfdfdf !important;
+	text-shadow: 1px 1px 1px #111;
+	padding: 4px 11px;
+	font-size:1.1em;
+}
+
+input[type=button]{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #4c4c4c 50%, #3d3d3d 53%, #2b2b2b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(50%,#4c4c4c), color-stop(53%,#3d3d3d), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* IE10+ */
+	background: linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* W3C */
+	border: 1px solid #111;
+}
+input[type=submit]{
+	background: #8A00DA; /* Old browsers */
+	background: -moz-linear-gradient(top, #8A00DA 0%, #54009A 50%, #70009F 53%, #5C0084 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8A00DA), color-stop(50%,#54009A), color-stop(53%,#70009F), color-stop(100%,#5C0084)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #8A00DA 0%,#54009A 50%,#70009F 53%,#5C0084 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #8A00DA 0%,#54009A 50%,#70009F 53%,#5C0084 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #8A00DA 0%,#54009A 50%,#70009F 53%,#5C0084 100%); /* IE10+ */
+	background: linear-gradient(top, #8A00DA 0%,#54009A 50%,#70009F 53%,#5C0084 100%); /* W3C */
+	border: 1px solid #54009A;
+}
+
+
+span.off {
+    background: #FFF !important;
+	border: solid 1px #999;
+}
+
+span.on {
+	color: #dfdfdf !important;
+    background: #64009E !important;
+	border: solid 1px #222 !important;
+}
+
+span.off:hover {
+	color: #ffffff !important;
+    background: #64009E !important;
+	border: solid 1px #000 !important;	
+	}

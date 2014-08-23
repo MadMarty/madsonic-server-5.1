@@ -1,0 +1,15 @@
+#! /bin/sh
+
+set -e
+
+# Stop Madsonic service.
+if [ -e /etc/init.d/madsonic ]; then
+  invoke-rc.d madsonic stop
+fi
+
+# Backup database.
+if [ -e /var/madsonic/db ]; then
+  rm -rf /var/madsonic/db.backup
+  cp -R /var/madsonic/db /var/madsonic/db.backup
+fi
+

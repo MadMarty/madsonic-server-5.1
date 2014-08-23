@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+
+#similarArtists {
+	width:220px;
+	font-size: 11px;
+    line-height: 14px; 
+}
+    #similarArtists .section {
+        position: relative;
+		width:220px;
+    }
+        #similarArtists .head {
+        }
+    
+        #similarArtists .openCloseTrigger {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 14px;
+            height: 14px;
+            text-align: center;
+            line-height: 18px; 
+            font-weight: bold;
+            text-decoration: none;
+        }
+            #similarArtists .openCloseTrigger .isClosedLabel {
+                display: none;
+            }
+            #similarArtists .openCloseTrigger.isClosed .isOpenLabel {
+                display: none;
+            }
+            #similarArtists .openCloseTrigger.isClosed .isClosedLabel {
+                display: inline;
+            }
+            #similarArtists .openCloseTrigger.isClosed {
+            }
+            #similarArtists .openCloseTrigger:hover,
+            #similarArtists .openCloseTrigger:hover * {
+                text-decoration: none;
+            }
+    
+        #similarArtists .name {
+            display: block;
+            font-weight: bold;
+        }
+    
+        #similarArtists .similar {
+			font-size: 10px;
+            clear: both;
+            max-height: 300px;
+            overflow: auto;
+            padding-left: 16px;
+        }
+    
+            #similarArtists .similar li {
+                padding: 1px 0;
+            }

@@ -1,0 +1,84 @@
+/* http://www.screenfeed.fr/blog/personnaliser-les-scrollbars-webkit-0366 */
+@charset "UTF-8";
+::-webkit-scrollbar {									/* Scrollbars */
+	width: .875em;
+	height: .875em;
+	background: #bfb6a3 url(images/bg-blog-repeat.png) 0 0 repeat;
+}
+::-webkit-scrollbar-track-piece {						/* Fond */
+	background: transparent none;
+	border: solid .25em transparent;
+	border-right-width: .5em;
+	margin: .25em;
+	-webkit-box-shadow: inset .0625em .0625em 0 0 rgb(137,131,117), inset -.0625em -.0625em 0 0 rgb(224,220,210);
+}
+::-webkit-scrollbar-track-piece:horizontal {			/* Fond pour la barre du bas */
+	border-right-width: .25em;
+	border-bottom-width: .5em;
+}
+::-webkit-scrollbar-thumb {								/* Barre */
+	border: solid 0 transparent;
+	border-right-width: .25em;
+	-webkit-border-radius: .3125em;
+	-webkit-border-top-right-radius: .5625em .3125em;
+	-webkit-border-bottom-right-radius: .5625em .3125em;
+	-webkit-box-shadow: inset 0 0 0 .0625em rgb(79,79,79), inset 0 0 0 .375em rgb(102,102,102);
+}
+::-webkit-scrollbar-thumb:hover {						/* Barre */
+	-webkit-box-shadow: inset 0 0 0 .0625em rgb(90,90,90), inset 0 0 0 .375em rgb(110,110,110);
+}
+::-webkit-scrollbar-thumb:horizontal {					/* Barre du bas */
+	border-right-width: 0;
+	border-bottom-width: .25em;
+	-webkit-border-top-right-radius: .3125em;
+	-webkit-border-bottom-right-radius: .3125em .5625em;
+	-webkit-border-bottom-left-radius: .3125em .5625em;
+}
+::-webkit-scrollbar-corner {							/* Coin de la fenêtre */
+	background: #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button {							/* Boutons */
+	height: 1.625em;
+	background: url(images/webkit-arrows-vert.png) .0625em 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	-webkit-background-size: 1.75em .5em, auto;
+}
+::-webkit-scrollbar-button:increment {					/* Boutons incrément */
+	background-position: -1.1875em 50%;
+}
+::-webkit-scrollbar-button:horizontal {					/* Boutons horizontaux */
+	width: 1.625em;
+	background: url(images/webkit-arrows-horiz.png) 50% .0625em no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	-webkit-background-size: .5em 1.75em, auto;
+}
+::-webkit-scrollbar-button:horizontal:increment {		/* Bouton incrément horizontal */
+	background-position: 50% -1.1875em;
+}
+body ::-webkit-scrollbar {
+	background: transparent none;
+}
+body ::-webkit-scrollbar-button:horizontal:decrement {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.1)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(images/webkit-arrows-horiz.png) 50% .0625em no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-horiz.png) 50% .0625em no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-horiz.png) 50% .0625em no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	-webkit-background-size: auto, .5em 1.75em, auto;
+}
+body ::-webkit-scrollbar-button:horizontal:increment {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.1)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(images/webkit-arrows-horiz.png) 50% -1.1875em no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-horiz.png) 50% -1.1875em no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-horiz.png) 50% -1.1875em no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	-webkit-background-size: auto, .5em 1.75em, auto;
+	-webkit-border-radius: 0 0 6px 0;
+}
+body ::-webkit-scrollbar-button:vertical:decrement {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(images/webkit-arrows-vert.png) .0625em 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) .0625em 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) .0625em 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	-webkit-background-size: auto, 1.75em .5em, auto;
+}
+body ::-webkit-scrollbar-button:vertical:increment {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(images/webkit-arrows-vert.png) -1.1875em 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) -1.1875em 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) -1.1875em 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	-webkit-background-size: auto, 1.75em .5em, auto;
+	-webkit-border-radius: 0 0 6px 0;
+}

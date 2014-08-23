@@ -1,0 +1,101 @@
+
+ul#pics li {/*css style for the single photo only **/
+	background: none repeat scroll 0 0 #FFFFFF;
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+	border: 4px solid #FFF;
+	display: inline-block;
+	width: 60px;
+	height:60px;
+ -webkit-transition: all .2s ease-in-out;
+ -moz-transition: all .2s ease-in-out;
+ -o-transition: all .2s ease-in-out;
+ -ms-transition: all .2s ease-in-out;
+ transition: all .2s ease-in-out;
+}
+
+ul#pics li img {/*css style for the single photo only **/
+	width: 60px;
+	height:60px;
+	display: block;
+}
+ul#pics li:hover {/*css style for the single photo only **/
+	-moz-transform: scale(1.1) rotate(0deg);
+	-webkit-transform: scale(1.1) rotate(0deg);
+	-o-transform: scale(1.1) rotate(0deg);
+	-ms-transform: scale(1.1) rotate(0deg);
+	transform: scale(1.1) rotate(0deg);
+}
+.single_photo {/*css style for the single photo only **/
+	margin-top : 0px;
+	margin-left: 0px;
+	margin-top: 12px;
+}
+
+.image_stack img { /* css style for photo stack */
+	border: none;
+	text-decoration: none;
+	position: absolute;
+	margin-left:0px;
+	width: 60px;
+	height: 60px;
+}
+.image_stack { /* css style for photo stack */
+	width: 100px;
+	position: absolute;
+	margin:10px 10px 10px;
+}
+.image_stack img { /* css style for photo stack */
+	position: absolute;
+	border: 4px solid #FFF;
+	box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+	/* Firefox */
+	-moz-transition: all 0.2s ease;
+	/* WebKit */
+	-webkit-transition: all 0.2s ease;
+	/* Opera */
+	-o-transition: all 0.2s ease;
+	/* Standard */
+	transition: all 0.2s ease;
+}
+.image_stack #photo1 {  /* position of last photo in the stack */
+	top: 8px;
+	left: 108px;
+}
+.image_stack #photo2 {/* position of middle photo in the stack */
+	top: 6px;
+	left: 104px;
+}
+.image_stack #photo3 {/* position of first photo at the top in the stack */
+	top: 4px;
+	left: 100px;
+	right: 100px;
+}
+.image_stack .rotate1 {/* rotate last image 15 degrees to the right */
+	-webkit-transform: rotate(15deg); /* safari and chrome */
+	-moz-transform: rotate(15deg);/*firefox browsers */
+	transform: rotate(15deg);/*other */
+	-ms-transform:rotate(15deg); /* Internet Explorer 9 */
+	-o-transform:rotate(15deg); /* Opera */
+	cursor: pointer;	
+}
+.image_stack .rotate2 {/* css not used*/
+	-webkit-transform: rotate(0deg); /* safari and chrome */
+	-moz-transform: rotate(0deg);/*firefox browsers */
+	transform: rotate(0deg);/*other */
+	-ms-transform:rotate(0deg); /* Internet Explorer 9 */
+	-o-transform:rotate(0deg); /* Opera */
+	cursor: pointer;	
+}
+.image_stack .rotate3 {/*rotate first image 15 degrees to the left*/
+	-webkit-transform: rotate(-15deg); /* safari and chrome */
+	-moz-transform: rotate(-15deg); /*firefox browsers */
+	transform: rotate(-15deg);/*other */
+	-ms-transform:rotate(-15deg); /* Internet Explorer 9 */
+	-o-transform:rotate(-15deg); /* Opera */
+	cursor: pointer;
+}

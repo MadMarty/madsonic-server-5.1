@@ -1,0 +1,11 @@
+
+.content_main{position:absolute; left:0px; top:0px; width:98%; height:97%; margin-left:10px; margin-top:10px; padding:0 0;overflow:auto;}
+
+.content_home{position:absolute; left:0px; top:0px; width:98%; height:95%; margin-left:10px; margin-top: 5px; padding:0 0;overflow:auto;}
+
+.content_welcome{position:absolute; left:0px; top:0px; width:98%; height:97%; margin-left:10px; margin-top:10px; padding:0 0;overflow:auto;}
+
+.content_playqueue{position:absolute; left:0px; top:0px; width:98%; height:98%; margin-left:10px; padding:0 0;overflow:auto;}
+
+.content_artist1{position:absolute; left:0px; top:0px; width:98%; height:95%; margin:0; padding:0 10px;overflow:auto;}
+.content_artist2{position:absolute; left:0px; top:0px; width:95%; height:95%; margin:0; padding:0 10px;overflow:auto;}

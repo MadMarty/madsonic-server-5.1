@@ -1,0 +1,430 @@
+/*
+ * CSS styleshet for the "Groove" theme.
+ *
+ * Author: Thomas Bruce Dyrud (thomasbrucedyrud[at]gmail.com)
+ *
+ * Moified version of the "Cool and Clean" and "Monochrome Black" themes.
+ * (Cool and Clean created by: Dan Eriksen - dan.o.eriksen[at]gmail.com )
+ * (Monochrome Black created by: David D - ddavis1[at]gmail.com )
+ *
+ * Icons used are released under Creative Commons.
+ * Heading icons: (http://toffeenut.deviantart.com/art/Black-Neon-Agua-iPhone-Theme-85452072)
+ * Main theme icon part of itunes icon pack created by Michael Flarup (http://pixelresort.com)
+ */
+
+@import "default.css";
+
+/*** Custom Theme ***
+ */
+@import "madsonic-pink/jquery-ui-1.10.3.custom.css";
+
+/*** Custom Google Fonts ***
+ */
+@import url(//fonts.googleapis.com/css?family=Bowlby+One+SC);
+
+/*** Custom Playericon Colorskin ***
+*/
+@import "playericonsPink.css";
+
+/*** Custom Scrollbar Colorskin ***
+*/
+@import "jquery.mCustomScrollbar.Pink.css"; 
+
+
+/* 
+@import url('//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800');
+body, form, label, table, a  {
+    font-family:"Open Sans",arial !important;
+}
+*/
+
+/* The primary background colour. */
+.bgcolor1 {
+    background-color: transparent; 
+    background-image:url( "../icons/madsonic_pink/background-alpha.png" );
+    background-repeat:repeat;
+    color: #FFFFFF;	
+}
+#centered .bgcolor2, .ruleTableHeader, .log {
+    background-color: transparent; 
+    background-image:url( "../icons/madsonic_pink/background-normal.png" );
+    background-repeat:repeat;
+    color: #FFFFFF;
+}
+
+/* The secondary background colour, light blue, primary theme colour. */
+.bgcolor2, .ruleTableHeader, .log {
+    background-color: transparent; 
+    background-repeat:repeat;
+    color: #FFFFFF;
+}
+
+.mainframe .bgcolor2 .ruleTableHeader, .log {
+    background-color: transparent; 
+    background-image:url( "../icons/madsonic_pink/background-normal.png" );
+    background-repeat:repeat;
+    color: #FFFFFF;
+}
+
+
+.playlistframe .bgcolor2, .leftframe .bgcolor2  {
+    background-image:url( "../icons/madsonic_pink/background-normal.png" );
+    background-repeat:repeat;
+}
+
+
+/* Background colour for selected header, log etc. */
+.headerSelected {
+    color: #FFFFFF;
+    background-color: #FF70C8;
+    border: 1px solid #FF70C8;
+    border-radius: 3px 3px 3px 3px;
+    padding: 5px 10px;
+}
+
+
+/* The secondary foreground colour used for h1, details etc. */
+h1, .detail, .albumComment {
+    color: #FFFFFF;
+}
+
+.mainframe .content_welcome h1 a{
+	font-size: 1.0rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 400;
+    text-shadow: 0.0em 0.0em 1.0em #828056;	
+	margin: 10px 0 0;
+	margin-top: 10px;	
+}
+
+h1,.mainframe h1 a{
+	font-size: 1.3rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 400;
+    text-shadow: 0.0em 0.0em 1.0em #828056;	
+	margin: 0 0 0;
+	margin-top: 10px;
+}
+
+/* Foreground colour used for h2, bold and tr. */
+h2, b, tr {
+    color: #FFECFC;
+}
+
+
+.content_main .bgcolor2 {
+	background-color:#560538;
+	opacity:0.80;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+}
+
+/* Table sizing */
+table {
+    margin: 0 0 0 0;
+}
+
+/* Main frame image & colour */
+.mainframe {
+    background-image:url('../icons/madsonic_pink/background-main.png');
+	background-position: top right;
+    background-repeat:no-repeat;
+    background-attachment:fixed;	
+	background-color:#5D053A;
+}
+
+.artistindex {
+    background-image:url('../icons/madsonic_pink/background-main.png');
+	background-position: top right;
+    background-repeat:no-repeat;
+    background-attachment:fixed;	
+}
+
+
+.leftframe {
+    background-image:url( "../icons/madsonic_pink/background-left.png" );
+    background-repeat:repeat;
+    background-attachment:fixed;	
+	background-color:#5D053A;
+}
+
+.rightframe.bgcolor1 {
+    background-image:url("../icons/madsonic_pink/background-left.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-color:#560538;
+}
+
+.topframe {
+	background-position: top right;
+    background-repeat:no-repeat;
+    background-attachment:fixed;	
+	background-color:#5D053A;
+    background-image:url( "../icons/madsonic_pink/background-top.png" );
+}
+
+.playlistframe {
+	background-color:#5D053A;
+}
+
+
+.rightframe {
+    background-image:url( "../icons/madsonic_pink/background-left.png" );
+    background-repeat:repeat;
+    background-attachment:fixed;
+}
+
+.mainframe p.dense{
+	clear: both;
+	padding: 2px;
+	border-bottom: 1px dashed #CB4186;
+}
+.mainframe p.dense:last-child{
+	border: none;
+}
+
+.leftframe p.dense{
+	clear: both;
+	padding: 2px;
+	border-bottom: 1px dashed #CB4186;
+	line-height: 1.2em;
+}
+.leftframe p.dense:last-child{
+	border: none;
+}
+
+.leftframe p.dense a:hover{
+
+}
+
+.leftframe #anchor_list a {
+	font-weight: bold;
+	padding: 0.8px;
+	margin: 0.8px;
+}
+.leftframe #anchor_list a:hover {
+	background-color: #111;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	
+}
+
+/* Back image */
+.back {
+	font-size: 8pt;
+    background-image:url( "../icons/madsonic_pink/back.png" );
+}
+
+/* Forward image */
+.forward, .forwardright {
+	font-size: 8pt;
+    background-image:url( "../icons/madsonic_pink/forward.png" );
+}
+
+.artistbanner {
+background-position: 0px 0px; 
+background-repeat:no-repeat; 
+}
+
+.mainframe #anchor_list a:link, 
+.mainframe #anchor_list a:active, 
+.mainframe #anchor_list a:visited, 
+.mainframe #anchor_list a:link *, 
+.mainframe #anchor_list a:active *, 
+.mainframe #anchor_list a:visited * {
+    color: #FFFFFF;
+	font-size: 1.4rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 200;
+	text-shadow: 0.0em 0.0em 0.8em #828056;	
+	margin: 0 0 0;	
+}
+
+.mainframe a:hover {
+	text-shadow: 0.0em 0.0em 0.9em #FFFFFF;	
+}
+
+
+/* Link colour   */ 
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    color: #FFC1E8;
+}
+
+/* Link hover colour */
+a:hover, a:hover * {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+/* Colour for warning messages. */
+.warning {
+    color: #990099;
+}
+
+/* The primary foreground colour. */
+body {
+    color: #FFFFFF;
+/*    background-color: #dddddd;*/
+}
+
+html {
+/*    background-color: transparent;*/ 
+}
+
+label, {
+	color: #CCC;
+}
+
+#carousel1-title {
+	color: #FF2CA1;
+}
+
+.songRow {
+	white-space: nowrap;
+}
+
+.border1, .ruleTableHeader, .ruleTableCell, .headerSelected, .log {
+border: 1px solid #690645;
+}
+
+.ruleTableCellDB {
+    border: 1px solid #690645;
+    white-space: nowrap;
+    font-size: 7pt;
+    margin: 1px;
+    padding: 1px;
+    padding-right: 10px;
+}
+
+.detailmini {
+}
+
+.detailcolor {
+    color: #FFD2F8;
+}
+.detailcolordark {
+    color: #FFECFC;
+}
+
+.logo {
+	padding-right:0.5em;
+}
+
+.topframe .logo a img{
+	width:165px;
+}
+
+::-webkit-scrollbar {
+width: 10px;
+height: 10px;
+}
+
+::-webkit-scrollbar-track-piece  {
+background-color: #333;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+height: 30px;
+background-color: #5A5A5A;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+width: 30px;
+background-color: #5A5A5A;
+}
+
+.NFButtonLeft {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+.NFButtonRight {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+
+input, select {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: #333333 !important;
+    font-size: 9pt;	
+    padding: 3px;
+}
+input[type=button],input[type=submit]{
+	color: #ffffff !important;
+	text-shadow: 1px 1px 1px #111;
+	padding: 4px 11px;
+	font-size:1.1em;
+}
+
+input[type=button]{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #4c4c4c 50%, #3d3d3d 53%, #2b2b2b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(50%,#4c4c4c), color-stop(53%,#3d3d3d), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* IE10+ */
+	background: linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* W3C */
+	border: 1px solid #111;
+}
+input[type=submit]{
+	background: #FF70C8; /* Old browsers */
+	background: -moz-linear-gradient(top, #FF70C8 0%, #FF85FC 50%, #EC5FB6 53%, #FC89FF 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FF70C8), color-stop(50%,#FF85FC), color-stop(53%,#EC5FB6), color-stop(100%,#FC89FF)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #FF70C8 0%,#FF85FC 50%,#EC5FB6 53%,#FC89FF 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #FF70C8 0%,#FF85FC 50%,#EC5FB6 53%,#FC89FF 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #FF70C8 0%,#FF85FC 50%,#EC5FB6 53%,#FC89FF 100%); /* IE10+ */
+	background: linear-gradient(top, #FF70C8 0%,#FF85FC 50%,#EC5FB6 53%,#FC89FF 100%); /* W3C */
+	border: 1px solid #FF85FC;
+}	
+
+/* Custom */
+.innerbox {
+	border: 0px solid #222222;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+	opacity:0.9;
+	filter:alpha(opacity=90); /* For IE8 and earlier */
+}
+ 
+.innerbox:hover {
+	opacity:0.70;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+	border: 0px solid #AB9100;
+}	
+
+span.off {
+    background: #FFF !important;
+	border: solid 1px #999;
+}
+
+span.off2 {
+	background: #C70098 !important;
+	border: solid 1px #999;
+}
+
+span.on {
+	color: #ffffff !important;
+    background: #FF70C8 !important;
+	border: solid 1px #222 !important;
+}
+
+span.off:hover  {
+	color: #ffffff !important;
+    background: #FF70C8 !important;
+	border: solid 1px #000 !important;	
+	}
+
+span.on2 {
+	color: #ffffff !important;
+	background: #F569D4 !important;
+	border: solid 1px #fff !important;
+}
+
+span.off2.hover {
+	color: #ffffff !important;
+	background: #FF70C8 !important;
+	border: solid 1px #FF70C8 !important;	
+	}
+	
+span.off2 a:link, span.off2 a:active, span.off2 a:visited, span.off2 a:link *, span.off2 a:active *, span.off2 a:visited * {
+    color: #FFFFFF;
+}	
+
+

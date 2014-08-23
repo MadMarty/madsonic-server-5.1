@@ -1,0 +1,7 @@
+-Xms256m
+-Xmx350m
+-verbose:gc
+-Dmadsonic.host=0.0.0.0
+-Dmadsonic.port=4040
+-Dmadsonic.httpsPort=0
+-Dmadsonic.contextPath=/

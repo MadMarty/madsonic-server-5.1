@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.madsonic</groupId>
+    <artifactId>madsonic-installer-mac</artifactId>
+    <packaging>pom</packaging>
+    <name>Madsonic Installer for Mac</name>
+
+    <parent>
+        <groupId>org.madsonic</groupId>
+        <artifactId>madsonic</artifactId>
+        <version>5.1</version>
+    </parent>
+
+<properties>
+    <failOnDependencyWarning>false</failOnDependencyWarning>
+    <project.build.sourceEncoding>iso-8859-1</project.build.sourceEncoding>
+</properties>
+
+<repositories>
+    <repository>
+        <id>local1</id>
+        <name>Local Repository 1</name>
+        <url>file:repo</url>
+    </repository>
+    <repository>
+        <id>local2</id>
+        <name>Local Repository 2</name>
+        <url>file:../repo</url>
+    </repository>
+</repositories>
+
+<pluginRepositories>
+    <pluginRepository>
+        <id>local3</id>
+        <name>Local Repository 3</name>
+        <url>file:../repo</url>
+    </pluginRepository>
+    <pluginRepository>
+        <id>Codehaus Repository</id>
+        <url>http://repository.codehaus.org/</url>
+    </pluginRepository>
+</pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.madsonic</groupId>
+            <artifactId>madsonic-main</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.madsonic</groupId>
+            <artifactId>madsonic-booter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>mac</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <dependencies>
+                            <dependency>
+    				<groupId>net.sourceforge.jarbundler</groupId>
+				<artifactId>jarbundler</artifactId>
+				<version>2.1.0</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <configuration>
+                                    <target>
+                                        <taskdef name="jarbundler" classname="net.sourceforge.jarbundler.JarBundler"/>
+                                        <mkdir dir="${project.build.directory}"/>
+                                        <jarbundler dir="target"
+                                                    name="Madsonic"
+                                                    mainclass="org.madsonic.booter.Main"
+                                                    arguments="-mac"
+                                                    vmoptions="-Xmx250m"
+                                                    version="${project.version}"
+                                                    jvmversion="1.7+"
+                                                    jar="../madsonic-booter/target/madsonic-booter.jar"
+                                                    bundleid="org.madsonic"
+                                                    icon="src/madsonic.icns"
+                                                    helpbookfolder="foobar"
+                                                    verbose="true">
+                                            <resourcefilelist dir="../madsonic-main/target" files="madsonic.war"/>
+                                            <javaproperty name="madsonic.war" value="Madsonic.app/Contents/Resources/madsonic.war"/>
+                                            <javaproperty name="madsonic.home" value="/Library/Application Support/madsonic"/>
+                                            <javaproperty name="madsonic.defaultMusicFolder" value="/Users/Shared/Music/iTunes/iTunes Media"/>
+                                            <javaproperty name="madsonic.defaultPodcastFolder" value="/Users/Shared/Podcasts"/>
+                                            <javaproperty name="madsonic.defaultPlaylistFolder" value="/Users/Shared/Playlists"/>
+                                            <javaproperty name="madsonic.port" value="4040"/>
+                                            <javaproperty name="madsonic.httpsPort" value="0"/>
+                                            <javaproperty name="madsonic.contextPath" value="/"/>
+                                        </jarbundler>
+                                        <replace file="target/Madsonic.app/Contents/Info.plist" token="CFBundleHelpBookFolder" value="LSUIElement"/>
+                                        <replace file="target/Madsonic.app/Contents/Info.plist" token="foobar" value="1"/>
+                                        <exec executable="/Applications/Xcode.app/Contents/Applications/PackageMaker.app/Contents/MacOS/PackageMaker">
+                                            <arg value="--doc"/>
+                                            <arg value="${basedir}/src/madsonic.pmdoc"/>
+                                            <arg value="--version"/>
+                                            <arg value="${project.version}"/>
+                                            <arg value="--no-relocate"/>
+                                            <arg value="--out"/>
+                                            <arg value="${project.build.directory}/madsonic-${project.version}.pkg"/>
+                                            <arg value="--verbose"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-antrun-plugin
+										</artifactId>
+										<versionRange>
+											[1.7,)
+										</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+                    </plugin>
+                </plugins>
+		</pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

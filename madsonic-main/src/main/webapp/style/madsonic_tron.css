@@ -1,0 +1,439 @@
+/*
+ * CSS styleshet for the "Holotron" theme.
+ *
+ * Author: Madevil
+ *
+ * Moified version of the "Cool and Clean" and "Monochrome Black" themes.
+ * (Cool and Clean created by: Dan Eriksen - dan.o.eriksen[at]gmail.com )
+ * (Monochrome Black created by: David D - ddavis1[at]gmail.com )
+ *
+ * Icons used are released under Creative Commons.
+ * Heading icons: (http://toffeenut.deviantart.com/art/Black-Neon-Agua-iPhone-Theme-85452072)
+ * Main theme icon part of itunes icon pack created by Michael Flarup (http://pixelresort.com)
+ */
+
+@import "default.css";
+
+@import "madsonic-tron/jquery-ui-1.10.2.custom.css";
+
+@import url('//fonts.googleapis.com/css?family=Bowlby+One+SC');
+
+@import "playericonsBlue.css";
+
+@import "jquery.mCustomScrollbar.Holo.css"; 
+
+
+/* The primary background colour. */
+.bgcolor1 {
+    background-color: #0E3B4B;
+}
+
+/* The secondary background colour, light blue, primary theme colour. */
+.bgcolor2, .ruleTableHeader, .log {
+    background-color: #222;
+ /*   color: #FFFFFF; */
+}
+
+/* Background colour for selected header, log etc. */
+.headerSelected {
+    color: #FFFFFF;
+    background-color: #33B5E5;
+    border: 1px solid #000000;
+    border-radius: 3px 3px 3px 3px;
+    padding: 5px 10px;
+}
+
+/* The secondary foreground colour used for h1, details etc. */
+h1, .detail, .albumComment {
+    color: #FFFFFF;
+}
+
+h1, .mainframe h1 a{
+	font-size: 1.3rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 400;
+    text-shadow: 0.0em 0.0em 0.15em #FFFFFF;
+	margin: 15px 0 0;
+}
+/* Foreground colour used for h2, bold and tr. */
+h2, b, tr {
+    color: #FFFFFF;
+} 
+
+
+.mainframe.bgcolor1 h2 .headerSelected{
+   background: none repeat scroll 0 0 #33B5E5;
+   border: 1px solid #260000;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   border-radius: 4px;
+   padding: 5px 10px;
+}
+.mainframe.bgcolor1 .detail+.detail{
+	font-size:0.9em;
+}
+.mainframe.bgcolor1 .detail+.detail em{
+	font-style: normal;
+}
+.mainframe.bgcolor1 .detail+.detail+.detail{
+	color: #cdcdcd;
+	font-weight: bold;
+}
+/*
+h1,.mainframe h1 a, .detail, .albumComment {
+	color: #A5DBEE;
+	text-shadow: 1px 1px #080808;
+}
+*/
+
+h2, b, tr {
+	color: #cdcdcd;
+}
+.detailchat:first-child {
+	color: #33B5E5;
+}
+.detailchat:last-child {
+	color: #666666;
+}
+.detailwrap {
+	color: #CCCCCC;
+}
+
+.content_main .bgcolor2 {
+	background-color:#FFF2F47;
+	opacity:0.75;
+	filter:alpha(opacity=75); /* For IE8 and earlier */
+}
+
+/* Table sizing */
+table {
+    margin: 0 0 0 0;
+}
+
+/* Main frame image & colour */
+.mainframe {
+    background-image:url('../icons/madsonic_tron/background.png');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-color: #222;
+}
+
+.rightframe.bgcolor1 {
+    background-image:url("../icons/madsonic_tron/chatbg.jpg");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.mainframe p.dense{
+	clear: both;
+	padding: 2px;
+	border-bottom: 1px dashed #333333;
+}
+.mainframe p.dense:last-child{
+	border: none;
+}
+
+.leftframe p.dense{
+	clear: both;
+	padding: 2px;
+	border-bottom: 1px dashed #175268;
+	line-height: 1.2em;
+}
+.leftframe p.dense:last-child{
+	border: none;
+}
+
+.leftframe p.dense a:hover{
+
+}
+
+.leftframe #anchor_list a {
+	font-weight: bold;
+	padding: 0.8px;
+	margin: 0.8px;
+}
+.leftframe #anchor_list a:hover {
+	background-color: #111;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.leftframe .bgcolor1 {
+    background-image: -moz-linear-gradient(center bottom, #222222 0%, #003C50 50%, #003C50 53%, #222222 100%); /* FF3.6+ */
+    background: -webkit-linear-gradient(center bottom, #222222 0%, #003C50 50%, #003C50 53%, #222222 100%); /* Chrome10+,Safari5.1+ */
+    background: -webkit-linear-gradient(center bottom, #222222 0%, #003C50 50%, #003C50 53%, #222222 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(center bottom, #222222 0%, #003C50 50%, #003C50 53%, #222222 100%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(center bottom, #222222 0%, #003C50 50%, #003C50 53%, #222222 100%); /* IE10+ */
+    background-image: linear-gradient(center bottom, #222222 0%,#003C50 50%, #003C50 53%, #222222 100%); /* W3C */
+    padding: 4px;
+}
+
+/* Back image */
+.back {
+	font-size: 8pt;
+    background-image:url( "../icons/madsonic_tron/back.png" );
+}
+
+/* Forward image */
+.forward, .forwardright {
+	font-size: 8pt;
+    background-image:url( "../icons/madsonic_tron/forward.png" );
+}
+
+/* Artistbanner */
+.artistbanner {
+background-image:url("../icons/madsonic_tron/artist_banner.png");
+background-position: 0px 0px; 
+background-repeat:no-repeat; 
+}
+
+.mainframe #anchor_list a:link, .mainframe #anchor_list a:active, .mainframe #anchor_list a:visited, 
+.mainframe #anchor_list a:link *, .mainframe #anchor_list a:active *, .mainframe #anchor_list a:visited * {
+    color: #FFFFFF;
+	font-size: 1.4rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 200;
+	text-shadow: 0.0em 0.0em 0.1em #F0FCFF;	
+	margin: 0 0 0;	
+}
+
+.mainframe #anchor_list a:hover, .mainframe #anchor_list a:hover * {
+    text-shadow: 0.0em 0.0em 1.4em #66B5D5;
+}
+
+/* Link hover colour */
+.mainframe a:hover {
+    text-shadow: 0.0em 0.0em 0.10em #66B5D5;
+}
+
+/* Link hover colour */
+a:hover, a:hover * {
+    text-shadow: 0.0em 0.0em 0.10em #66B5D5;
+}
+
+/* Link colour */
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    color: #C0EEFF;
+    text-shadow: 0.0em 0.0em 0.4em #66B5D5;
+}
+
+/* Link hover colour */
+a:hover, a:hover * {
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 0.0em 0.0em 0.2em #66B5D5;
+}
+
+/* Link hovers. */
+.leftframe a:hover, .leftframe a:hover * {
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 0.0em 0.0em 0.1em #BEEDFF;
+}
+
+
+/* Colour for warning messages. */
+.warning {
+    color: #FACC2E;
+}
+
+/* The primary foreground colour. */
+body {
+    color: #FFFFFF;
+/*    background-color: #dddddd;*/
+}
+
+html {
+/*    background-color: transparent;*/ 
+}
+
+label, {
+	color: #CCC;
+}
+
+#carousel1-title {
+	color: #33B5E5;
+}
+
+.songRow {
+	white-space: nowrap;
+}
+
+.ruleTableCellDB {
+    border: 1px solid black;
+    white-space: nowrap;
+    font-size: 7pt;
+    margin: 1px;
+    padding: 1px;
+    padding-right: 10px;
+}
+
+.detailmini {
+}
+
+.detailcolor {
+    color: #33B5E5;
+}
+.detailcolordark {
+    color: #A4A4A4;
+}
+
+.logo {
+	padding-right:0.5em;
+}
+
+.topframe .logo a img{
+	width:165px;
+}
+
+@charset "UTF-8";
+::-webkit-scrollbar {								
+	width: 14px;
+	height: 14px;
+	background: #222222;
+}
+
+::-webkit-scrollbar-track-piece {					
+	background: transparent none;
+	border: solid 4px transparent;
+	border-right-width: 8px;
+	margin: 4px;
+	-webkit-box-shadow: inset 1px 1px 0 0 rgb(0,100,118), inset -1px -1px 0 0 rgb(0,100,100);
+}
+
+::-webkit-scrollbar-track-piece:horizontal {			
+	border-right-width: 4px;
+	border-bottom-width: 8px;
+}
+::-webkit-scrollbar-thumb {								
+	border: solid 0 transparent;
+	border-right-width: 4px;
+	-webkit-border-radius: 5px;
+	-webkit-border-top-right-radius: 9px 5px;
+	-webkit-border-bottom-right-radius: 9px 5px;
+	-webkit-box-shadow: inset 0 0 0 1px rgb(79,79,79), inset 0 0 0 6px rgb(102,102,102);
+	-webkit-box-shadow: inset 0 0 0 1px rgba(63, 45, 21, 0.49), inset 0 0 0 6px #164F64;
+}
+
+::-webkit-scrollbar-thumb:hover {						
+	-webkit-box-shadow: inset 0 0 0 1px rgba(63, 45, 21, 0.49), inset 0 0 0 6px #33B5E5;
+}
+::-webkit-scrollbar-thumb:horizontal {					
+	border-right-width: 0;
+	border-bottom-width: 4px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px 9px;
+	-webkit-border-bottom-left-radius: 5px 9px;
+}
+::-webkit-scrollbar-corner {							
+	background: #222;
+}
+::-webkit-scrollbar-button {							
+	height: 26px;
+	background: url(../icons/madsonic_tron/webkit-arrows-vert.png) 1px 50% no-repeat, #222;
+}
+::-webkit-scrollbar-button:increment {					
+	background-position: -19px 50%;
+}
+::-webkit-scrollbar-button:horizontal {					
+	width: 26px;
+	background: url(../icons/madsonic_tron/webkit-arrows-horiz.png) 50% 1px no-repeat, #222;
+}
+::-webkit-scrollbar-button:horizontal:increment {		
+	background-position: 50% -19px;
+}
+
+body ::-webkit-scrollbar {
+	background: transparent none;
+}
+
+
+.NFButtonLeft {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+.NFButtonRight {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+
+input, select {
+    background: none repeat scroll 0 0 #AADCEE;
+    border: 1px solid #E6F7FD;
+    border-radius: 5px;
+    color: #333333 !important;
+    font-size: 9pt;	
+    padding: 3px;
+}
+input[type=button],input[type=submit]{
+	color: #dfdfdf !important;
+	text-shadow: 1px 1px 1px #111;
+	padding: 4px 11px;
+	font-size:1.1em;
+}
+
+input[type=button]{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #4c4c4c 50%, #3d3d3d 53%, #2b2b2b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(50%,#4c4c4c), color-stop(53%,#3d3d3d), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* IE10+ */
+	background: linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* W3C */
+	border: 1px solid #111;
+}
+input[type=submit]{
+	background: #33B5E5; /* Old browsers */
+	background: -moz-linear-gradient(top, #33B5E5 0%, #2A9BC4 50%, #43C6F5 53%, #43C6F5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#33B5E5), color-stop(50%,#43C6F5), color-stop(53%,#43C6F5), color-stop(100%,#43C6F5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* IE10+ */
+	background: linear-gradient(top, #33B5E5 0%,#2A9BC4 50%,#43C6F5 53%,#43C6F5 100%); /* W3C */
+	border: 1px solid #025877;
+}	
+
+/* Custom */
+.innerbox {
+	border: 2.5px solid #222222;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	width: 100%;
+	opacity:0.9;
+	filter:alpha(opacity=90); /* For IE8 and earlier */
+}
+
+.innerbox:hover {
+	opacity:0.70;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+	border: 2.5px solid #2585A8;
+}	
+
+
+/* Custom */
+span.off {
+    background: #FFF !important;
+	border: solid 1px #FFFFFF !important;
+}
+
+span.on {
+    background: #33B5E5 !important;
+	border: solid 1px #FFFFFF !important;
+}
+
+span.off:hover {
+    background: #33B5E5 !important;
+	border: solid 1px #000000 !important;
+	}
+
+span.off2 {
+	border: solid 1px #000000 !important;
+}
+
+span.on2 {
+    background: #33B5E5 !important;
+	border: solid 1px #000000 !important;
+}
+
+span.off2:hover  {
+    background: #33B5E5 !important;
+	border: solid 1px #000000 !important;
+	}

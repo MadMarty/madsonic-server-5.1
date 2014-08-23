@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:si="http://www.springframework.org/schema/integration"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=
+	"http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/integration
+	http://www.springframework.org/schema/integration/spring-integration.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+	<!-- SPRING SECURITY BEANS -->
+
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
+
+	<bean id="saltSource"
+		class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+		<property name="userPropertyToUse" value="username" />
+	</bean>
+
+    <!-- DAO's -->
+
+    <bean id="playerDao" class="org.madsonic.dao.PlayerDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="mediaFileDao" class="org.madsonic.dao.MediaFileDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="artistDao" class="org.madsonic.dao.ArtistDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="albumDao" class="org.madsonic.dao.AlbumDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="playlistDao" class="org.madsonic.dao.PlaylistDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="internetRadioDao" class="org.madsonic.dao.InternetRadioDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="musicFileInfoDao" class="org.madsonic.dao.RatingDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="hotDao" class="org.madsonic.dao.HotDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="groupDao" class="org.madsonic.dao.GroupDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>	
+
+    <bean id="accessRightDao" class="org.madsonic.dao.AccessRightDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>	
+	
+    <bean id="lastFMArtistDao" class="org.madsonic.dao.LastFMArtistDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="lastFMArtistSimilarDao" class="org.madsonic.dao.LastFMArtistSimilarDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="lastFMArtistTopTracksDao" class="org.madsonic.dao.LastFMArtistTopTracksDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+	
+    <bean id="musicFolderDao" class="org.madsonic.dao.MusicFolderDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="userDao" class="org.madsonic.dao.UserDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="transcodingDao" class="org.madsonic.dao.TranscodingDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="podcastDao" class="org.madsonic.dao.PodcastDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="avatarDao" class="org.madsonic.dao.AvatarDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="shareDao" class="org.madsonic.dao.ShareDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="bookmarkDao" class="org.madsonic.dao.BookmarkDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+
+    <bean id="musicFolderStatisticsDao" class="org.madsonic.dao.MusicFolderStatisticsDao">
+        <property name="daoHelper" ref="daoHelper"/>
+    </bean>
+		
+    <bean id="daoHelper" class="org.madsonic.dao.DaoHelper"/>
+
+
+    <!-- Services -->
+
+	
+    <bean id="userService" class="org.madsonic.service.UserService" init-method="init">
+	        <property name="securityService" ref="securityService"/>
+    </bean>
+
+    <bean id="mediaFileService" class="org.madsonic.service.MediaFileService">
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileMemoryCache" ref="mediaFileMemoryCache"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="musicFolderDao" ref="musicFolderDao"/>		
+        <property name="albumDao" ref="albumDao"/>
+        <property name="artistDao" ref="artistDao"/>		
+        <property name="metaDataParserFactory" ref="metaDataParserFactory"/>
+    </bean>
+
+    <bean id="securityService" class="org.madsonic.service.SecurityService">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="accessRightDao" ref="accessRightDao"/>
+        <property name="groupDao" ref="groupDao"/>
+        <property name="userDao" ref="userDao"/>
+        <property name="userCache" ref="userCache"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+        <property name="saltSource" ref="saltSource"/>
+    </bean>
+
+    <bean id="settingsService" class="org.madsonic.service.SettingsService" init-method="init">
+        <property name="internetRadioDao" ref="internetRadioDao"/>
+        <property name="musicFolderDao" ref="musicFolderDao"/>
+        <property name="userDao" ref="userDao"/>
+        <property name="groupDao" ref="groupDao"/>
+        <property name="avatarDao" ref="avatarDao"/>
+        <property name="versionService" ref="versionService"/>
+    </bean>
+
+    <bean id="mediaScannerService" class="org.madsonic.service.MediaScannerService" init-method="init" depends-on="metaDataParserFactory">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="lastFMService" ref="lastFMService"/>
+        <property name="artistDao" ref="artistDao"/>
+        <property name="albumDao" ref="albumDao"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="musicFolderStatisticsDao" ref="musicFolderStatisticsDao"/>
+    </bean>
+
+    <bean id="searchService" class="org.madsonic.service.SearchService">
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="artistDao" ref="artistDao"/>
+        <property name="albumDao" ref="albumDao"/>
+    </bean>
+
+    <bean id="networkService" class="org.madsonic.service.NetworkService" init-method="init">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="upnpService" ref="upnpService"/>
+    </bean>
+
+    <bean id="playerService" class="org.madsonic.service.PlayerService" init-method="init">
+        <property name="playerDao" ref="playerDao"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+    </bean>
+
+    <bean id="playlistService" class="org.madsonic.service.PlaylistService">
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="playlistDao" ref="playlistDao"/>
+    </bean>
+
+    <bean id="versionService" class="org.madsonic.service.VersionService"/>
+
+    <bean id="statusService" class="org.madsonic.service.StatusService"/>
+
+    <bean id="musicInfoService" class="org.madsonic.service.RatingService">
+        <property name="ratingDao" ref="musicFileInfoDao"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+
+	<bean id="hotService" class="org.madsonic.service.HotService">
+        <property name="hotDao" ref="hotDao"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+
+	<bean id="lastFMService" class="org.madsonic.service.LastFMService">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="searchService" ref="searchService"/>		
+        <property name="mediaFileDao" ref="mediaFileDao"/>		
+        <property name="artistDao" ref="artistDao"/>		
+        <property name="lastFMArtistDao" ref="lastFMArtistDao"/>
+        <property name="lastFMArtistSimilarDao" ref="lastFMArtistSimilarDao"/>
+        <property name="lastFMArtistTopTracksDao" ref="lastFMArtistTopTracksDao"/>
+    </bean>
+	
+    <bean id="musicIndexService" class="org.madsonic.service.MusicIndexService">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+
+    <bean id="audioScrobblerService" class="org.madsonic.service.AudioScrobblerService">
+        <property name="settingsService" ref="settingsService"/>
+    </bean>
+
+    <bean id="transcodingService" class="org.madsonic.service.TranscodingService">
+        <property name="transcodingDao" ref="transcodingDao"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="playerService" ref="playerService"/>
+    </bean>
+
+    <bean id="shareService" class="org.madsonic.service.ShareService">
+        <property name="shareDao" ref="shareDao"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+
+    <bean id="podcastService" class="org.madsonic.service.PodcastService" init-method="init">
+        <property name="podcastDao" ref="podcastDao"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="metaDataParserFactory" ref="metaDataParserFactory"/>
+    </bean>
+
+    <bean id="jukeboxService" class="org.madsonic.service.JukeboxService">
+        <property name="statusService" ref="statusService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+        <property name="audioScrobblerService" ref="audioScrobblerService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+    </bean>
+
+    <bean id="folderBasedContentDirectory" class="org.madsonic.service.upnp.FolderBasedContentDirectory">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="playerService" ref="playerService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+    
+    <bean id="upnpService" class="org.madsonic.service.UPnPService" init-method="init">
+        <property name="settingsService" ref="settingsService"/>
+        <property name="versionService" ref="versionService"/>
+        <property name="folderBasedContentDirectory" ref="folderBasedContentDirectory"/>
+    </bean>
+
+    <bean id="metaDataParserFactory" class="org.madsonic.service.metadata.MetaDataParserFactory">
+        <property name="parsers">
+            <list>
+                <bean class="org.madsonic.service.metadata.JaudiotaggerParser"/>
+                <bean class="org.madsonic.service.metadata.FFmpegParser">
+                    <property name="transcodingService" ref="transcodingService"/>
+                </bean>
+                <bean class="org.madsonic.service.metadata.DefaultMetaDataParser"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- AJAX services -->
+
+    <bean id="ajaxMultiService" class="org.madsonic.ajax.MultiService">
+        <property name="networkService" ref="networkService"/>
+    </bean>
+
+    <bean id="ajaxNowPlayingService" class="org.madsonic.ajax.NowPlayingService">
+        <property name="playerService" ref="playerService"/>
+        <property name="statusService" ref="statusService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaScannerService" ref="mediaScannerService"/>
+        <property name="metaDataParserFactory" ref="metaDataParserFactory"/>
+    </bean>
+
+    <bean id="ajaxPlayQueueService" class="org.madsonic.ajax.PlayQueueService">
+        <property name="playerService" ref="playerService"/>
+        <property name="playlistService" ref="playlistService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+        <property name="jukeboxService" ref="jukeboxService"/>
+        <property name="transcodingService" ref="transcodingService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="searchService" ref="searchService"/>
+        <property name="lastFMService" ref="lastFMService"/>
+    </bean>
+
+    <bean id="ajaxPlaylistService" class="org.madsonic.ajax.PlaylistService">
+        <property name="playlistService" ref="playlistService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+    </bean>
+
+    <bean id="ajaxLyricsService" class="org.madsonic.ajax.LyricsService">
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="metaDataParserFactory" ref="metaDataParserFactory"/>
+    </bean>
+
+    <bean id="ajaxCoverArtService" class="org.madsonic.ajax.CoverArtService">
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>
+
+    <bean id="ajaxStarService" class="org.madsonic.ajax.StarService">
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileDao" ref="mediaFileDao"/>
+    </bean>
+
+    <bean id="ajaxTagService" class="org.madsonic.ajax.TagService">
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="metaDataParserFactory" ref="metaDataParserFactory"/>
+    </bean>
+
+    <bean id="ajaxTransferService" class="org.madsonic.ajax.TransferService"/>
+
+    <bean id="ajaxChatService" class="org.madsonic.ajax.ChatService" init-method="init">
+        <property name="securityService" ref="securityService"/>
+    </bean>
+
+    <bean id="MediaFileComparator" class="org.madsonic.domain.MediaFileComparator">
+        <property name="mediaFileService" ref="mediaFileService"/>
+    </bean>	
+	
+    <bean id="JaudiotaggerParser" class="org.madsonic.service.metadata.JaudiotaggerParser" init-method="init">
+    </bean>	
+	
+</beans>

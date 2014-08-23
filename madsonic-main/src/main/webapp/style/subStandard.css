@@ -1,0 +1,206 @@
+/*
+ * CSS styleshet for the "subStandard" theme.
+ *
+ * Author: Dan Eriksen (dan.o.eriksen[at]gmail.com)
+ *
+ * Icons used are released under a Creative Commons Attribution-Share Alike license
+ * Heading icons are part of the TWG Retina Icon pack created by Alex Shutin (http://blog.twg.ca/2010/11/retina-display-icon-set/twg_retina_icons/) and are slightly altered by author.
+*/
+
+@import "default.css";
+
+@import "playericonsSilver.css";
+
+@import "jquery.mCustomScrollbar.White.css";
+
+/* Theme colour.*/
+.mainframe, .bgcolor1, .bgcolor2, .ruleTableHeader, .rightframe, .topframe, .leftframe, .playlistframe, .log {
+
+    background-color: #AEAEAE;
+}
+
+/* Text colour used for h1, h2, b, tr, details and albumcomments. */
+h1, h2, b, tr, .detail, .albumComment {
+    color: #FFFFFF;
+}
+
+/* Bold headers top frame. */
+.topframe {
+    font-weight:bold;
+}
+
+/* Force text color left frame. */
+.leftframe {
+    color: #FFFFFF;
+}
+
+/* Table sizing */
+table {
+    font-size: 100%;
+    line-height: 130%;
+    padding: 0;
+    border: 0;
+    margin: 0 0 0 0;
+}
+
+/* Main frame image. */
+.mainframe {
+    background-image:url( "../icons/subStandard/background.png" );
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+}
+
+
+/* Back image. */
+.back {
+    background-image:url( "../icons/subStandard/back.png" );
+}
+
+/* Forward image. */
+.forward , .forwardright{
+    background-image:url( "../icons/subStandard/forward.png" );
+}
+
+a {
+    font-size: 95%;
+    text-decoration: none;
+}
+
+/* Links. */
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    color: #FFFFFF;
+}
+
+/* Link hovers. */
+a:hover, a:hover * {
+    text-shadow: 0.1em 0.1em 0.2em grey;
+    text-decoration: none;
+    color: #FFDA23;
+}
+
+/* Warning messages. */
+.warning {
+    color: #AA1F15;
+}
+
+/* Selected Headers. */
+.headerSelected {
+    color: #FFDA23;
+    text-shadow: 0.1em 0.1em 0.2em grey;    
+    background-color: transparent;
+    border: 0px
+}
+
+/* The album comments. */
+.albumComment {
+    width: 50em;
+    font-size: 8pt;
+    line-height: 1.4em;
+    padding-top: 0.25em;
+}
+
+/* The log. */
+.log {
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 8pt;
+    line-height: 1em;
+    background-color:transparent;
+}
+
+/* The help, status & web payer settings tables. */
+.ruleTableHeader, .ruleTableCell {
+    margin: 5px;
+    padding: 5px;
+}
+/* Simple white border. */
+.border1, .ruleTableHeader, .ruleTableCell, .log {
+    border: 1px solid white;
+}
+
+/* Web-Kit Scrollbars (Chrome / Safari). */
+::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background: #AEAEAE;
+    }
+::-webkit-scrollbar-thumb:vertical {
+    background: #FFFFFF;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: inset 1px 2px 6px #959595;
+}
+::-webkit-scrollbar-thumb:horizontal {
+    background: #FFFFFF;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: inset 1px 2px 6px #959595;
+}
+::-webkit-scrollbar-corner {
+    background: #FFFFFF;
+}
+::-webkit-scrollbar-button {
+    display:none;
+	background: #AEAEAE;
+}
+
+::-webkit-scrollbar-track-piece:horizontal{
+	background: none;
+	-webkit-box-shadow:none;
+}
+::-webkit-scrollbar:horizontal{
+	height: 16px;
+}
+::-webkit-scrollbar-thumb:horizontal{
+			height: 12px;
+			-webkit-border-radius:12px;
+			border: 6px solid transparent;
+			-webkit-background-clip: padding-box;
+}
+
+::-webkit-scrollbar-button:vertical:decrement {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(images/webkit-arrows-vert.png) 1px 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) 1px 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) 1px 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button:vertical:increment {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(images/webkit-arrows-vert.png) -19px 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) -19px 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(images/webkit-arrows-vert.png) -19px 50% no-repeat, #bfb6a3 url(images/bg-blog-repeat.png) 0 0 no-repeat;
+	-webkit-border-radius: 0 0 6px 0;
+}
+
+input, select {
+    background: none repeat scroll 0 0 #FAFAFA;
+    border: 1px solid #909090;
+    border-radius: 4px;
+    color: #333333 !important;
+    font-size: 9pt;	
+    padding: 3px;
+}
+input[type=button],input[type=submit]{
+	color: #dfdfdf !important;
+	text-shadow: 1px 1px 1px #111;
+	padding: 4px 11px;
+	font-size:1.1em;
+}
+
+input[type=button]{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #4c4c4c 50%, #3d3d3d 53%, #2b2b2b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(50%,#4c4c4c), color-stop(53%,#3d3d3d), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* IE10+ */
+	background: linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* W3C */
+	border: 1px solid #111;
+}
+input[type=submit]{
+	background: #FFC000; /* Old browsers */
+	background: -moz-linear-gradient(top, #FFC000 0%, #FF8900 50%, #FFBF00 53%, #F9BB00 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFC000), color-stop(50%,#FF8900), color-stop(53%,#FFBF00), color-stop(100%,#F9BB00)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* IE10+ */
+	background: linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* W3C */
+	border: 1px solid #8A6300;
+}	
+	

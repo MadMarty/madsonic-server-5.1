@@ -1,0 +1,78 @@
+
+#carousel1 img {cursor:pointer;}
+
+#resizable {
+	overflow:hidden;
+	width:710px;
+	//cursor:hand;
+}
+#carousel1 {
+	width:710px;
+	height:455px;
+}
+.js {font-size:30px;}
+
+body {
+	margin:10px;
+	min-width:700px;
+	//overflow:hidden;
+}
+a img {border:0px;}
+
+#topContainer {}
+
+#carousel1-title {
+	font-weight:bold;
+}
+
+#nextcontrols {
+	text-align:center;
+	font-size:9px;
+	font-weight:bold;
+	color:white;
+	position:absolute;
+	width:310px;
+	height:125px;
+	top:500px;
+	left:190px; 
+}
+
+#left-but, #right-but {
+	position:absolute;
+	z-index:110;
+	cursor:pointer;
+}
+#left-but {
+	width:32px;
+	height:32px;
+	top:460px;
+	left:290px;
+}
+
+#right-but {
+	width:32px;
+	height:32px;
+	top: 460px;
+	left:380px;
+}
+
+#preloader {
+	background: url('../icons/default/preloader.gif') no-repeat 50% 50%;
+	width:700px;
+	height:350px;
+	position:absolute;
+	z-index:120;
+	color:white;
+	font-family:arial;
+	font-size:11px;	
+}
+#stopLoading, #startLoading {
+	display:none;
+	text-decoration:underline;
+	cursor:pointer;
+}
+center {
+	background:white;
+	padding-top:1px;
+	padding-bottom:1px;
+}

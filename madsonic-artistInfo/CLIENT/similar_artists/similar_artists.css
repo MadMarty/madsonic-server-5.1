@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+
+#similarArtists {
+    overflow: auto;
+}
+    #similarArtists .section {
+        position: relative;
+    }
+        #similarArtists .head {
+        }
+    
+        #similarArtists .openCloseTrigger {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px; 
+            font-weight: bold;
+            text-decoration: none;
+            /*text-indent: -999px;
+            overflow: hidden;
+            background-image: url('/icons/sonic/up.png');*/
+        }
+            #similarArtists .openCloseTrigger .isClosedLabel {
+                display: none;
+            }
+            #similarArtists .openCloseTrigger.isClosed .isOpenLabel {
+                display: none;
+            }
+            #similarArtists .openCloseTrigger.isClosed .isClosedLabel {
+                display: inline;
+            }
+            #similarArtists .openCloseTrigger.isClosed {
+                /*background-image: url('/icons/sonic/down.png');*/
+            }
+            #similarArtists .openCloseTrigger:hover,
+            #similarArtists .openCloseTrigger:hover * {
+                text-decoration: none;
+            }
+    
+        #similarArtists .name {
+            display: block;
+            font-weight: bold;
+        }
+    
+        #similarArtists .similar {
+            clear: both;
+            max-height: 200px;
+            overflow: auto;
+            padding-left: 16px;
+        }
+    
+            #similarArtists .similar li {
+                padding: 1px 0;
+            }

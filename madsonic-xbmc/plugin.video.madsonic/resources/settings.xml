@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <!-- Server -->
+  <category label="30106">
+    <setting type="lsep" label="30106" />
+	<setting id="server" type="text" label="30100" default="http://demo.subsonic.org" />
+	<setting id="user" type="text" label="30101" default="guest2" />
+	<setting id="password" type="text" option="hidden" label="30102" default="guest" />
+    <setting type="lsep" label="30103" />
+	<setting id="transcode" type="bool" label="30104" default="true" />
+	<setting id="bitrate" type="enum" label="30105" default="5" values="200k|300k|400k|500k|700k|1000k|1200k|1500k|2000k|3000k|5000k" enable="eq(-1,true)" />
+  </category>
+</settings>

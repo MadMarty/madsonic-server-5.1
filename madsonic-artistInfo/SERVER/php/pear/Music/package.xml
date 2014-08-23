@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>ArtistInfo</name>
+ <uri>file:///madsonic.org/pear/package.xml</uri>
+ <summary>ArtistInfo</summary>
+ <description>Madsonic similar ArtistInfo</description>
+ <lead>
+  <name>Madevil</name>
+  <user>Madevil</user>
+  <email>madevil@madsonic.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2013-10-15</date>
+ <time>22:41:05</time>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+ <notes>
+&lt;none&gt;
+ </notes>
+ <contents>
+  <dir baseinstalldir="/Music" name="/">
+   <file baseinstalldir="/Music" md5sum="60e0023b2166262b950be3c57e0be8fa" name="ArtistInfo.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.8.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-10-15</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+   <notes>
+	&lt;none&gt;
+   </notes>
+  </release>
+ </changelog>
+</package>

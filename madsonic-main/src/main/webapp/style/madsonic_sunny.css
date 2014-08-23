@@ -1,0 +1,664 @@
+/*
+ * CSS styleshet for the "Madsonic White" theme.
+ */
+
+@import "default.css";
+
+@import "madsonic-sunny/jquery-ui-1.10.4.custom.css";
+
+@import "playericonsSilver.css";
+
+@import url(//fonts.googleapis.com/css?family=Fjalla+One);
+
+@import url('//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800');
+
+@import "jquery.mCustomScrollbar.Silver.css";
+
+
+.topframe {
+	font-size:95%;
+}
+
+label  {
+	font-size:100%;
+}
+
+.topframe table{
+	font-size:80%;
+}
+
+.mainframe table{
+	font-size:110%;
+}
+
+
+.mainframe table.detailmini{
+	font-size:90%;
+}
+
+table {
+    margin: 0 0 0 0; 
+}
+
+/* The primary background colour. */
+.bgcolor1 {
+    background-color: #EBEBEB;
+}
+
+/* The secondary background colour, light blue, primary theme colour. */
+.bgcolor2, .ruleTableHeader, .log {
+    background-color: #F7F7F7;
+    color: #696969;
+}
+
+.mainframe .dense {
+	white-space: nowrap;
+	font-size: 10pt;
+	font-weight: 400;
+	font-family: "Open Sans",arial !important;
+}
+
+.leftframe .dense {
+	white-space: nowrap;
+	font-size: 10pt;
+	line-height: 1.3em;
+}
+
+.leftframe .bgcolor2 {
+    background-image:url( "../icons/madsonic_sunny/background_.png" ); /* bg-repeat-left.png */
+    background-repeat:repeat;
+    background-attachment:fixed;	
+}
+
+/* Main frame image & colour */
+.mainframe.splash  {
+    background-image:url('../icons/madsonic_sunny/background1.jpg');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-color: #222;
+    background-position: top left;
+    background-size: cover;
+}
+
+/* Main frame image & colour */
+.mainframe  {
+    background-image:url('../icons/madsonic_sunny/background_.png');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-position: top left;
+    background-color: #F7F7F7;	
+}
+
+/* Main frame image & colour 
+.mainframe {
+    background-image:url('../icons/madsonic_sunny/background.png');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-color: #F7F7F7;
+}
+*/
+
+/* Background colour for selected header, log etc. */
+.headerSelected {
+    color: #696969;
+    font-size: 0.9rem;
+    font-family: 'Fjalla One', Arial, serif; font-weight: 400;
+    border: 1px solid #696969;
+    border-radius: 3px 3px 3px 3px;
+    padding: 5px 10px;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* The primary foreground color (black). */
+body {
+    color: #696969;
+    background-color: #F7F7F7;
+}
+
+/* The secondary foreground colour used for h1, details etc. */
+h1, .detail, .albumComment {
+    color: #696969;
+}
+
+/* Welcome view */
+.mainframe .content_welcome h1 a{
+	font-size: 1.0rem;
+    text-shadow: 0.0em 0.0em 1.0em #FFFAFA;	
+	margin: 10px 0 0;
+	margin-top: 10px;	
+}
+
+
+h1,.mainframe h1 a{
+	font-size: 1.1rem !important;
+	font-family: "Open Sans",arial !important;
+	font-weight: 800;
+    color: #A3A3A3;
+    text-shadow: 0.0em 0.0em 0.5em #FFFAFA;	
+	margin: 0 0 0;
+	margin-top: 4px;
+}
+
+.mainframe #content_2  h2  a{
+	font-family: 'Fjalla One', Arial, serif; font-weight: 400;
+    font-size: 10pt; 
+/*  text-shadow: 0.0em 0.0em 1.0em #FFFAFA;	*/
+}
+
+.mainframe #content_2  h2  a:hover {
+   color: #A4A4A4;
+   	opacity:0.75;
+	filter:alpha(opacity=75); /* For IE8 and earlier */	
+}
+
+.mainframe #content_4  #anchor_list a{
+	font-size: 1.2rem;
+	font-weight: 800;
+    text-shadow: 0.0em 0.0em 1.0em #FFFAFA;	
+    color: #A3A3A3;
+}
+.mainframe #content_2 h2, .mainframe #content_4 h2{
+	font-size: 1.0rem;
+    text-shadow: 0.0em 0.0em 1.0em #FFFAFA;	
+	font-weight: 600;
+	font-family: "Open Sans",arial !important;
+	color: #A4A4A4;
+}
+
+.mainframe #content_4 h2 a {
+	font-size: 0.9rem;
+    text-shadow: 0.0em 0.0em 1.0em #FFFAFA;	
+	font-weight: 400;
+	font-family: "Open Sans",arial !important;
+	color: #A4A4A4;
+}
+
+.rank {
+    white-space: nowrap;
+    font-size: 6pt;
+    line-height: 1.40em;
+	background-image: url('../icons/madsonic_sunny/rank.png');
+	background-position:right;
+	background-repeat: no-repeat;
+	padding-top: 8px;
+	padding-left: 4px;
+	padding-right: 3px;
+	padding-bottom: 8px;
+	margin-left: 5px;
+	color: white;
+	opacity: 0.99;
+}
+
+.detail, .albumComment {
+	font-size: 8pt;
+}
+
+.album {
+    font-size: 9pt;
+}
+
+
+/* Text colour used for h1, h2, b, tr, details and albumcomments. 
+h1, h2, b, tr, .detail, .albumComment {
+	font-family: 'Fjalla One', Arial, serif; font-weight: 400;
+	font-size: 10pt;
+    text-decoration: none;		
+}
+*/
+
+/* Foreground colour used for h2, bold and tr. */
+h2, b, tr {
+	margin: 0.5em 0 0.6em 0;
+    color: #696969;
+}
+
+.leftframe .bgcolor2 {
+    background-color: #EBEBEB;
+}
+
+/* Back image */
+.back, .forward {
+	font-size: 9pt;
+	background-repeat: no-repeat;
+	background-position: center left;
+    background-image:url( "../icons/madsonic_sunny/back.png" );
+	padding-left: 20px;
+	line-height: 20px;
+}
+
+/* Forward image */
+.forward  {
+	font-size: 9pt;
+	background-repeat: no-repeat;
+	background-position: center left;
+	padding-left: 20px;
+	line-height: 20px;
+    background-image:url( "../icons/madsonic_sunny/forward.png" );
+}
+
+/* Forward image */
+.forwardright {
+	font-size: 9pt;
+	background-repeat: no-repeat;
+	background-position: center right;
+	padding-right: 20px;
+	line-height: 20px;
+    background-image:url( "../icons/madsonic_sunny/forward.png" );
+}
+
+/*
+.rightframe.bgcolor1 {
+    background-image:url("../icons/madsonic_sunny/chatbg.jpg");
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+*/
+
+.artistbanner {
+background-image:url("../icons/default/artist_banner.png");
+background-position: 0px 0px; 
+background-repeat:no-repeat; 
+}
+
+.artisthub {
+background-image:url("../icons/madsonic_sunny/artisthub.png");
+background-position: 0px 0px; 
+background-repeat:no-repeat; 
+}
+
+.rightframe a:link, .rightframe a:active, .rightframe a:visited, .rightframe a:link *, .rightframe a:active *, .rightframe a:visited * {
+   font-size: 8pt;
+   font-family:"Open Sans",arial !important;
+   text-decoration: none;
+   color: #6E6E6E;
+}
+
+.topframe a:link, .topframe a:active, .topframe a:visited, .topframe a:link *, .topframe a:active *, .topframe a:visited * {
+   font-size: 8pt;
+   font-family:"Open Sans",arial !important;
+   text-decoration: none;
+   color: #6E6E6E;
+}
+
+
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+  /* font-size: 9pt; */
+   font-family:"Open Sans",arial !important;
+   color: #1F5E81;
+}
+
+/* Link hovers. */
+.topframe a:hover, .topframe a:hover * {
+    text-shadow: 0.1em 0.2em 0.2em #D8D8D8;
+    text-decoration: none;
+   color: #6E6E6E;
+	opacity:0.75;
+	filter:alpha(opacity=75); /* For IE8 and earlier */
+}
+
+/* Link colour 
+.mainframe a:link, .mainframe a:active, .mainframe a:visited, .mainframe a:link *, .mainframe a:active *, .mainframe  a:visited * {
+   color: #9A9A9A;
+}*/
+
+
+td a img {
+	margin-right: 2px;
+}
+
+/* Link hovers. */
+a:hover, a:hover * {
+    text-shadow: 0.1em 0.2em 0.2em #D8D8D8;
+    text-decoration: none;
+    color: #000;
+	opacity:0.90;
+	filter:alpha(opacity=90); /* For IE8 and earlier */
+}
+
+/* 
+#content_2 a:link, #content_2 a:active, #content_2 a:visited, #content_2 a:link *, #content_2 a:active *, #content_2 a:visited * {
+   font-size: 9pt; 
+}
+*/ 
+
+.leftframe a:link, .leftframe a:active, .leftframe a:visited, .leftframe a:link *, .leftframe a:active *, .leftframe a:visited * {
+   font-size: 10pt; 
+}
+
+.genre a:link, .genre a:active, .genre a:visited, .genre a:link *, .genre a:active *, .genre a:visited * {
+ /*  font-size: 9pt; */
+   font-family:"Open Sans",arial !important;
+    color: #999;
+}
+
+/* Link hovers. */
+.genre a:hover, .genre a:hover * {
+    color: #666;
+}
+
+#content_4.content_welcome.mCustomScrollbar._mCS_1 .innerbox {
+	border: 2.5px solid #D8D8D8;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	width:45px;
+} 
+
+.innerbox {
+	border: 2.5px solid #D8D8D8;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	width:100%;
+} 
+
+#content_4.content_welcome.mCustomScrollbar._mCS_1 .innerbox:hover, .innerbox:hover  {
+	border: 2.5px solid #6E6E6E;
+}	
+
+.coverbox .innerbox  {
+	border: 2.5px solid #D8D8D8;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	width: 40px;
+}
+
+.detail a img {
+	padding-bottom: 2px;
+	padding-right: 1px;
+	padding-left: 3px;
+	/* display:none;*/
+	width:16px;
+	hight:16px;
+}
+
+.maincontrol a img {
+	padding-bottom: 2px;
+	padding-right: 1px;
+	padding-left: 3px;
+	/* display:none;*/
+	width:16px;
+	hight:16px;
+}
+
+/* Custom */
+.searchbox .innerbox {
+	border: 2.5px solid #D8D8D8;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	width: 40px;
+}
+
+.detail {
+	line-height: 1.65em;
+}
+ 
+.detailcolordark {
+	/*line-height: 1.50em;*/
+
+	/*white-space: nowrap;
+	color: #D8D8D8;
+	font-size: 0.8rem;
+	font-family: 'Fjalla One', Arial, serif; font-weight: 400;
+	line-height: 1.75em;*/
+}
+
+.detailmini {
+	white-space: nowrap;
+	font-size: 7pt;
+	line-height: 1.25em;
+}
+
+.detailcolor {
+	/*line-height: 1.50em;*/
+	font-size: 8pt;
+	color: #000;
+}
+
+/* Colour for warning messages. */
+.warning {
+   color: #e7238b;
+   font-size: 9pt;
+}
+
+label, p {
+	color: #696969;
+}
+.ruleTableCellDB {
+    border: 1px solid black;
+    white-space: nowrap;
+    font-size: 8pt !important;
+    margin: 3px;
+    padding: 2px;
+    padding-right: 10px;
+    font-family:"Open Sans",arial !important;
+}
+
+.logo {
+	padding-right:2em;
+}
+
+.topframe {
+    background-image:url( "../icons/madsonic_sunny/headerbg.png" );
+    background-repeat:repeat-x;
+    background-attachment:fixed;
+}
+
+.topframe .logo img{
+	width:165px;
+    height:38px;
+}
+
+.NFButtonLeft {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+.NFButtonRight {
+    background: url() no-repeat scroll 0 0 transparent;
+}
+
+input {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E1DBDB;
+    border-radius: 5px;
+    color: #444444;
+    font-size: 9pt;	
+    padding: 4px 3px 4px 3px;
+}
+
+select {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E1DBDB;
+    border-radius: 5px;
+    color: #444444 !important;
+    font-size: 9pt;	
+    padding: 3px 3px 3px 3px;
+}
+
+input[type=button],input[type=submit]{
+	color: #dfdfdf;
+	text-shadow: 1px 1px 1px #111;
+	padding: 4px 11px;
+}
+
+input[type=button]{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #4c4c4c 50%, #3d3d3d 53%, #2b2b2b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(50%,#4c4c4c), color-stop(53%,#3d3d3d), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* IE10+ */
+	background: linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* W3C */
+	border: 1px solid #111;
+}
+input[type=submit]{
+	background: #FFC000; /* Old browsers */
+	background: -moz-linear-gradient(top, #FFC000 0%, #FF8900 50%, #FFBF00 53%, #F9BB00 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFC000), color-stop(50%,#FF8900), color-stop(53%,#FFBF00), color-stop(100%,#F9BB00)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* IE10+ */
+	background: linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* W3C */
+	border: 1px solid #8A6300;
+}	
+
+
+@charset "UTF-8";
+::-webkit-scrollbar {
+	width: 13px;
+	height: 13px;
+	background: #C0C0C0 url(../icons/madsonic_sunny/bg-repeat.png) 0 0 repeat;
+}
+
+::-webkit-scrollbar-track-piece {
+	background: transparent none;
+	border: solid 4px transparent;
+	border-right-width: 8px;
+
+	-webkit-box-shadow: inset 1px 1px 0 0 rgb(137,131,117), inset -1px -1px 0 0 rgb(224,220,210);
+}
+
+::-webkit-scrollbar-track-piece:horizontal {	
+	border-right-width: 4px;
+	border-bottom-width: 8px;
+}
+::-webkit-scrollbar-thumb {
+	border: solid 0 transparent;
+	border-right-width: 4px;
+	-webkit-border-radius: 5px;
+	-webkit-border-top-right-radius: 9px 5px;
+	-webkit-border-bottom-right-radius: 9px 5px;
+	-webkit-box-shadow: inset 0 0 0 1px rgba(128,128,128, 0.49), inset 0 0 0 6px #CFCFD0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	-webkit-box-shadow: inset 0 0 0 1px rgba(128,128,128, 0.49), inset 0 0 0 6px #D8D8D8;
+}
+::-webkit-scrollbar-thumb:horizontal {
+	border-right-width: 0;
+	border-bottom-width: 4px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px 9px;
+	-webkit-border-bottom-left-radius: 5px 9px;
+}
+::-webkit-scrollbar-corner {	
+	background: #C0C0C0 url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button {	
+	height: 26px;
+	background: url(../icons/madsonic_sunny/webkit-arrows-vert.png) 1px 50% no-repeat, #C0C0C0 url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button:increment {
+	background-position: -19px 50%;
+}
+::-webkit-scrollbar-button:horizontal {
+	width: 26px;
+	background: url(../icons/madsonic_sunny/webkit-arrows-horiz.png) 50% 1px no-repeat, #C0C0C0 url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+}
+::-webkit-scrollbar-button:horizontal:increment {
+	background-position: 50% -19px;
+}
+
+body ::-webkit-scrollbar {
+	background: transparent none;
+}
+
+body ::-webkit-scrollbar-button:horizontal:decrement {
+	background: transparent;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.1)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-horiz.png) 50% 1px no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-horiz.png) 50% 1px no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-horiz.png) 50% 1px no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+}
+body ::-webkit-scrollbar-button:horizontal:increment {
+	background: transparent;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.1)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-horiz.png) 50% -19px no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-horiz.png) 50% -19px no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-horiz.png) 50% -19px no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+}
+
+body ::-webkit-scrollbar-button:vertical:decrement {
+	background: transparent;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-vert.png) 1px 50% no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-vert.png) 1px 50% no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-vert.png) 1px 50% no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+}
+body ::-webkit-scrollbar-button:vertical:increment {
+	background: transparent;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,.2)), color-stop(100%, rgba(255,255,255,.1))) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-vert.png) -19px 50% no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: -webkit-linear-gradient(top, rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-vert.png) -19px 50% no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+	background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1)) 0 0 repeat, url(../icons/madsonic_sunny/webkit-arrows-vert.png) -19px 50% no-repeat, none url(../icons/madsonic_sunny/bg-repeat.png) 0 0 no-repeat;
+}
+
+.context-menu-item span {
+	font-size: 8pt;
+}
+
+span {
+	font-size: 8pt;
+}
+
+span.off:hover , 
+span.on:hover {
+    font-size: 8pt !important;
+    background: #CEDBF8 !important;
+ }
+
+span.on {
+    font-size: 8pt !important;
+    background: #A0BDFF !important;	
+ }
+ 
+span.off.hover, 
+span.on.hover, 
+span.off a:link, 
+span.off a:active, 
+span.off a:visited, 
+span.off a:link *, 
+span.off a:active *, 
+span.off a:visited * {
+	font-size: 8pt !important;
+}
+
+span.off2.hover, 
+span.on2.hover {
+    font-size: 8pt !important;
+	color: #ffffff !important;
+	background: #CEDBF8 !important;
+	border: solid 1px #FF70C8 !important;
+	}
+	
+span.off2 a:link, 
+span.off2 a:active, 
+span.off2 a:visited, 
+span.off2 a:link *, 
+span.off2 a:active *, 
+span.off2 a:visited * {
+font-size: 8pt;
+    color: #FFFFFF;
+}
+
+.divIdCoverBack {
+top: -59px; 
+left: 2px;
+}
+
+.albumComment {
+    width: 50em;
+    font-size: 85%;
+    line-height: 1.4em;
+    padding-top: 0.25em;
+}
+
+.albumThumb {
+    display:inline-block;
+    vertical-align: top;
+    padding-bottom: 1em;
+    padding-right: 1em;
+}
+
+#media_control {
+    width: 640px;
+    height: 65px;
+    background-color: #999; 
+}

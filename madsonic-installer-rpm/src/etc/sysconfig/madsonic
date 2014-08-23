@@ -1,0 +1,25 @@
+#
+# This is the configuration file for the Madsonic service
+# (/etc/init.d/madsonic)
+#
+# To change the startup parameters of Madsonic, modify
+# the MADSONIC_ARGS variable below.
+#
+# Type "madsonic --help" on the command line to read an
+# explanation of the different options.
+#
+# For example, to specify that Madsonic should use port 80 (for http)
+# and 443 (for https), and use a Java memory heap size of 350 MB, use
+# the following:
+#
+# MADSONIC_ARGS="--port=80 --https-port=443 --max-memory=350"
+
+MADSONIC_ARGS="--init-memory=200 --max-memory=350"
+
+
+# The user which should run the Madsonic process. Default "root".
+# Note that non-root users are by default not allowed to use ports
+# below 1024. Also make sure to grant the user write permissions in
+# the music directories, otherwise changing album art and tags will fail.
+
+MADSONIC_USER=root

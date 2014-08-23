@@ -1,0 +1,178 @@
+/*
+ * CSS styleshet for the "Madsonic White" theme.
+ */
+
+@import "default.css";
+
+@import "ui-lightness/jquery-ui-1.10.2.custom.css";
+
+@import "playericonsSilver.css";
+
+@import url('//fonts.googleapis.com/css?family=Bowlby+One+SC');
+
+@import "jquery.mCustomScrollbar.Silver.css";
+
+/* The primary background colour. */
+.bgcolor1 {
+    background-color: #FFFFFF;
+}
+
+/* The secondary background colour, light blue, primary theme colour. */
+.bgcolor2, .ruleTableHeader, .log {
+    background-color: #FFFFFF;
+    color: #696969;
+}
+
+/* Background colour for selected header, log etc. */
+.headerSelected {
+    color: #696969;
+    background-color: #FFFFFF;
+    border: 1px solid #696969;
+    border-radius: 3px 3px 3px 3px;
+    padding: 5px 10px;
+}
+
+/* The primary foreground color (black). */
+body {
+    color: #696969;
+    background-color: #DDDDDD;
+}
+
+/* The secondary foreground colour used for h1, details etc. */
+h1, .detail, .albumComment {
+    color: #696969;
+}
+
+h1, .mainframe h1 a{
+	font-size: 1.3rem;
+	font-family: 'Bowlby One SC', Arial, serif; font-weight: 400;
+    text-shadow: 0.0em 0.0em 0.15em #FFFFFF;	
+	margin: 15px 0 0;
+    color: #848484;
+}
+
+/* Foreground colour used for h2, bold and tr. */
+h2, b, tr {
+    color: #696969;
+}
+
+/* Main frame image & colour */
+.mainframe {
+    background-color: #FFFFFF;
+}
+
+/* Back image */
+.back {
+	font-size: 8pt;
+    background-image:url( "../icons/madsonic_white/back.png" );
+}
+
+/* Forward image */
+.forward, .forwardright {
+	font-size: 8pt;
+    background-image:url( "../icons/madsonic_white/forward.png" );
+}
+
+.artistbanner {
+background-image:url("../icons/default/artist_banner.png");
+background-position: 0px 0px; 
+background-repeat:no-repeat; 
+}
+
+/* Link colour */
+a:link, a:active, a:visited, a:link *, a:active *, a:visited * {
+    color: #333333;
+}
+
+/* Link hover colour */
+a:hover, a:hover * {
+    color: #696969;
+    text-decoration: none;
+}
+
+/* Colour for warning messages. */
+.warning {
+    color: #e7238b;
+}
+
+img.starSong {
+    margin-right: 3px;
+}
+label, p {
+	color: #696969;
+}
+.ruleTableCellDB {
+    border: 1px solid black;
+    white-space: nowrap;
+    font-size: 7pt;
+    margin: 1px;
+    padding: 1px;
+    padding-right: 10px;
+}
+
+.logo {
+	padding-right:0.5em;
+}
+
+.topframe .logo a img{
+	width:165px;
+}
+
+::-webkit-scrollbar {
+width: 10px;
+height: 10px;
+}
+
+::-webkit-scrollbar-track-piece  {
+background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+height: 30px;
+background-color: #D8D8D8;
+}
+input, select {
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #BDBDBD;
+    border-radius: 5px;
+    color: #333333 !important;
+    font-size: 9pt;	
+    padding: 3px;
+}
+input[type=button],input[type=submit]{
+	color: #dfdfdf !important;
+	text-shadow: 1px 1px 1px #111;
+	padding: 4px 11px;
+	font-size:1.1em;
+}
+
+input[type=button]{
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #4c4c4c 50%, #3d3d3d 53%, #2b2b2b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(50%,#4c4c4c), color-stop(53%,#3d3d3d), color-stop(100%,#2b2b2b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* IE10+ */
+	background: linear-gradient(top, #7d7e7d 0%,#4c4c4c 50%,#3d3d3d 53%,#2b2b2b 100%); /* W3C */
+	border: 1px solid #111;
+}
+input[type=submit]{
+	background: #FFC000; /* Old browsers */
+	background: -moz-linear-gradient(top, #FFC000 0%, #FF8900 50%, #FFBF00 53%, #F9BB00 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFC000), color-stop(50%,#FF8900), color-stop(53%,#FFBF00), color-stop(100%,#F9BB00)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* IE10+ */
+	background: linear-gradient(top, #FFC000 0%,#FF8900 50%,#FFBF00 53%,#F9BB00 100%); /* W3C */
+	border: 1px solid #8A6300;
+}	
+
+span.off2.hover {
+	color: #ffffff !important;
+	background: #FF70C8 !important;
+	border: solid 1px #FF70C8 !important;	
+	}
+	
+span.off2 a:link, span.off2 a:active, span.off2 a:visited, span.off2 a:link *, span.off2 a:active *, span.off2 a:visited * {
+    color: #FFFFFF;
+}	

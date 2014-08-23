@@ -1,0 +1,36 @@
+<pkg-contents spec="1.12">
+    <f n="Madsonic.app" o="root" g="admin" p="16893"
+       pt="/Users/admin/Projects/madsonic/madsonic-installer-mac/target/Madsonic.app" m="true" t="file">
+        <f n="Contents" o="root" g="admin" p="16893">
+            <f n="Info.plist" o="root" g="admin" p="33204">
+                <mod>mode</mod>
+            </f>
+            <f n="MacOS" o="root" g="admin" p="16893">
+                <f n="JavaApplicationStub" o="root" g="admin" p="33277">
+                    <mod>mode</mod>
+                </f>
+                <mod>mode</mod>
+            </f>
+            <f n="PkgInfo" o="root" g="admin" p="33204">
+                <mod>mode</mod>
+            </f>
+            <f n="Resources" o="root" g="admin" p="16893">
+                <f n="Java" o="root" g="admin" p="16893">
+                    <f n="madsonic-booter.jar" o="root" g="admin" p="33204">
+                        <mod>mode</mod>
+                    </f>
+                    <mod>mode</mod>
+                </f>
+                <f n="madsonic.icns" o="root" g="admin" p="33204">
+                    <mod>mode</mod>
+                </f>
+                <f n="madsonic.war" o="root" g="admin" p="33204">
+                    <mod>mode</mod>
+                </f>
+                <mod>mode</mod>
+            </f>
+            <mod>mode</mod>
+        </f>
+        <mod>mode</mod>
+    </f>
+</pkg-contents>
