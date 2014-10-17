@@ -13,11 +13,14 @@
         <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/interface/chatService.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/dwr/interface/nowPlayingService.js"/>"></script>
-		
+
 		<script type="text/javascript" src="<c:url value="/script/similar_artists/similar_artists.js"/>"></script>
 		
 </head>
 <body class="bgcolor1 rightframe" style="padding-top:0em" onload="init()">
+
+		<script type="text/javascript" src="<c:url value="/script/wz_tooltip.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/script/tip_balloon.js"/>"></script>
 
 <script type="text/javascript">
     function init() {
@@ -213,6 +216,7 @@
     <h2><fmt:message key="main.chat"/></h2>
     <div style="padding-top:0.3em;padding-bottom:0.3em">
         <input id="message" value=" <fmt:message key="main.message"/>" style="width:90%" onclick="dwr.util.setValue('message', null, { escapeHtml:false });" onkeypress="dwr.util.onReturn(event, addMessage); revision2=revision;"/>
+		<!--<c:import url="toolTip.jsp"><c:param name="topic" value="chat with your friends"/></c:import>-->
     </div>
 
     <table>

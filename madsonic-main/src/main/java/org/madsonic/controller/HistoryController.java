@@ -19,9 +19,12 @@
 package org.madsonic.controller;
 
 import static org.madsonic.domain.MediaFile.MediaType.AUDIOBOOK;
+import static org.madsonic.domain.MediaFile.MediaType.ARTIST;
+import static org.madsonic.domain.MediaFile.MediaType.ALBUM;
 import static org.madsonic.domain.MediaFile.MediaType.MUSIC;
 import static org.madsonic.domain.MediaFile.MediaType.PODCAST;
 import static org.madsonic.domain.MediaFile.MediaType.VIDEO;
+import static org.madsonic.domain.MediaFile.MediaType.VIDEOSET;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,13 +53,11 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
  */
 public class HistoryController extends ParameterizableViewController {
 
-    private static final int MAX_LIST_SIZE        =  200;
-    private static final int MAX_LIST_OFFSET      = 1000;
-	
-	private static final int DEFAULT_LIST_OFFSET =  0;
-    private static final int DEFAULT_LIST_SIZE   = 20;
-	
-    private static final String DEFAULT_LIST_TYPE = "audio";
+    private static final int MAX_LIST_SIZE = 200;
+    private static final int MAX_LIST_OFFSET = 1000;
+    private static final int DEFAULT_LIST_SIZE = 20;
+	private static final int DEFAULT_LIST_OFFSET = 0;
+    private static final String DEFAULT_LIST_TYPE = "artist";
 	
     private MediaFileDao mediaFileDao;
 	private SecurityService securityService;
@@ -88,8 +89,14 @@ public class HistoryController extends ParameterizableViewController {
         }
 		List<MediaFile> songs = null;
 		
-        if ("audio".equals(listType)) {
+        if ("songs".equals(listType)) {
             songs = mediaFileDao.getHistory(listOffset, listSize, userGroupId, MUSIC.name());
+        }
+    	else if ("artist".equals(listType)) {
+            songs = mediaFileDao.getHistory(listOffset, listSize, userGroupId, ARTIST.name());
+        } 	
+    	else if ("album".equals(listType)) {
+            songs = mediaFileDao.getHistory(listOffset, listSize, userGroupId, ALBUM.name());
         } 	
     	else if ("audiobook".equals(listType)) {
             songs = mediaFileDao.getHistory(listOffset, listSize, userGroupId, AUDIOBOOK.name());
@@ -99,6 +106,9 @@ public class HistoryController extends ParameterizableViewController {
         } 
     	else if ("video".equals(listType)) {
             songs = mediaFileDao.getHistory(listOffset, listSize, userGroupId, VIDEO.name());
+        }	
+    	else if ("videoset".equals(listType)) {
+            songs = mediaFileDao.getHistory(listOffset, listSize, userGroupId, VIDEOSET.name());
         }	
     	else { 
             songs = mediaFileDao.getHistory(listOffset, listSize, userGroupId, MUSIC.name());

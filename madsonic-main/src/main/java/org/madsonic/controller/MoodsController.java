@@ -20,22 +20,23 @@
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.madsonic.Logger;
 import org.madsonic.service.MediaFileService;
 import org.madsonic.service.SecurityService;
 import org.madsonic.service.SettingsService;
 import org.madsonic.domain.User;
 import org.madsonic.domain.UserSettings;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 /**
- * Controller for the genre radio.
+ * Controller for the moods radio.
  *
  */
 public class MoodsController extends ParameterizableViewController {
@@ -43,7 +44,12 @@ public class MoodsController extends ParameterizableViewController {
     private SettingsService settingsService;
     private MediaFileService mediaFileService;
     private SecurityService securityService;    
-
+    
+    private long cacheTimestamp;
+    private List <String> cachedMoods;    
+    
+    private static final Logger LOG = Logger.getLogger(MoodsController.class);
+    
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -52,9 +58,14 @@ public class MoodsController extends ParameterizableViewController {
         UserSettings userSettings = settingsService.getUserSettings(user.getUsername());
 		
         int userGroupId = securityService.getCurrentUserGroupId(request);        
+
+        if (cachedMoods == null || cacheTimestamp < settingsService.getLastScanned().getTime()) {
+        	cachedMoods = mediaFileService.getMoods();
+        	cacheTimestamp = settingsService.getLastScanned().getTime();
+        	LOG.debug("## moods recached");  
+        }   
         
-        //TODO:insert SEC GROUP
-		map.put("moods", mediaFileService.getMoods());
+		map.put("moods", cachedMoods);
         map.put("currentYear", Calendar.getInstance().get(Calendar.YEAR));
 
         map.put("musicFolders", settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder()));

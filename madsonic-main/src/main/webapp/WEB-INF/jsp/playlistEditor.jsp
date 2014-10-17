@@ -52,9 +52,6 @@
 			createEmptyPlaylist();
 		}
 
-//			setTimeout("alert ('createEmptyPlaylist');",4000);
-//			location.href = "playlistHome.view?reload=true";
-
         function playlistCallback(playlists) {
             this.playlists = playlists;
 			
@@ -104,7 +101,10 @@
 </head>
 
 <body class="mainframe bgcolor1" onload="init()">
-<h1>Edit playlist</h1>
+<h1>
+<img src="<spring:theme code="playlistEditImage"/>" alt="">
+Edit playlist
+</h1>
     <table>
     <tr>
         <th align="left" style="padding-top:1em">Name</th>
@@ -133,9 +133,10 @@
 		<div class="forward"><a href="importPlaylist.view" target="main"><fmt:message key="left.importplaylist"/></a></div>
 		</div>	
 	
-		<h2 class="bgcolor2"><fmt:message key="left.playlists"/></h2> 
+		<h2 class="bgcolor1"><fmt:message key="left.playlists"/></h2> 
 		
 		<div id="playlists" style="display:block"></div>
 		
 		</div>
-</body></html>
+</body>
+</html>

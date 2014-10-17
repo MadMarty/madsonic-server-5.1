@@ -37,13 +37,13 @@ import org.madsonic.domain.Version;
 import org.madsonic.service.SettingsService;
 import org.madsonic.util.StringUtil;
 import org.madsonic.util.XMLBuilder;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpRequestResponseHolder;
 import org.springframework.web.bind.ServletRequestUtils;
 
 /**
@@ -63,13 +63,14 @@ public class RESTRequestParameterProcessingFilter implements Filter {
 
     private ProviderManager authenticationManager;
     private SettingsService settingsService;
-
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (!(request instanceof HttpServletRequest)) {
+
+    	if (!(request instanceof HttpServletRequest)) {
             throw new ServletException("Can only process HttpServletRequest");
         }
         if (!(response instanceof HttpServletResponse)) {
@@ -78,7 +79,7 @@ public class RESTRequestParameterProcessingFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
+        
         String username = StringUtils.trimToNull(httpRequest.getParameter("u"));
         String password = decrypt(StringUtils.trimToNull(httpRequest.getParameter("p")));
         String version = StringUtils.trimToNull(httpRequest.getParameter("v"));
@@ -150,14 +151,14 @@ public class RESTRequestParameterProcessingFilter implements Filter {
     private RESTController.ErrorCode authenticate(String username, String password, Authentication previousAuth) {
 
         // Previously authenticated and username not overridden?
-//        if (username == null && previousAuth != null) {
-//            return null;
-//        }
+        if (username == null && previousAuth != null) {
+            return null;
+        }
 
         // Ensure password is given.
-//        if (password == null) {
-//            return RESTController.ErrorCode.MISSING_PARAMETER;
-//        }
+        if (password == null) {
+            return RESTController.ErrorCode.MISSING_PARAMETER;
+        }
 
         try {
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
@@ -165,7 +166,7 @@ public class RESTRequestParameterProcessingFilter implements Filter {
             SecurityContextHolder.getContext().setAuthentication(authResult);
 //            LOG.info("Authentication succeeded for user " + username);
         } catch (AuthenticationException x) {
-            LOG.info("Authentication failed for user " + username);
+            LOG.warn("Authentication failed for user " + username);
             return RESTController.ErrorCode.NOT_AUTHENTICATED;
         }
         return null;
@@ -236,7 +237,8 @@ public class RESTRequestParameterProcessingFilter implements Filter {
         this.authenticationManager = authenticationManager;
     }
 
-    public void setSettingsService(SettingsService settingsService) {
-        this.settingsService = settingsService;
-    }
+	public void setSettingsService(SettingsService settingsService) {
+		this.settingsService = settingsService;
+	}
+
 }

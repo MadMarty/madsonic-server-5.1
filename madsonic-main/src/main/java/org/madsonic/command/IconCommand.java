@@ -39,6 +39,7 @@ public class IconCommand {
 	private boolean showIconPlaylists; 
 	private boolean showIconPlaylistEditor; 
 	private boolean showIconMore;
+	private boolean showIconRandom;
 	private boolean showIconAbout;
 	private boolean showIconGenre;
 	private boolean showIconMoods;
@@ -284,5 +285,11 @@ public class IconCommand {
 	 */
 	public void setShowIconPlaylistEditor(boolean showIconPlaylistEditor) {
 		this.showIconPlaylistEditor = showIconPlaylistEditor;
+	}
+	public boolean isShowIconRandom() {
+		return showIconRandom;
+	}
+	public void setShowIconRandom(boolean showIconRandom) {
+		this.showIconRandom = showIconRandom;
 	} 
 }

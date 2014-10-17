@@ -76,12 +76,18 @@
 			</c:choose>
 		</c:forTokens>
 	</h2>
+	
 	<div style="margin-top: 20px;">
 	<c:if test="${model.isIndexBeingCreated}">
 		<p class="warning" style="margin-top: 10px;"><fmt:message key="home.scan"/></p>
 	</c:if>
+	
+	<c:if test="${model.showHomePagerTop}">
+		<%@ include file="homePager.jsp" %>
+	</c:if>
+	
 	<h2><fmt:message key="home.${model.listType}.text"/><c:if test="${model.listType eq 'hot'}">: <p id="carousel1-title">Title</p></c:if></h2>
-
+	
 	<table width="100%">
 		<tr>
 			<td style="vertical-align:top;">
@@ -273,10 +279,10 @@
 				<c:if test='${loopStatus.count % model.listColumns == 1}'>
 					<tr>
 				</c:if>
-				<td style="vertical-align:top">
+				<td style="vertical-align:top;padding-top:5px;">
 					<table>
-						<tr><td>
-						
+						<tr>
+							<td>
 								<c:import url="coverArt.jsp">
 									<c:param name="albumId" value="${album.id}"/>
 									<c:param name="albumName" value="${album.albumSetName}"/>
@@ -293,32 +299,32 @@
 								</c:import>
 
 								<div class="detailmini">
-								<c:if test="${not empty album.playCount}">
-								<div class="detailcolordark">
-									<fmt:message key="home.playcount"><fmt:param value="${album.playCount}"/></fmt:message>
-								</div>
-								</c:if>
-								<c:if test="${not empty album.lastPlayed}">
-								<div class="detailcolordark">
-									<fmt:formatDate value="${album.lastPlayed}" dateStyle="short" var="lastPlayedDate"/>
-									<fmt:message key="home.lastplayed"><fmt:param value="${lastPlayedDate}"/></fmt:message>
-								</div>
-								</c:if>
-								<c:if test="${not empty album.created}">
-								<div class="detailcolordark">
-									<fmt:formatDate value="${album.created}" dateStyle="short" var="creationDate"/>
-									<fmt:message key="home.created"><fmt:param value="${creationDate}"/></fmt:message>
-								</div>
-				                                    <c:if test="${not empty album.year}">
-				                                        ${album.year}
-				                                    </c:if>
-								</c:if>
-								<c:if test="${not empty album.rating}">
-									<c:import url="rating.jsp">
-										<c:param name="readonly" value="true"/>
-										<c:param name="rating" value="${album.rating}"/>
-									</c:import>
-								</c:if>
+									<c:if test="${not empty album.playCount}">
+									<div class="detailcolordark">
+										<fmt:message key="home.playcount"><fmt:param value="${album.playCount}"/></fmt:message>
+									</div>
+									</c:if>
+									<c:if test="${not empty album.lastPlayed}">
+									<div class="detailcolordark">
+										<fmt:formatDate value="${album.lastPlayed}" dateStyle="short" var="lastPlayedDate"/>
+										<fmt:message key="home.lastplayed"><fmt:param value="${lastPlayedDate}"/></fmt:message>
+									</div>
+									</c:if>
+									<c:if test="${not empty album.created}">
+									<div class="detailcolordark">
+										<fmt:formatDate value="${album.created}" dateStyle="short" var="creationDate"/>
+										<fmt:message key="home.created"><fmt:param value="${creationDate}"/></fmt:message>
+									</div>
+									<c:if test="${not empty album.year}">
+										${album.year}
+									</c:if>
+									</c:if>
+									<c:if test="${not empty album.rating}">
+										<c:import url="rating.jsp">
+											<c:param name="readonly" value="true"/>
+											<c:param name="rating" value="${album.rating}"/>
+										</c:import>
+									</c:if>
 								</div>
 
 							<c:choose>
@@ -353,97 +359,11 @@
 				</c:if>
 			</c:forEach>
 		</table>
-
-	<table>
-		<tr>
-		   <c:if test="${model.listType eq 'decade'}">
-				<td style="padding-left: 0em">
-					<fmt:message key="home.decade.text"/>
-				</td>
-				<td>
-					<select name="decade" onchange="location='home.view?listType=${model.listType}&amp;listRows=${model.listRows}&amp;listColumns=${model.listColumns}&amp;decade=' + options[selectedIndex].value">
-						<c:forEach items="${model.decades}" var="decade">
-							<option
-								${decade eq model.decade ? "selected" : ""} value="${decade}">${decade}</option>
-						</c:forEach>
-					</select>
-				</td>
-			</c:if>
-			<c:if test="${model.listType eq 'genre'}">
-				<td style="padding-left: 0em">
-					<fmt:message key="home.genre.text"/>
-				</td>
-				<td>
-					<select name="genre" onchange="location='home.view?listType=${model.listType}&amp;listRows=${model.listRows}&amp;listColumns=${model.listColumns}&amp;genre=' + options[selectedIndex].value">
-						<c:forEach items="${model.genres}" var="genre">
-							<option ${genre eq model.genre ? "selected" : ""} value="${genre}">${genre}</option>
-						</c:forEach>
-					</select>
-				</td>
-			</c:if>
-			<td high=20>
-			</td>
-			
-			<td>
-			<select name="listRows" id="listRows" class="inputWithIcon vcenter" onchange="location='home.view?listType=${model.listType}&amp;listColumns=${model.listColumns}&amp;listRows=' + options[selectedIndex].value;">
-				<c:forTokens items="1 2 3 4 5 6 7 8 9 10" delims=" " var="listrows">
-					<option ${listrows eq model.listRows ? "selected" : ""} value="${listrows}"><fmt:message key="home.listrows"><fmt:param value="${listrows}"/></fmt:message>${listrows gt 1 ? pluralizer : ""}</option>
-				</c:forTokens>
-			</select>
-					
-			<select name="listColumns" id="listColumns" class="inputWithIcon vcenter" onChange="location='home.view?listType=${model.listType}&amp;listRows=${model.listRows}&amp;listColumns=' + options[selectedIndex].value;">
-				<c:forEach begin="1" end="10" var="listcolumns">
-					<c:if test="${listcolumns gt 10}">
-						<c:set var="listcolumns" value="${listcolumns}"/>
-					</c:if>
-					<option ${listcolumns eq model.listColumns ? "selected" : ""} value="${listcolumns}"><fmt:message key="home.listcolumns"><fmt:param value="${listcolumns}"/></fmt:message>${listcolumns gt 1 ? pluralizer : ""}</option>
-				</c:forEach>
-			</select> 
-			<td>
-			<c:choose>
-			<c:when test="${model.listType eq 'random'}">
-				<td><div class="forwardright"><a href="home.view?listType=random&amp;listRows=${model.listRows}&amp;listColumns=${model.listColumns}"><fmt:message key="common.more"/></a></div></td>
-			</c:when>
-			
-			<c:otherwise>
-				<sub:url value="home.view" var="previousUrl">
-					<sub:param name="listType" value="${model.listType}"/>
-					<sub:param name="listRows" value="${model.listRows}"/>
-					<sub:param name="listColumns" value="${model.listColumns}"/>
-					<sub:param name="listOffset" value="${model.listOffset - model.listSize}"/>
-					<sub:param name="genre" value="${model.genre}"/>
-					<sub:param name="decade" value="${model.decade}"/>
-				</sub:url>
-				<sub:url value="home.view" var="nextUrl">
-					<sub:param name="listType" value="${model.listType}"/>
-					<sub:param name="listRows" value="${model.listRows}"/>
-					<sub:param name="listColumns" value="${model.listColumns}"/>
-					<sub:param name="listOffset" value="${model.listOffset + model.listSize}"/>
-					<sub:param name="genre" value="${model.genre}"/>
-					<sub:param name="decade" value="${model.decade}"/>					
-				</sub:url>
-
-				<c:if test="${model.listOffset gt 0}">
-					<td style="padding-right:1.5em"><div class="back"><a href="${previousUrl}"><fmt:message key="common.previous"/></a></div></td>
-                </c:if>
-
-				<c:if test="${model.listType eq 'allArtist' || model.listType eq 'starredArtist' }"> 
-					<td style="padding-right:1.5em"><fmt:message key="home.artists"><fmt:param value="${model.listOffset + 1}"/><fmt:param value="${model.listOffset + model.listSize}"/></fmt:message></td>
-				</c:if>
-	
-				<c:if test="${model.listType ne 'allArtist' && model.listType ne 'starredArtist' }">
-					<td style="padding-right:1.5em"><fmt:message key="home.albums"><fmt:param value="${model.listOffset + 1}"/><fmt:param value="${model.listOffset + model.listSize}"/></fmt:message></td>
-				</c:if>
-				
-                <c:if test="${fn:length(model.albums) eq model.listSize}">
-					<td><div class="forwardright"><a href="${nextUrl}"><fmt:message key="common.next"/></a></div></td>
-                </c:if>
-			</c:otherwise>
-		</c:choose>
-
-			</tr>
-		</table>
-
+	<c:if test="${model.showHomePagerBottom}">
+		<br>
+		<%@ include file="homePager.jsp" %>
+	</c:if>		
+		
 	</c:if>
 		
 	</c:otherwise>

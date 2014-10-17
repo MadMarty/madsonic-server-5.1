@@ -34,13 +34,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.ServletRequestUtils;
-
 import org.madsonic.service.PlaylistService;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.support.RequestContextUtils;
-
 import org.madsonic.Logger;
 import org.madsonic.dao.ArtistDao;
 import org.madsonic.domain.AccessRight;
@@ -97,7 +94,7 @@ public class ArtistController extends ParameterizableViewController {
     private LastFMService lastFMService;   
 
     private ArtistDao artistDao;
-    
+
     /**
      * Note: This class intentionally does not implement org.springframework.web.servlet.mvc.LastModified
      * as we don't need browser-side caching of left.jsp.  This method is only used by RESTController.
@@ -177,15 +174,10 @@ public class ArtistController extends ParameterizableViewController {
         map.put("shortcuts", getShortcuts(musicFoldersToUse, shortcuts));
         map.put("captionCutoff", userSettings.getMainVisibility().getCaptionCutoff());
         map.put("partyMode", userSettings.isPartyModeEnabled());
-
         
-//      map.put("allArtists", mediaFileService.getAllArtists());
-        MusicFolderContent musicFolderContent = getMusicFolderContent(musicFoldersToUse, index, refresh);
-        
-//      map.put("indexedArtistHub", musicFolderContent.getIndexedArtists()); // .getIndexedArtistHub());
-//      map.put("indexedArtistHub", musicFolderContent.getIndexedArtistHub()); // .getIndexedArtistHub());
-
-        map.put("indexedArtistHub", musicFolderContent.getIndexedArtistsHub()); // .getIndexedArtistHub());
+       	MusicFolderContent musicFolderContent = getMusicFolderContent(musicFoldersToUse, index, refresh);
+ 
+        map.put("indexedArtistHub", musicFolderContent.getIndexedArtistsHub()); 
         map.put("indexes", musicFolderContent.getIndexedArtists().keySet());
         
         try	{
@@ -351,13 +343,10 @@ public class ArtistController extends ParameterizableViewController {
 		    }
     	}
     	
-    	//TODO: INDEX
-
    	    SortedMap<MusicIndex, SortedSet<MusicIndex.SortableArtistWithMediaFiles>> indexedArtists = musicIndexService.getIndexedArtists(musicFoldersToUse, refresh, 1);
         SortedMap<MusicIndex, SortedSet<MusicIndex.SortableArtistWithAlbums>> indexedArtistsHub = musicIndexService.getIndexedArtistsHub(musicFoldersToUse, indexToUse);
-//      SortedMap<MusicIndex, SortedSet<MusicIndex.SortableArtistWithData>> indexedArtistsData = musicIndexService.getIndexedArtistsData(musicFoldersToUse, true, indexToUse);
         
-        return new MusicFolderContent(indexedArtists, indexedArtistsHub); // indexedArtistsOnly
+        return new MusicFolderContent(indexedArtists, indexedArtistsHub); 
     }
 
     public void setMediaScannerService(MediaScannerService mediaScannerService) {

@@ -1,5 +1,24 @@
 ﻿[
     {
+        "date": "7/28/2014", "version": "3.4.2",
+        "changes": [
+        { "text": "- jPlayer updated to 2.6.3 & patched for <a href=\"https://github.com/happyworm/jPlayer/issues/223\" target=\"_blank\">https://github.com/happyworm/jPlayer/issues/223</a>" }
+        ]
+    },
+    {
+        "date": "5/4/2014", "version": "3.4.1",
+        "changes": [
+        { "text": "- Tab state saved, consolidated Subsonic artists, playlist and podcasts" },
+        { "text": "- Archive.org tab, Collection search, added breadcrumb" }
+        ]
+    },
+    {
+        "date": "4/11/2014", "version": "3.3.1",
+        "changes": [
+        { "text": "- Added player controls to queue, fixed song actions" }
+        ]
+    },
+    {
         "date": "3/29/2014", "version": "3.3",
         "changes": [
         { "text": "- Queue opens in modal window, feels easier to use. Other bug fixes." },

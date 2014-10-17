@@ -24,6 +24,7 @@ import org.madsonic.domain.CoverArtScheme;
 import org.madsonic.domain.LastFMArtist;
 import org.madsonic.domain.LastFMArtistTopTrack;
 import org.madsonic.domain.MediaFile;
+import org.madsonic.domain.MediaFileComparator;
 import org.madsonic.domain.Player;
 import org.madsonic.domain.UserSettings;
 import org.madsonic.service.HotService;
@@ -33,7 +34,6 @@ import org.madsonic.service.RatingService;
 import org.madsonic.service.PlayerService;
 import org.madsonic.service.SecurityService;
 import org.madsonic.service.SettingsService;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,6 +51,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Controller for the main page.
@@ -121,74 +123,60 @@ public class MainController extends ParameterizableViewController {
         mediaFileService.populateStarredDate(dir, username);
         mediaFileService.populateStarredDate(children, username);
 
-        Artist artistCandidate = null ; 
-        
-        String artist = lastFMService.getCorrection(dir.getArtist());
-        if (artist != null) artistCandidate = artistDao.getLowerArtist(artist);
-    	
-        boolean isArtist = dir.isSingleArtist() == true ? true : false;
-    	boolean artistFound = artistCandidate == null ? false : true;
-    	
-        int topPlayedfound = artistCandidate == null ? 0 : artistCandidate.getTopPlayFound();
-        int toplastFMfound = artistCandidate == null ? 0 : artistCandidate.getTopPlayCount();
-
-        
-        // found single artist
-        if (isArtist) {
-        	
-            // found artist link
-        	if (artistFound) {
-        		
-            	// LASTFM 
-            	if (toplastFMfound == 0 && toplastFMfound != -1) {
-            		
-            		//update
-            		toplastFMfound = lastFMService.updateTopTrackArtist(artistCandidate.getName());
-            		
-            		// disable auto request
-            		if (toplastFMfound < 1) {
-            			toplastFMfound = -1;
-            			
-            		} else {
-            			// update topTrack & search mediaFiles
-                    	List<LastFMArtistTopTrack> topTracks = lastFMService.getTopTrackArtist(artistCandidate.getName());
-                    	lastFMService.updateTopTrackEntries(artistCandidate.getName(), settingsService.getLastFMResultSize(), userGroupId).size(); 
-                    	topPlayedfound = mediaFileService.getTopTracks(artist, userGroupId).size();
-                    	
-            		}
-            		//set back
-            		artistCandidate.setTopPlayFound(topPlayedfound);
-            		artistCandidate.setTopPlayCount(toplastFMfound);
-            		
-            		// update back
-                	if (artistCandidate != null) artistDao.createOrUpdateArtist(artistCandidate);
-            	}
-        	}
-        }
-
-        
-//    	if (topPlayedfound == 0) {
-//		if (artistCandidate != null) artistCandidate.setTopPlayFound(topPlayedfound);
-//		
-//		toplastFMfound = lastFMService.updateTopTrackArtist(artistCandidate.getName());
-////    	toplastFMfound = lastFMService.getTopTrackArtist(dir.getArtist()).size();
-//	}
-//	
-//	if (toplastFMfound == 0) {
-//		if (artistCandidate != null) artistCandidate.setTopPlayCount(toplastFMfound);
-//		
-//    	List<LastFMArtistTopTrack> topTracks = lastFMService.getTopTrackArtist(dir.getArtist());
-//    	topPlayedfound = lastFMService.getTopTrack(dir.getArtist(), 50, userGroupId).size();
-//	}
-        
-        map.put("toplastFMfound", toplastFMfound);
-        map.put("topPlayedfound", topPlayedfound);
-        
+		boolean lastFMTopTrackSearch = settingsService.getLastFMTopTrackSearch();
+		
+		if (lastFMTopTrackSearch != false ) {
+			
+	        Artist artistCandidate = null ; 
+	        
+	        String artist = lastFMService.getCorrection(dir.getArtist());
+	        if (artist != null) artistCandidate = artistDao.getLowerArtist(artist);
+	    	
+	        boolean isArtist = dir.isSingleArtist() == true ? true : false;
+	    	boolean artistFound = artistCandidate == null ? false : true;
+	    	
+	        int topPlayedfound = artistCandidate == null ? 0 : artistCandidate.getTopPlayFound();
+	        int toplastFMfound = artistCandidate == null ? 0 : artistCandidate.getTopPlayCount();
+			
+	        // found single artist
+	        if (isArtist) {
+	        	
+	            // found artist link
+	        	if (artistFound) {
+	        		
+	            	// LASTFM 
+	            	if (toplastFMfound == 0 && toplastFMfound != -1) {
+	            		
+	            		//update
+	            		toplastFMfound = lastFMService.updateTopTrackArtist(artistCandidate.getName());
+	            		
+	            		// disable auto request
+	            		if (toplastFMfound < 1) {
+	            			toplastFMfound = -1;
+	            		} else {
+	            			// update topTrack & search mediaFiles
+	                    	List<LastFMArtistTopTrack> topTracks = lastFMService.getTopTrackArtist(artistCandidate.getName());
+	                    	lastFMService.updateTopTrackEntries(artistCandidate.getName(), settingsService.getLastFMResultSize(), userGroupId).size(); 
+	                    	topPlayedfound = mediaFileService.getTopTracks(artist, userGroupId).size();
+	            		}
+	            		//set back
+	            		artistCandidate.setTopPlayFound(topPlayedfound);
+	            		artistCandidate.setTopPlayCount(toplastFMfound);
+	            		
+	            		// update back
+	                	if (artistCandidate != null) artistDao.createOrUpdateArtist(artistCandidate);
+	            	}
+	        	}
+	        }
+	        map.put("isArtist", isArtist);
+	        map.put("toplastFMfound", toplastFMfound);
+	        map.put("topPlayedfound", topPlayedfound);
+		}        
+		
         map.put("dir", dir);
         map.put("ancestors", getAncestors(dir));
         map.put("children", children);
         map.put("artist", guessArtist(children));
-        map.put("isArtist", isArtist);
         map.put("album", guessAlbum(children));
         map.put("player", player);
         map.put("sieblingCoverArtScheme", CoverArtScheme.SMALL);
@@ -202,6 +190,7 @@ public class MainController extends ParameterizableViewController {
         map.put("partyMode", userSettings.isPartyModeEnabled());
         map.put("brand", settingsService.getBrand());
 		map.put("showQuickEdit", settingsService.isShowQuickEdit());
+		map.put("lastFMTopTrackSearch", lastFMTopTrackSearch);
 
         try {
             MediaFile parent = mediaFileService.getParentOf(dir);
@@ -374,15 +363,14 @@ public class MainController extends ParameterizableViewController {
     }
 
     private List<MediaFile> getMultiFolderChildren(List<MediaFile> mediaFiles) throws IOException {
-        List<MediaFile> result = new ArrayList<MediaFile>();
+        SortedSet<MediaFile> result = new TreeSet<MediaFile>(new MediaFileComparator(settingsService.isSortAlbumsByFolder(),settingsService.isSortFilesByFilename()));
         for (MediaFile mediaFile : mediaFiles) {
             if (mediaFile.isFile()) {
                 mediaFile = mediaFileService.getParentOf(mediaFile);
             }
             result.addAll(mediaFileService.getChildrenOf(mediaFile, true, true, true));
-            result = mediaFileService.getChildrenSorted(result, true);
         }
-        return result;
+        return new ArrayList<MediaFile>(result);
     }
 
     private List<MediaFile> getAncestors(MediaFile dir) throws IOException {
@@ -441,9 +429,13 @@ public class MainController extends ParameterizableViewController {
     }
 
     private void setSieblingAlbums(MediaFile dir, Map<String, Object> map) throws IOException {
-        MediaFile parent = mediaFileService.getParentOf(dir);
+    	
+        MediaFile parent = null;
+        if (!mediaFileService.isRoot(dir)) {
+            parent = mediaFileService.getParentOf(dir);
+    	}
 
-        if (dir.isAlbum() && !mediaFileService.isRoot(parent)) {
+        if (dir.isAlbum() && !mediaFileService.isRoot(parent) && ("podcast".equalsIgnoreCase(parent.toString()))) {
             List<MediaFile> sieblings = mediaFileService.getChildrenOf(parent, false, true, true);
             sieblings.remove(dir);
 

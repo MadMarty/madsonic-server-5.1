@@ -169,3 +169,7 @@ input[type=submit]{
 	filter:alpha(opacity=75); /* For IE8 and earlier */
 	border: 1px solid #354180;
 }
+
+#bitrate_menu {
+    color: #999 !important;
+}

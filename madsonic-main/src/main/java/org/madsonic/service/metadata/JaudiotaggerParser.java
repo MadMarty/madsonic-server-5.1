@@ -72,6 +72,8 @@ import java.util.regex.Pattern;
  * @author Sindre Mehus
  */
 public class JaudiotaggerParser extends MetaDataParser {
+	
+    private SettingsService settingsService;	
 
     private static final Logger LOG = Logger.getLogger(JaudiotaggerParser.class);
     
@@ -80,11 +82,15 @@ public class JaudiotaggerParser extends MetaDataParser {
     private static final Pattern YEAR_NUMBER_PATTERN = Pattern.compile("(\\d{4}).*");
 
     private static final HashMap<String, String> hmap = new HashMap<String, String>();
-    
-	private static final File MADSONIC_HOME_WINDOWS = new File(SettingsService.getMadsonicHome().toString());
+	private static final File MADSONIC_HOME = new File(SettingsService.getMadsonicHome().toString());
     
     public void init() {
-    	readConfig();
+    	if (settingsService.isOrganizeByGenreMap()) {
+    		LOG.debug("## GenreMap turned ON");    		
+    		readConfig();
+    	} else {
+    		LOG.debug("## GenreMap turned OFF");
+    	}
     }
 	
     static {
@@ -278,10 +284,10 @@ public class JaudiotaggerParser extends MetaDataParser {
     
     private void readConfig(){
     	
-    	File f = new File(MADSONIC_HOME_WINDOWS + "/config/genremap.cfg");
+    	File f = new File(MADSONIC_HOME + "/config/genremap.cfg");
     	
     	if(f.exists()){
-    		LOG.debug("## try loading GenreMerge template");
+    		LOG.info("## try loading GenreMap template");
     		try (BufferedReader br = new BufferedReader(new FileReader(f)))
     		{
     			String sCurrentLine;
@@ -292,28 +298,36 @@ public class JaudiotaggerParser extends MetaDataParser {
 //    					System.out.println(line[0].trim() + line[1].trim());
     				}
     			}
-    			LOG.debug("## GenreMerge Entries found: " + hmap.size());
+    			LOG.debug("## GenreMap Entries found: " + hmap.size());
     		} 
     		catch (IOException e) { 
     			LOG.error("## Cant read GenreMap Template file");
     			e.printStackTrace();
     		} 
     	}
+    	
     }
 
     
+    /**
+     * Translate Genre from config file.
+     */
     private String translateGenre(String genre){
-    	if (hmap.size() < 1){
-    		readConfig();
+    	if (settingsService == null) {
+    		settingsService = new SettingsService();
     	}
     	
-        /* Get values based on key*/
-        String var = hmap.get(genre);
-        if (var != null) {
-            LOG.debug("## replaced Genre: " + genre + " -> " + var);
-            return WordUtils.capitalize(var);
-        }
-    	return WordUtils.capitalize(genre);
+    	if (settingsService.isOrganizeByGenreMap()) {    	
+        	if (hmap.size() < 1) { readConfig(); }
+            String mappedGenre = hmap.get(genre); 
+            if (mappedGenre != null) {
+                LOG.debug("## replaced Genre: " + genre + " -> " + mappedGenre);
+                return WordUtils.capitalize(mappedGenre);
+            }
+        	return WordUtils.capitalize(genre);
+    	} else {
+    		return genre;
+    	}
     }
     
     
@@ -556,4 +570,8 @@ public class JaudiotaggerParser extends MetaDataParser {
         Tag tag = audioFile.getTag();
         return tag == null ? null : tag.getFirstArtwork();
     }
+    
+    public void setSettingsService(SettingsService settingsService) {
+        this.settingsService = settingsService;
+    }    
 }

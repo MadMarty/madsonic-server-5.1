@@ -25,7 +25,7 @@ Madsonic can be found at http://madsonic.org
 /usr/share/madsonic/madsonic.war
 %attr(755,root,root) /usr/share/madsonic/madsonic.sh
 %attr(755,root,root) /etc/init.d/madsonic
-%attr(755,root,root) /var/madsonic/transcode/Audioffmpeg
+%attr(644,root,root) /var/madsonic/config/genremap.cfg
 %attr(755,root,root) /var/madsonic/transcode/ffmpeg
 %attr(755,root,root) /var/madsonic/transcode/lame
 %attr(755,root,root) /var/madsonic/transcode/xmp

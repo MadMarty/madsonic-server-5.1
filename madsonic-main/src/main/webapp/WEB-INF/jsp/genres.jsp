@@ -8,10 +8,16 @@
 	<script type="text/javascript" language="javascript">
        function hideGenre() {
             $('#genreList').hide('swing');
+            $('#showGenre').show();
+			$('#hideGenre').hide();
+			
+			
 		}
 		
         function showGenre() {
             $("#genreList").show('blind');
+			$('#hideGenre').show();
+            $('#showGenre').hide();
         }
     </script>
 </head>
@@ -21,9 +27,9 @@
 
 <h1>
 
-<img src="<spring:theme code="genresImage"/>" alt="">Genre</h1>
+<img src="<spring:theme code="genresImage"/>" alt=""> Genre</h1>
 <!-- TODO: songs -->
-<h2><c:forTokens items="artists albums" delims=" " var="cat" varStatus="loopStatus">
+<h2><c:forTokens items="artists albums songs" delims=" " var="cat" varStatus="loopStatus">
 <c:if test="${loopStatus.count > 1}">&nbsp;<img src="<spring:theme code="sepImage"/>" alt="">&nbsp;</c:if>
 <sub:url var="url" value="genres.view">
 <sub:param name="listType" value="${cat}"/>
@@ -39,7 +45,12 @@
 </c:forTokens>
 </h2>
 
-<div id="genreList" class="genre" style="width:95%;max-width: 1100px;">
+<div id="toogleGenre">
+<div id="showGenre" style="display:inline;"><a href="javascript:noop()" onclick="showGenre()"> Genre <img src="/icons/black/show.png" alt=""></a></div> 
+<div id="hideGenre" style="display:inline;"><a href="javascript:noop()" onclick="hideGenre()"> Genre <img src="/icons/black/hide.png" alt=""></a></div> 
+</div>
+
+<div id="genreList" class="genre" style="width:95%;max-width:1100px;padding-bottom:20px;">
 
 	<c:if test="${model.listType eq 'artists'}">
 	<div class="genre" style="width:85%; max-width: 1100px; line-height: 1.5; padding: 10px;">
@@ -49,7 +60,7 @@
 		<sub:param name="listType" value="${model.listType}"/>
 		<sub:param name="genre" value="${genreArtistList.name}"/>
 	</sub:url>
-	<a href="${url}">${genreArtistList.name}</a>
+	<a href="${url}" title="${genreArtistList.artistCount}x">${genreArtistList.name}</a>
 	</span>
 	</c:forEach>
 	</div></c:if>
@@ -62,7 +73,7 @@
 		<sub:param name="listType" value="${model.listType}"/>
 		<sub:param name="genre" value="${genreAlbumList.name}"/>
 	</sub:url>
-	<a href="${url}">${genreAlbumList.name}</a>
+	<a href="${url}" title="${genreAlbumList.albumCount}x">${genreAlbumList.name}</a>
 	</span>
 	</c:forEach>
 	</div></c:if>
@@ -75,22 +86,81 @@
 		<sub:param name="listType" value="${model.listType}"/>
 		<sub:param name="genre" value="${genreSongList.name}"/>
 	</sub:url>
-	<a href="${url}">${genreSongList.name}</a>
+	<a href="${url}" title="${genreSongList.songCount}x">${genreSongList.name}</a>
 	</span>
 	</c:forEach>
 	</div></c:if>
 </div>
 
-	Genre 
-	<div id="showGenre" style="display: inline"><a href="javascript:noop()" onclick="showGenre()"> show </a></div> | 
-	<div id="hideGenre" style="display: inline"><a href="javascript:noop()" onclick="hideGenre()"> hide </a></div> 
-	<br><br>
-
 	<div id="list" class="genre" style="width:95%;max-width: 1100px;">
 
-	<c:if test="${model.listType eq 'songs' and empty model.albums}">
-	TODO: not implemented (c;=
+	<c:if test="${model.listType eq 'songs'}">
+				
+		<table style="border-collapse:collapse;white-space:nowrap;">
+			<c:forEach items="${model.songs}" var="song" varStatus="loopStatus">
+
+				<sub:url value="/main.view" var="mainUrl">
+					<sub:param name="path" value="${song.parentPath}"/>
+				</sub:url>
+
+				<sub:url value="/main.view" var="artistUrl">
+					<c:if test="${not empty song.artistPath}">
+						<sub:param name="path" value="${song.artistPath}"/>
+					</c:if>
+					<c:if test="${empty song.artistPath}">
+						<sub:param name="path" value="${song.parentPath}"/>
+					</c:if>
+				</sub:url>	
+				
+				<tr>
+					<td style="padding-left:0.5em;padding-right:1.5em;">
+					<c:import url="playAddDownload.jsp">
+						<c:param name="id" value="${song.id}"/>
+						<c:param name="playEnabled" value="true"/>
+						<c:param name="addEnabled" value="true"/>
+						<c:param name="downloadEnabled" value="true"/>
+						<c:param name="starEnabled" value="false"/>
+						<c:param name="starred" value="${not empty song.starredDate}"/>
+						<c:param name="video" value="${song.video and model.player.web}"/>
+						<c:param name="asTable" value="false"/>
+					</c:import>
+					</td>								
+					<td>
+					<c:import url="coverArtThumb.jsp">
+						<c:param name="albumId" value="${song.id}"/>
+						<c:param name="artistName" value="${song.name}"/>
+						<c:param name="coverArtSize" value="50"/>
+						<c:param name="scale" value="0.5"/>
+						<c:param name="showLink" value="true"/>
+						<c:param name="showZoom" value="false"/>
+						<c:param name="showChange" value="false"/>
+						<c:param name="showArtist" value="false"/>
+						<c:param name="typArtist" value="true"/>
+						<c:param name="appearAfter" value="5"/>
+					</c:import>
+					</td>				
+					
+					<span id="songId${loopStatus.count - 1}" style="display: none">${song.id}</span></td>				
+		
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.25em;padding-right:1.55em;">
+					<str:truncateNicely upper="40">${song.title}</str:truncateNicely>
+					</td>
+
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:3.25em">
+						<a href="${mainUrl}"><str:truncateNicely upper="40">${song.albumName}</str:truncateNicely></a>
+					</td>
+
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em;">
+						<a href="${artistUrl}">${song.artist}</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+				
 	</c:if>
+				
+
+	<c:if test="${model.listType ne 'songs' and not empty model.albums}">
 	
 			<c:forEach items="${model.albums}" var="album" varStatus="loopStatus">
 							<div style="float:left;padding:6px"> 
@@ -165,16 +235,24 @@
 									
 								</c:otherwise>
 							</c:choose>
-
 				</div>
 			</c:forEach>
+	</c:if>
+			
+			
 	</div>	
 </div>
 
 <script type="text/javascript" language="javascript">
+
+	$('#hideGenre').hide();
+	$('#showGenre').hide();
+	
 	<c:if test="${model.genreType ne 'null'}">
 		$('#genreList').hide('blind');
+		$('#showGenre').show();
 	</c:if>
+
 </script>
 
 </body>

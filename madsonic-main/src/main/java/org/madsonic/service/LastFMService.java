@@ -79,7 +79,7 @@ public class LastFMService {
     private static LastFMArtistTopTracksDao lastFMArtistTopTracksDao;      
     
     // Use here your own Last.FM API key
-    private static String api_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    private static String api_key = "8b396e869b58f63e65d352d1a71874f2";
     
     Map<String, String> storedCorrectionMap = new HashMap<String, String>();
     
@@ -234,6 +234,8 @@ public class LastFMService {
     	
     	if (ArtistName != null && ArtistName != ""){
     		
+		try {
+    			
             Artist artistCandidate ; 
             String RequestedArtist = getCorrection(ArtistName);
    	 		artistCandidate = artistDao.getArtist(RequestedArtist);
@@ -267,10 +269,13 @@ public class LastFMService {
     	    	lastFMArtistTopTracksDao.createOrUpdateLastFMArtistTopTrack(topTrack);
     	    	rank++;
     	 	}
+
 //    	 	getTopTrack(RequestedArtist, 1, 0);
     		LOG.debug("## TopTrack update results: " + TopTracks.size() + " -> " + RequestedArtist);
     	 	return TopTracks.size();
-    	}
+			
+	    	} catch (Exception ex) {}
+	 	}  	
 	 	return 0;
     }
     
@@ -655,6 +660,15 @@ public class LastFMService {
         }
     }
  
+    public boolean getLastFMTopTrackSearch() {
+    	return settingsService.getLastFMTopTrackSearch();
+    }
+    
+    public void setLastFMTopTrackSearch(boolean b) {
+    	settingsService.setLastFMTopTrackSearch(b);
+        settingsService.save();
+    }
+    
     public void setMediaFileDao(MediaFileDao mediaFileDao) {
         this.mediaFileDao = mediaFileDao;
     }    

@@ -308,6 +308,48 @@ public class PlayQueueService {
         return convert(request, player, true);
     }
 
+    public PlayQueueInfo playRandomRadio(int count, String genre, String mood, String year, Integer musicFolderId) throws Exception {
+    	
+        HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
+        HttpServletResponse response = WebContextFactory.get().getHttpServletResponse();
+
+        int userGroupId = securityService.getCurrentUserGroupId(request);
+        
+		String [] _genre = null;
+        if (!StringUtils.equalsIgnoreCase("any", genre)) {
+        	_genre = new String[]{genre};
+        } else {
+        	_genre = null;
+        }
+       
+		String [] _mood = null;
+        if (!StringUtils.equalsIgnoreCase("any", mood)) {
+        	 _mood = new String[]{mood};
+         } else {
+        	 _mood = null;
+         }
+        
+        Integer fromYear = null;
+        Integer toYear = null;
+
+        if (!StringUtils.equalsIgnoreCase("any", year)) {
+            String[] tmp = StringUtils.split(year);
+            fromYear = Integer.parseInt(tmp[0]);
+            toYear = Integer.parseInt(tmp[1]);
+        }
+        
+        if (musicFolderId == -1) {
+        	musicFolderId = null;
+        }
+        
+		MultiSearchCriteria criteria = new MultiSearchCriteria (count, null, null, _genre, _mood, fromYear, toYear, musicFolderId, userGroupId);
+        Player player = getCurrentPlayer(request, response);
+		player.getPlayQueue().addFiles(false, searchService.getRandomSongs(criteria));
+        player.getPlayQueue().setRandomSearchCriteria(null);
+        return convert(request, player, true);
+    }
+    
+    
     public PlayQueueInfo playGenreRadio(String[] tags, int count, String year) throws Exception {
     	
         HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
@@ -321,12 +363,14 @@ public class PlayQueueService {
         Integer fromYear = null;
         Integer toYear = null;
 
-        if (!StringUtils.equalsIgnoreCase("any", year)) {
-            String[] tmp = StringUtils.split(year);
-            fromYear = Integer.parseInt(tmp[0]);
-            toYear = Integer.parseInt(tmp[1]);
+        if (year != null) {
+	        if (!StringUtils.equalsIgnoreCase("any", year)) {
+	            String[] tmp = StringUtils.split(year);
+	            fromYear = Integer.parseInt(tmp[0]);
+	            toYear = Integer.parseInt(tmp[1]);
+	        }
         }
-        		
+	        
 		GenreSearchCriteria criteria = new GenreSearchCriteria (count, null, tags, fromYear, toYear, null, userGroupId);
 		player.getPlayQueue().addFiles(false, searchService.getRandomSongs(criteria));
         player.getPlayQueue().setRandomSearchCriteria(null);
@@ -334,26 +378,28 @@ public class PlayQueueService {
     }
     
     public PlayQueueInfo playMoodRadio(String[] tags, int count, String year) throws Exception {
-        HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
-        HttpServletResponse response = WebContextFactory.get().getHttpServletResponse();
-        
-        int userGroupId = securityService.getCurrentUserGroupId(request);  
-        
-        Player player = getCurrentPlayer(request, response);
-		if (count > 501 || count == 0) { count = 20; }
-		
-        Integer fromYear = null;
-        Integer toYear = null;
+    	HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
+    	HttpServletResponse response = WebContextFactory.get().getHttpServletResponse();
 
-        if (!StringUtils.equalsIgnoreCase("any", year)) {
-            String[] tmp = StringUtils.split(year);
-            fromYear = Integer.parseInt(tmp[0]);
-            toYear = Integer.parseInt(tmp[1]);
-        }
-		MoodsSearchCriteria criteria = new MoodsSearchCriteria (count, null, tags, fromYear, toYear, null, userGroupId);
-		player.getPlayQueue().addFiles(false, searchService.getRandomSongs(criteria));
-        player.getPlayQueue().setRandomSearchCriteria(null);
-        return convert(request, player, true);
+    	int userGroupId = securityService.getCurrentUserGroupId(request);  
+
+    	Player player = getCurrentPlayer(request, response);
+    	if (count > 501 || count == 0) { count = 20; }
+
+    	Integer fromYear = null;
+    	Integer toYear = null;
+
+    	if (year != null) {
+    		if (!StringUtils.equalsIgnoreCase("any", year)) {
+    			String[] tmp = StringUtils.split(year);
+    			fromYear = Integer.parseInt(tmp[0]);
+    			toYear = Integer.parseInt(tmp[1]);
+    		}
+    	}
+    	MoodsSearchCriteria criteria = new MoodsSearchCriteria (count, null, tags, fromYear, toYear, null, userGroupId);
+    	player.getPlayQueue().addFiles(false, searchService.getRandomSongs(criteria));
+    	player.getPlayQueue().setRandomSearchCriteria(null);
+    	return convert(request, player, true);
     }
     
     public PlayQueueInfo playRandomGenre(int id, int count) throws Exception {

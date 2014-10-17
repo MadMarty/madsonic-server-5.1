@@ -26,11 +26,23 @@
             <div id="placeholder"></div>
             <div id="play"></div>
             <div id="pause"></div>
-            <div id="progress">0:00</div>
+            <div id="progress" style="min-width:35px;">0:00</div>
             <div id="duration">0:00</div>
             <div id="audio_on"></div>
             <div id="audio_off"></div>
             <div id="volume_slider"></div>
+            <select name="bitrate_menu" id="bitrate_menu">
+                <c:forEach items="${model.filteredBitRates}" var="bitRate">
+                    <c:choose>
+                        <c:when test="${bitRate eq model.maxBitRate}">
+                            <option selected="selected" value="${bitRate}">${bitRate} Kbps</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${bitRate}">${bitRate} Kbps</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
             <div id="casticonactive"></div>
             <div id="casticonidle"></div>
         </div>
@@ -42,17 +54,34 @@
     </script>
 </c:if>
 
-<h2 style="padding-top: 1em; padding-bottom: 0.5em">${model.video.title}</h2>
+<!-- <h2 style="padding-top: 1em; padding-bottom: 0.5em">${model.video.title}</h2> -->
 
 <sub:url value="main.view" var="backUrl"><sub:param name="id" value="${model.video.id}"/></sub:url>
+<div id="back" class="back" style="float:left;margin-left:1em;"><a href="${backUrl}" title="${model.video.title}"><fmt:message key="common.back"/></a></div>
 
-<div id="back" class="back" style="float:left;padding-right:2em"><a href="${backUrl}"><fmt:message key="common.back"/></a></div>
 <div style="clear: both"></div>
+
+<script type="text/javascript">
+    var showBackButton = top.playQueue != null && !top.playQueue.CastPlayer.receiverFound;
+    $("#duration").toggle(showBackButton);
+</script>
 
 <script type="text/javascript">
     var showBackButton = top.playQueue != null && !top.playQueue.CastPlayer.receiverFound;
     $("#back").toggle(showBackButton);
 </script>
 
+<c:if test="${model.duration > 1}">
+<script type="text/javascript">
+	$("#duration").show();
+</script>
+</c:if>	
+
+<c:if test="${model.duration == 86400 or model.duration == 0}">
+<script type="text/javascript">
+	$("#duration").hide();
+	$("#bitrate_menu").hide();
+</script>
+</c:if>	
 </body>
 </html>

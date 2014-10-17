@@ -24,10 +24,11 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
+import org.madsonic.util.StringUtil;
+
 import org.madsonic.service.*;
 import org.madsonic.domain.*;
 import org.madsonic.command.*;
-
 import org.springframework.web.servlet.mvc.*;
 import org.springframework.web.bind.*;
 import org.apache.commons.lang.StringUtils;

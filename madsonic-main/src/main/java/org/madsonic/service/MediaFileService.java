@@ -28,7 +28,6 @@ import org.madsonic.dao.MusicFolderDao;
 import org.madsonic.domain.Album;
 import org.madsonic.domain.Artist;
 import org.madsonic.domain.Genre;
-import org.madsonic.domain.Genres;
 import org.madsonic.domain.MediaFile;
 import org.madsonic.domain.MediaFileComparator;
 import org.madsonic.domain.MediaFile.MediaType;
@@ -49,7 +48,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -305,8 +303,8 @@ public class MediaFileService {
         }
 
         // Make sure children are stored and up-to-date in the database.
-        if (!useFastCache) {
-            updateChildren(parent);
+        if (parent != null && !useFastCache) {
+    		updateChildren(parent);
         }
 
         List<MediaFile> result = new ArrayList<MediaFile>();
@@ -790,10 +788,12 @@ public class MediaFileService {
                     
                 	Integer FOLDER_TYPE = musicFolderDao.getMusicFolder(mediaFile.getFolder()).getType();
                 	switch (FOLDER_TYPE) {
-                	case 5: mediaFile.setMediaType(VIDEOSET); break;
+                	case 4: mediaFile.setMediaType(ALBUM); break;
                 	case 6: mediaFile.setMediaType(VIDEOSET); break;
+                	case 7: mediaFile.setMediaType(VIDEOSET); break;
                 	default : break;
             		}
+
 
                     	// ######### Read Comment.txt file ####
 						comment = checkForCommentFile(file);
@@ -956,8 +956,9 @@ public class MediaFileService {
               		
                 	Integer FOLDER_TYPE = musicFolderDao.getMusicFolder(mediaFile.getFolder()).getType();
                 	switch (FOLDER_TYPE) {
-                	case 5: mediaFile.setMediaType(VIDEOSET); break;
+                	case 4: mediaFile.setMediaType(ALBUM); break;
                 	case 6: mediaFile.setMediaType(VIDEOSET); break;
+                	case 7: mediaFile.setMediaType(VIDEOSET); break;
                 	default : break;
             		}
               		

@@ -16,7 +16,7 @@
         function init() {
             dwr.engine.setErrorHandler(null);
 			
-            $("#dialog-edit").dialog({resizable: true, width:450, position:  [100, 120], modal: false, autoOpen: false,
+            $("#dialog-edit").dialog({resizable: true, width:450, position: [100, 120], modal: false, autoOpen: false,
                 buttons: {
                     "<fmt:message key="common.save"/>": function() {
                         $(this).dialog("close");
@@ -32,14 +32,14 @@
                     }
                 }});
 
-			$("#dialog-select-playlist").dialog({resizable: true, width:450, height: 400, position: [100, 95], modal: true, autoOpen: false,
+			$("#dialog-select-playlist").dialog({resizable: true, width:450, height: 400, position: [100, 95], modal: false, autoOpen: false,
 				buttons: {
 					"<fmt:message key="common.cancel"/>": function() {
 						$(this).dialog("close");
 					}
 				}});				
 			
-            $("#dialog-delete").dialog({resizable: false, width:450, height: 170, position: [100, 120], modal: true, autoOpen: false,
+            $("#dialog-delete").dialog({resizable: false, width:450, height: 170, position: [100, 120], modal: false, autoOpen: false,
                 buttons: {
                     "<fmt:message key="common.delete"/>": function() {
                         $(this).dialog("close");
@@ -316,23 +316,23 @@
 
 	<select id="moreActions" onchange="actionSelected(this.options[selectedIndex].id);" style="margin-bottom:1.0em">
     <option id="top" selected="selected"><fmt:message key="main.more"/></option>
-    <option style="color:blue;">all songs</option>
-    <option id="selectAll">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectall"/></option>
-    <option id="selectNone">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectnone"/></option>
-    <option id="toogleAll">&nbsp;&nbsp;&nbsp;&nbsp;Toogle Starred</option>
-    <option id="toogleAllForced">&nbsp;&nbsp;&nbsp;&nbsp;Forced All Starred</option>
+    <optgroup label="all songs"/>
+    <option id="selectAll"><fmt:message key="playlist.more.selectall"/></option>
+    <option id="selectNone"><fmt:message key="playlist.more.selectnone"/></option>
+    <option id="toogleAll">Toogle Starred</option>
+    <option id="toogleAllForced">Forced All Starred</option>
 	    <c:if test="${model.user.shareRole}">
-        <option id="share">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="main.more.share"/></option>
+        <option id="share"><fmt:message key="main.more.share"/></option>
     </c:if>
     <c:if test="${model.user.downloadRole}">
-        <option id="download">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="common.download"/></option>
+        <option id="download"><fmt:message key="common.download"/></option>
     </c:if>
-	<option style="color:blue;"><fmt:message key="main.more.selection"/></option>
-    <option id="appendPlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.append"/></option>
-	<option id="toogleSelected">&nbsp;&nbsp;&nbsp;&nbsp;Toogle Starred</option>
-    <option id="toogleSelectedForced">&nbsp;&nbsp;&nbsp;&nbsp;Forced Selection Starred</option>
-    <option id="addNext">&nbsp;&nbsp;&nbsp;&nbsp;Add Next to PlayQueue</option>
-    <option id="addLast">&nbsp;&nbsp;&nbsp;&nbsp;Add Last to PlayQueue</option>
+	<optgroup label="<fmt:message key="main.more.selection"/>"/>
+    <option id="appendPlaylist"><fmt:message key="playlist.append"/></option>
+	<option id="toogleSelected">Toogle Starred</option>
+    <option id="toogleSelectedForced">Forced Selection Starred</option>
+    <option id="addNext">Add Next to PlayQueue</option>
+    <option id="addLast">Add Last to PlayQueue</option>
     </select>
 
 <div class="detail" style="padding-top:0.2em">
@@ -351,22 +351,22 @@
 <table style="border-collapse:collapse;white-space:nowrap">
     <tbody id="playlistBody">
     <tr id="pattern" style="display:none;margin:0;padding:0;border:0">
-		<td><span id="rank"></span></td>	
+		<td><span class="controls" id="rank"></span></td>	
         <td style="padding-right:0.25em"><a href="javascript:void(0)">
-            <img id="starSong" onclick="onStar(this.id.substring(8) - 1,false)" src="<spring:theme code="ratingOffImage"/>" alt="" title=""></a></td>
+            <img class="controls" id="starSong" onclick="onStar(this.id.substring(8) - 1,false)" src="<spring:theme code="ratingOffImage"/>" alt="" title=""></a></td>
         <td><a href="javascript:void(0)">
-            <img id="play" src="<spring:theme code="playImage"/>" alt="<fmt:message key="common.play"/>" title="<fmt:message key="common.play"/>"
+            <img class="controls" id="play" src="<spring:theme code="playImage"/>" alt="<fmt:message key="common.play"/>" title="<fmt:message key="common.play"/>"
                  onclick="onPlay(this.id.substring(4) - 1)"></a></td>
         <td><a href="javascript:void(0)">
-            <img id="add" src="<spring:theme code="addImage"/>" alt="<fmt:message key="common.add"/>" title="<fmt:message key="common.add"/>"
+            <img class="controls" id="add" src="<spring:theme code="addImage"/>" alt="<fmt:message key="common.add"/>" title="<fmt:message key="common.add"/>"
                  onclick="onAdd(this.id.substring(3) - 1)"></a></td>
         <c:if test="${model.editAllowed}">
             <td><a href="javascript:void(0)">
-                <img id="removeSong" onclick="onRemove(this.id.substring(10) - 1)" src="<spring:theme code="removeImage"/>"
+                <img class="controls" id="removeSong" onclick="onRemove(this.id.substring(10) - 1)" src="<spring:theme code="removeImage"/>"
                      alt="<fmt:message key="playlist.remove"/>" title="<fmt:message key="playlist.remove"/>"></a></td>
         </c:if>
         <td style="padding-right:0.25em"></td>
-		<td class="bgcolor2" style="padding-left: 0.1em"><input type="checkbox" class="checkbox" id="songIndex"></td>
+		<td style="padding-left: 0.1em"><input type="checkbox" class="checkbox" id="songIndex"></td>
         <td><span id="songId" style="display: none">id</span></td>	
         <td style="padding-right:1.25em"><span id="title">Title</span></td>
         <td style="padding-right:1.25em"><a id="albumUrl" target="main"><span id="album" class="detail">Album</span></a></td>
@@ -375,10 +375,10 @@
 		
         <c:if test="${model.editAllowed}">
             <td><a href="javascript:void(0)">
-                <img id="up" onclick="onUp(this.id.substring(2) - 1)" src="<spring:theme code="upImage"/>"
+                <img class="controls" id="up" onclick="onUp(this.id.substring(2) - 1)" src="<spring:theme code="upImage"/>"
                      alt="<fmt:message key="playlist.up"/>" title="<fmt:message key="playlist.up"/>"></a></td>
             <td><a href="javascript:void(0)">
-                <img id="down" onclick="onDown(this.id.substring(4) - 1)" src="<spring:theme code="downImage"/>"
+                <img class="controls" id="down" onclick="onDown(this.id.substring(4) - 1)" src="<spring:theme code="downImage"/>"
                      alt="<fmt:message key="playlist.down"/>" title="<fmt:message key="playlist.down"/>"></a></td>
         </c:if>
 

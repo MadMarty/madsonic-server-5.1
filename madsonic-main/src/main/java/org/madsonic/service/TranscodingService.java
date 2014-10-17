@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,10 +63,14 @@ public class TranscodingService {
     private PlayerService playerService;
 
     
-	public void reset2MadsonicFLV() {
-		transcodingDao.reset2MadsonicFLV();
+	public void reset2MadsonicDefault() {
+		transcodingDao.reset2MadsonicDefault();
 	}
     
+	public void reset2MadsonicOld() {
+		transcodingDao.reset2MadsonicOld();
+	}	
+	
     /**
      * Returns all transcodings.
      *

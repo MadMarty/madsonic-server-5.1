@@ -50,6 +50,11 @@ public final class Util {
     private Util() {
     }
 
+    public static String getDefaultSlash() {
+        String def = isWindows() ? "\\" : "/";
+        return def;
+    }
+    
     public static String getDefaultMusicFolder() {
         String def = isWindows() ? "c:\\media" : "/var/media/Artist";
         return System.getProperty("madsonic.defaultMusicFolder", def);

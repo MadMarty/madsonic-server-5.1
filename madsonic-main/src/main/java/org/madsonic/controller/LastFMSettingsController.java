@@ -104,7 +104,9 @@ public class LastFMSettingsController extends ParameterizableViewController {
 	        }
 
         ModelAndView result = super.handleRequestInternal(request, response);
+        
         map.put("LastFMResultSize", lastFMService.getLastFMResultSize());
+        map.put("LastFMTopTrackSearch", lastFMService.getLastFMTopTrackSearch());
         
         result.addObject("model", map);
         return result;
@@ -123,8 +125,10 @@ public class LastFMSettingsController extends ParameterizableViewController {
 
     private String handleParameters(HttpServletRequest request) {
     	
-        int size = Integer.parseInt(request.getParameter("LastFMResultSize"));
-
+        boolean lastFMTopTrackSearch = "on".equalsIgnoreCase(request.getParameter("lastFMTopTrackSearch")) ? true : false; 
+        lastFMService.setLastFMTopTrackSearch(lastFMTopTrackSearch);        
+   	
+        int size = Integer.parseInt(request.getParameter("lastFMResultSize"));
         if (size != 0) {
             lastFMService.setLastFMResultSize(size);
         }
@@ -140,7 +144,7 @@ public class LastFMSettingsController extends ParameterizableViewController {
         this.mediaScannerService = mediaScannerService;
     }
      
-     public void setlastFMService(LastFMService lastFMService) {
+     public void setLastFMService(LastFMService lastFMService) {
          this.lastFMService = lastFMService;
      }
      

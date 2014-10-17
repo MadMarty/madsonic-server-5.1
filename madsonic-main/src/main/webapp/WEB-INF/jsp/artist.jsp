@@ -168,7 +168,7 @@
 
 	<!-- CONTENT -->
 	<div class="bgcolor2 artistindex" style="opacity: 1.0; clear: both; position: fixed; top: 0; right: 0; left: 0px;
-	padding: 0.15em 0.15em 0.15em 0.15em; height: 45px; z-index: 1000">
+	padding: 0.15em 0.15em 0.15em 0.15em; height: 55px; z-index: 1000">
 	
 		<c:if test="${model.customScrollbar}">
 		<a id="top"></a>
@@ -195,13 +195,15 @@
 	
 	<div style="margin-top: 60px; padding: 0.15em 0.15em 0.15em 0.15em; z-index: 100">
 	
+	<fmt:message key="top.search" var="search"/>
+	
 	<form method="get" action="artist.view" target="main" name="artistForm">
 		<table><tr>
-			<td><input type="text" name="name" id="name" size="24" value="${search}" onclick="select();"></td>
+			<td><input type="text" name="name" id="query" size="30" placeholder="${search} ..." style="padding-left:8px;margin-right:4px;" onclick="select();"></td>
 			<td><a href="javascript:document.artistForm.submit()"><img src="<spring:theme code="searchImage"/>" alt="${search}" title="${search}"></a></td>
 		</tr></table>
 	</form>
-
+ 
 	<c:if test="${model.indexedArtistHub == null}">
 	 <i>Select Artist Index.</i>
 	</c:if>	
@@ -372,10 +374,10 @@
 				</c:import>
 
 				<!-- <span class="detailmini"><c:if test="${album.playCount < 100}">0</c:if><c:if test="${album.playCount < 10}">0</c:if>${album.playCount}</span> |  -->
-				<span class="detailmini"><c:if test="${album.songCount < 100}">0</c:if><c:if test="${album.songCount < 10}">0</c:if>${album.songCount}</span>
-				<img src="icons/default/note.png" width="10" height="10" title="Tracks" style="margin-right: 5px;"/>
+				<!--<div class="detailmini" style="display:inline;font-family: verdana, arial, sans-serif;"><c:if test="${album.songCount < 100}">0</c:if><c:if test="${album.songCount < 10}">0</c:if>${album.songCount}</div>
+				<img src="icons/default/note.png" width="10" height="10" title="Tracks" style="margin-right: 5px;"/> -->
 
-				<div style="display: inline-table;">
+				<div id="counters" style="display: inline-table;">
 				
 				<c:choose>
 				  <c:when test="${album.playCount < 100}">
@@ -404,6 +406,11 @@
 				<sub:param name="id" value="${album.mediaFileId}"/>
 			</sub:url>
 			<a target="main" href="${mediaFileIdUrl}"><str:truncateNicely upper="${model.captionCutoff}">${album.name}</str:truncateNicely></a> 
+			
+			<c:if test="${album.songCount ne null}"> - 
+			<span class="detailcolor">${album.songCount}</span>
+			</c:if>
+			
 			<c:if test="${album.genre ne null}"> - 
 			<span class="detailcolor">(${album.genre})</span>
 			</c:if>
@@ -464,9 +471,11 @@
 
 	<div style="margin-top: 60px; padding: 0.20em 0.15em 0.15em 0.15em; z-index: 100">
 	
+	<fmt:message key="top.search" var="search"/>
+	
 	<form method="get" action="artist.view" target="main" name="artistForm">
 		<table><tr>
-			<td><input type="text" name="name" id="name" size="24" value="${search}" onclick="select();"></td>
+			<td><input type="text" name="name" id="query" size="30" placeholder="${search} ..." style="padding-left:8px;margin-right:4px;" onclick="select();"></td>
 			<td><a href="javascript:document.artistForm.submit()"><img src="<spring:theme code="searchImage"/>" alt="${search}" title="${search}"></a></td>
 		</tr></table>
 	</form>
@@ -519,7 +528,7 @@
 		</sub:url>
 		<div style="opacity: 0.70; clear: both; position: relative; top: -35px; left: 68px; 
 					padding: 0.25em 0.15em 0.15em 0.15em; max-width: 16px;">
-			<a class="detailmini" href="${changeCoverArtUrl}" title="Change Artist Cover" alt="Change"><img src="<spring:theme code="editArtistImage"/>"</a>
+			<a class="detailmini" href="${changeCoverArtUrl}" title="Change Artist Cover" alt="Change"><img src="<spring:theme code="editArtistImage"/>"></a>
 		</div>
 		<!-- 01 -->
 		  </td>
@@ -655,7 +664,6 @@
 
 			<c:forEach items="${artist.albums}" var="album" varStatus="loopStatus">
 
-				<span class="controls">
 				<c:import url="playAddDownload.jsp">
 				<c:param name="id" value="${album.mediaFileId}"/>
 				<c:param name="video" value="false"/>
@@ -670,13 +678,12 @@
 				<c:param name="asTable" value="false"/>
 				<c:param name="YoutubeEnabled" value="false"/>
 				</c:import>				
-				<span>
 				
 				<!-- <span class="detailmini"><c:if test="${album.playCount < 100}">0</c:if><c:if test="${album.playCount < 10}">0</c:if>${album.playCount}</span> |  -->
-				<span class="detailmini"><c:if test="${album.songCount < 100}">0</c:if><c:if test="${album.songCount < 10}">0</c:if>${album.songCount}</span>
-				<img src="icons/default/note.png" width="10" height="10" title="Tracks" style="margin-right: 5px;"/>
+				<!-- <span class="detailmini" style="display:inline;font-family: verdana, arial, sans-serif;"><c:if test="${album.songCount < 100}">0</c:if><c:if test="${album.songCount < 10}">0</c:if>${album.songCount}</span>
+				<img src="icons/default/note.png" width="10" height="10" title="Tracks" style="margin-right: 5px;"/> -->
 
-				<div style="display: inline-table;">
+				<div style="display: inline-table;padding-left:8px;">
 				
 				<c:choose>
 				  <c:when test="${album.playCount < 100}">
@@ -699,14 +706,19 @@
 				</c:choose>
 				</div>
 
-				<c:if test="${album.year == 0}"><span class="detail">[0000]</span></c:if><c:if test="${album.year > 1}"><span class="detailcolor">[${album.year}]</span></c:if>
+				<c:if test="${album.year == 0}"><span class="detail" style="padding-right: 10px;">[0000]</span></c:if><c:if test="${album.year > 1}"><span class="detailcolor"  style="padding-right: 10px;">[${album.year}]</span></c:if>
 				
 				<sub:url value="main.view" var="mediaFileIdUrl">
 					<sub:param name="id" value="${album.mediaFileId}"/>
 				</sub:url>
 				<a target="main" href="${mediaFileIdUrl}"><str:truncateNicely upper="${model.captionCutoff}">${album.name}</str:truncateNicely></a> 
+
+				<c:if test="${album.songCount ne null}"> - 
+				<span class="detailcolor">${album.songCount}</span>
+				</c:if>
+
 				<c:if test="${album.genre ne null}"> - 
-				<span class="detailcolor">(${album.genre})</span>
+				<span class="detailcolor">${album.genre}</span>
 				</c:if>
 				<br>
 				</c:forEach>

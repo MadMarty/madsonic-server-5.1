@@ -21,6 +21,7 @@ package org.madsonic.controller;
 import org.madsonic.Logger;
 import org.madsonic.domain.Album;
 import org.madsonic.domain.CoverArtScheme;
+import org.madsonic.domain.Genre;
 import org.madsonic.domain.MediaFile;
 import org.madsonic.domain.MusicFolder;
 import org.madsonic.domain.User;
@@ -88,12 +89,16 @@ public class HomeController extends ParameterizableViewController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+    	
+    	
+    	
         User user = securityService.getCurrentUser(request);
         if (user.isAdminRole() && settingsService.isGettingStartedEnabled()) {
             return new ModelAndView(new RedirectView("gettingStarted.view"));
         }
         UserSettings userSettings = settingsService.getUserSettings(user.getUsername());
         int musicFolderId = userSettings.getSelectedMusicFolderId();
+        
         MusicFolder selectedMusicFolder = settingsService.getMusicFolderById(musicFolderId);
         
         int userGroupId = securityService.getCurrentUserGroupId(request);
@@ -159,11 +164,15 @@ public class HomeController extends ParameterizableViewController {
             int decade = getIntParameter(request, "decade", decades.get(0));
             map.put("decade", decade);
             albums = getByYear(listOffset, listSize, decade, decade + 9, userGroupId);
+            
         } else if ("genre".equals(listType)) {
-            List<String> genres = mediaFileService.getGenres(userGroupId);
+        	
+//          List<String> genres = mediaFileService.getGenres(userGroupId);
+            List<Genre> genres = mediaFileService.getGenres(true);
+            
             map.put("genres", genres);
             if (!genres.isEmpty()) {
-                String genre = getStringParameter(request, "genre", genres.get(0));
+                String genre = getStringParameter(request, "genre", genres.get(0).getName());
                 map.put("genre", genre);
                 albums = getByGenre(listOffset, listSize, genre, userGroupId); 
                 }
@@ -211,7 +220,10 @@ public class HomeController extends ParameterizableViewController {
         if (settingsService.showHomeTop100()){header = header + " top";}
         if (settingsService.showHomeNew100()){header = header + " new";}    
         map.put("homeHeader", header);
-		
+        
+        map.put("showHomePagerTop", settingsService.showHomePagerTop());  
+        map.put("showHomePagerBottom", settingsService.showHomePagerBottom());  
+        
         ModelAndView result = super.handleRequestInternal(request, response);
         result.addObject("model", map);
         return result;
@@ -406,8 +418,18 @@ public class HomeController extends ParameterizableViewController {
         return result;
     }
     
+    
+    
+    
+    
+    
+    
     private List<Album> getRandom(MusicFolder musicFolder, int count, int user_group_id) throws IOException {
         List<Album> result = new ArrayList<Album>();
+        
+        
+        
+        
         for (MediaFile file : searchService.getRandomAlbums(musicFolder, count, user_group_id)) {
             Album album = createAlbum(file);
             if (album != null) {

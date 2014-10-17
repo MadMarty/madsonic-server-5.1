@@ -108,10 +108,6 @@ public class StreamController implements Controller {
 
             String contentType = StringUtil.getMimeType(request.getParameter("suffix"));
             
-//            if (player.isWeb()) {
-//            	contentType = StringUtil.getMimeType("mp3");
-//            }
-
             response.setContentType(contentType);
 
             String preferredTargetFormat = request.getParameter("format");
@@ -161,10 +157,6 @@ public class StreamController implements Controller {
                 } else {
                 	
                     String transcodedSuffix = transcodingService.getSuffix(player, file, preferredTargetFormat);
-                    
-//                    if (player.isWeb()) {
-//                    	transcodedSuffix = "mp3";
-//                    }
                     response.setContentType(StringUtil.getMimeType(transcodedSuffix));
                     setContentDuration(response, file);
                 }

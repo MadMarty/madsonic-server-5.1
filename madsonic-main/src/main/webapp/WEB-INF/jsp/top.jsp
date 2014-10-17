@@ -40,12 +40,13 @@
 <fmt:message key="top.upload" var="upload"/>
 <fmt:message key="top.podcast" var="podcast"/>
 <fmt:message key="top.more" var="more"/>
+<fmt:message key="top.random" var="random"/>
 <fmt:message key="top.chat" var="chat"/>
 <fmt:message key="top.help" var="help"/>
 <fmt:message key="top.search" var="search"/>
 
 <c:if test="${not model.showRight}">			
-<div id="scanningStatus" class="warning" style="display: none; position: absolute; height: auto; width: 200px; left: 10px; top: 55px; border:1 solid white;">
+<div id="scanningStatus" class="warning" style="display: none; position: absolute; height: auto; width: 200px; left:35px; top:55px; border:1 solid white;">
 	<img src="<spring:theme code="scanningImage"/>" title="" alt="" width="16" hight="16"> <fmt:message key="main.scanning"/> <span id="scanCount"></span>
 </div>		
 
@@ -222,6 +223,12 @@
                 <a href="more.view?" target="main">${more}</a>
             </td>
 		</c:if>
+		<c:if test="${model.showIconRandom}">			
+			<td style="min-width:4em;padding-right:0.8em">
+                <a href="random.view?" target="main"><img src="<spring:theme code="randomImage"/>" title="${random}" alt="${random}"></a><br>
+                <a href="random.view?" target="main">${random}</a>
+            </td>
+		</c:if>		
 		<c:if test="${not model.newVersionAvailable}">  
 			<c:if test="${model.showIconAbout}">			
 				<td style="min-width:4em;padding-right:0.8em">
@@ -268,14 +275,6 @@
 			</p>
             </td>
 	
-			<!--
-				<td>
-				<table><tr align="middle">
-				<td style="min-width:4em;padding-left: 2em; padding-right:2.5em">
-				<embed src="http://www.adamdorman.com/flash/flip_clock_black_24_w-secs.swf" width="100" height="32" type="application/x-shockwave-flash"  wmode="opaque" quality="high"></embed>
-				</td><tr>
-				<td style="min-width:4em;padding-right:1.5em">			
-			-->			
             <c:if test="${model.newVersionAvailable}">  
 				<c:if test="${model.NotificationEnabled}"> 
 					<c:if test="${model.user.adminRole}">   <!-- or ${model.newVersionAvailable} -->

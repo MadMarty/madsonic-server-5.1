@@ -44,7 +44,7 @@
 		<tr>
             <td><fmt:message key="generalsettings.uploadfolder"/></td>
             <td>
-                <form:input path="uploadFolder" size="100"/>
+                <form:input path="uploadFolder" size="120"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="uploadfolder"/></c:import>
             </td>
         </tr>
@@ -54,7 +54,7 @@
 		<tr>
             <td><fmt:message key="generalsettings.playlistImportfolder"/></td>
             <td>
-                <form:input path="playlistImportFolder" size="100"/>
+                <form:input path="playlistImportFolder" size="120"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="playlistImportfolder"/></c:import>
             </td>
         </tr>
@@ -62,7 +62,7 @@
         <tr>
             <td><fmt:message key="generalsettings.playlistExportfolder"/></td>
             <td>
-                <form:input path="playlistExportFolder" size="100"/>
+                <form:input path="playlistExportFolder" size="120"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="playlistExportfolder"/></c:import>
             </td>
         </tr>		
@@ -70,7 +70,7 @@
         <tr>
             <td><fmt:message key="generalsettings.playlistBackupfolder"/></td>
             <td>
-                <form:input path="playlistBackupFolder" size="100"/>
+                <form:input path="playlistBackupFolder" size="120"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="playlistBackupfolder"/></c:import>
             </td>
         </tr>
@@ -80,7 +80,7 @@
         <tr>
             <td><fmt:message key="generalsettings.musicmask"/></td>
             <td>
-                <form:input path="musicFileTypes" size="100"/>
+                <form:input path="musicFileTypes" size="120"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="musicmask"/></c:import>
             </td>
         </tr>
@@ -88,7 +88,7 @@
         <tr>
             <td><fmt:message key="generalsettings.videomask"/></td>
             <td>
-                <form:input path="videoFileTypes" size="100"/>
+                <form:input path="videoFileTypes" size="120"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="videomask"/></c:import>
             </td>
         </tr>
@@ -96,7 +96,7 @@
         <tr>
             <td><fmt:message key="generalsettings.coverartmask"/></td>
             <td>
-                <form:input path="coverArtFileTypes" size="100"/>
+                <form:input path="coverArtFileTypes" size="120"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="coverartmask"/></c:import>
             </td>
         </tr>
@@ -191,7 +191,7 @@
         <tr>
             <td><fmt:message key="generalsettings.language"/></td>
             <td>
-                <form:select path="localeIndex" cssStyle="width:15em">
+                <form:select path="localeIndex" cssStyle="width:20em">
                     <c:forEach items="${command.locales}" var="locale" varStatus="loopStatus">
                         <form:option value="${loopStatus.count - 1}" label="${locale}"/>
                     </c:forEach>
@@ -203,7 +203,7 @@
         <tr>
             <td><fmt:message key="generalsettings.theme"/></td>
             <td>
-                <form:select path="themeIndex" cssStyle="width:15em" onchange="changePreview(this.options[selectedIndex].label)">
+                <form:select path="themeIndex" cssStyle="width:20em" onchange="changePreview(this.options[selectedIndex].label)">
                     <c:forEach items="${command.themes}" var="theme" varStatus="loopStatus">
                         <form:option value="${loopStatus.count - 1}" label="${theme.name}"/>
                     </c:forEach>
@@ -389,6 +389,26 @@
             </td>
         </tr>		
 
+        <tr><td colspan="2">&nbsp;</td></tr>
+
+		<tr>
+            <td>
+            </td>
+            <td>
+                <form:checkbox path="showHomePagerTop" id="showHomePagerTop"/>
+                <label for="showHomePagerTop"><fmt:message key="generalsettings.showHomePagerTop"/></label>
+            </td>
+        </tr>	
+
+		<tr>
+            <td>
+            </td>
+            <td>
+                <form:checkbox path="showHomePagerBottom" id="showHomePagerBottom"/>
+                <label for="showHomePagerBottom"><fmt:message key="generalsettings.showHomePagerBottom"/></label>
+            </td>
+        </tr>	
+		
         <tr><td colspan="2">&nbsp;</td></tr>
 
         <tr>
@@ -596,14 +616,14 @@
         <tr>
             <td style="vertical-align:top;"><fmt:message key="generalsettings.welcomemessage"/></td>
             <td>
-                <form:textarea path="welcomeMessage" rows="12" cols="70"/>
+                <form:textarea path="welcomeMessage" rows="20" cols="80"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="welcomemessage"/></c:import>
             </td>
         </tr>
         <tr>
             <td style="vertical-align:top;"><fmt:message key="generalsettings.loginmessage"/></td>
             <td>
-                <form:textarea path="loginMessage" rows="8" cols="70"/>
+                <form:textarea path="loginMessage" rows="8" cols="80"/>
                 <c:import url="helpToolTip.jsp"><c:param name="topic" value="loginmessage"/></c:import>
                 <fmt:message key="main.wiki"/>
             </td>
@@ -645,16 +665,16 @@
 					set_width:false, /*optional element width: boolean, pixels, percentage*/
 					set_height:false, /*optional element height: boolean, pixels, percentage*/
 					horizontalScroll:false, /*scroll horizontally: boolean*/
-					scrollInertia:850, /*scrolling inertia: integer (milliseconds)*/
+					scrollInertia:650, /*scrolling inertia: integer (milliseconds)*/
 					mouseWheel:true, /*mousewheel support: boolean*/
-					mouseWheelPixels:"300", /*mousewheel pixels amount: integer, "auto"*/
+					mouseWheelPixels:"150", /*mousewheel pixels amount: integer, "auto"*/
 					autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
 					autoHideScrollbar:false, /*auto-hide scrollbar when idle*/
 					scrollButtons:{ /*scroll buttons*/
 						enable:true, /*scroll buttons support: boolean*/
 						scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
 						scrollSpeed:"auto", /*scroll buttons continuous scrolling speed: integer, "auto"*/
-						scrollAmount:250 /*scroll buttons pixels scroll amount: integer (pixels)*/
+						scrollAmount:150 /*scroll buttons pixels scroll amount: integer (pixels)*/
 					},
 					advanced:{
 						updateOnBrowserResize:false, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/

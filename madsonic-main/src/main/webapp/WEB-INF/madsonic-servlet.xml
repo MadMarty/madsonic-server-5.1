@@ -2,7 +2,7 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
     <bean id="artistController" class="org.madsonic.controller.ArtistController">
         <property name="viewName" value="artist"/>
@@ -89,6 +89,7 @@
         <property name="versionService" ref="versionService"/>
         <property name="settingsService" ref="settingsService"/>
         <property name="securityService" ref="securityService"/>
+        <property name="transcodingService" ref="transcodingService"/>
     </bean>
     <bean id="LogController" class="org.madsonic.controller.LogController">
         <property name="viewName" value="logs"/>
@@ -97,6 +98,13 @@
     </bean>	
     <bean id="moreController" class="org.madsonic.controller.MoreController">
         <property name="viewName" value="more"/>
+        <property name="settingsService" ref="settingsService"/>
+        <property name="securityService" ref="securityService"/>
+        <property name="mediaFileService" ref="mediaFileService"/>
+        <property name="playerService" ref="playerService"/>
+    </bean>
+    <bean id="randomController" class="org.madsonic.controller.RandomController">
+        <property name="viewName" value="random"/>
         <property name="settingsService" ref="settingsService"/>
         <property name="securityService" ref="securityService"/>
         <property name="mediaFileService" ref="mediaFileService"/>
@@ -192,7 +200,6 @@
 	    <bean id="randomPlayQueueController" class="org.madsonic.controller.RandomPlayQueueController">
         <property name="viewName" value="reload"/>
         <property name="playerService" ref="playerService"/>
-        <property name="mediaFileService" ref="mediaFileService"/>
         <property name="searchService" ref="searchService"/>
         <property name="reloadFrames">
             <list>
@@ -202,7 +209,7 @@
                 </bean>
                 <bean class="org.madsonic.controller.ReloadFrame">
                     <property name="frame" value="main"/>
-                    <property name="view" value="more.view"/>
+                    <property name="view" value="random.view"/>
                 </bean>
             </list>
         </property>
@@ -429,7 +436,8 @@
     	<property name="viewName" value="genres"/>
         <property name="mediaFileService" ref="mediaFileService"/>
         <property name="securityService" ref="securityService"/>		
-        <property name="settingsService" ref="settingsService"/>		
+        <property name="settingsService" ref="settingsService"/>	
+        <property name="searchService" ref="searchService"/>        	
     </bean>
     <bean id="playQueueController" class="org.madsonic.controller.PlayQueueController">
         <property name="viewName" value="playQueue"/>
@@ -516,15 +524,6 @@
         <property name="settingsService" ref="settingsService"/>
         <property name="playlistService" ref="playlistService"/>
     </bean>
-    <bean id="wapController" class="org.madsonic.controller.WapController">
-        <property name="settingsService" ref="settingsService"/>
-        <property name="playerService" ref="playerService"/>
-        <property name="playlistService" ref="playlistService"/>
-        <property name="searchService" ref="searchService"/>
-        <property name="securityService" ref="securityService"/>
-        <property name="mediaFileService" ref="mediaFileService"/>
-        <property name="musicIndexService" ref="musicIndexService"/>
-    </bean>
     <bean id="restController" class="org.madsonic.controller.RESTController" init-method="init">
         <property name="settingsService" ref="settingsService"/>
         <property name="securityService" ref="securityService"/>
@@ -588,6 +587,7 @@
                 <prop key="/right.view">rightController</prop>
                 <prop key="/status.view">statusController</prop>
                 <prop key="/serverStatus.view">serverStatusController</prop>
+                <prop key="/random.view">randomController</prop>
                 <prop key="/more.view">moreController</prop>
                 <prop key="/moree.view">moreeController</prop>
                 <prop key="/upload.view">uploadController</prop>
@@ -676,8 +676,6 @@
                 <prop key="/podcastReceiverAdmin.view">podcastReceiverAdminController</prop>
                 <prop key="/podcast.view">podcastController</prop>
                 <prop key="/podcast/**">podcastController</prop>
-                <prop key="/wap/download.view">downloadController</prop>
-                <prop key="/wap/**">wapController</prop>
                 <prop key="/rest/**">restController</prop>
                 <prop key="/play.m3u">m3uController</prop>
                 <prop key="/stream/**">streamController</prop>

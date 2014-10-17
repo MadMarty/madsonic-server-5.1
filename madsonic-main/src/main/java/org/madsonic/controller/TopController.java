@@ -99,7 +99,8 @@ public class TopController extends ParameterizableViewController {
         map.put("showIconStarred", settingsService.showIconStarred());
         map.put("showIconRadio", settingsService.showIconRadio());
 		try {
-			if (userSettings.getLastFmUsername().length() > 0) {
+			if (userSettings.isLastFmEnabled() &&
+			    userSettings.getLastFmUsername().length() > 0) {
 				map.put("showIconLastFM", true);
 			}
 		} catch (Throwable ex) {
@@ -113,6 +114,7 @@ public class TopController extends ParameterizableViewController {
         map.put("showIconPlaylists", settingsService.showIconPlaylists());
         map.put("showIconPlaylistEditor", settingsService.showIconPlaylistEditor());
         map.put("showIconMore", settingsService.showIconMore());
+        map.put("showIconRandom", settingsService.showIconRandom());
         map.put("showIconGenre", settingsService.showIconGenre());
         map.put("showIconMoods", settingsService.showIconMoods());
         map.put("showIconAbout", settingsService.showIconAbout());
@@ -136,6 +138,7 @@ public class TopController extends ParameterizableViewController {
 	            map.put("showIconPlaylists", true);
 	            map.put("showIconPlaylistEditor", true);
 	            map.put("showIconMore", true);
+	            map.put("showIconRandom", true);
 	            map.put("showIconMoods", true);
 	            map.put("showIconAbout", false);
 	        }

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+		http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<http pattern="/rest/**" create-session="stateless" entry-point-ref="restRequestEntryPoint" use-expressions="true">
+    <http pattern="/rest/**" create-session="stateless" entry-point-ref="restRequestEntryPoint" use-expressions="true">
 		<intercept-url pattern="/**" access="permitAll" />
-		<custom-filter ref="restRequestParameterProcessingFilter" after="PRE_AUTH_FILTER" />
-	</http>
+		<custom-filter ref="restRequestParameterProcessingFilter" after="PRE_AUTH_FILTER" /> 
+	</http> 
 
-	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/login.view" access="permitAll" />
-
+	<http auto-config="true" use-expressions="true" access-denied-page="/login.view">
+	
+		<intercept-url pattern="/login.view*" access="permitAll" />
 		<intercept-url pattern="/accessDenied.view" access="permitAll" />
 		<intercept-url pattern="/recover.view" access="permitAll" />
 		<intercept-url pattern="/videoPlayer.view" access="permitAll" />
@@ -23,16 +24,18 @@
 		<intercept-url pattern="/share/**" access="permitAll" />
 		<intercept-url pattern="/style/**" access="permitAll" />
 		<intercept-url pattern="/icons/**" access="permitAll" />
+		<intercept-url pattern="/dwr/**" access="permitAll" />
 		<intercept-url pattern="/flash/**" access="permitAll" />
 		<intercept-url pattern="/script/**" access="permitAll" />
 		<intercept-url pattern="/crossdomain.xml" access="permitAll" />
+		<intercept-url pattern="/favicon.ico" access="permitAll" />
 		
 		<intercept-url pattern="/personalSettings.view" access="hasRole('ROLE_SETTINGS')" />
 		<intercept-url pattern="/lastFmSettings.view" access="hasRole('ROLE_SETTINGS')" />
 		<intercept-url pattern="/passwordSettings.view" access="hasRole('ROLE_SETTINGS')" />
 		<intercept-url pattern="/playerSettings.view" access="hasRole('ROLE_SETTINGS')" />
 		<intercept-url pattern="/shareSettings.view" access="hasRole('ROLE_SETTINGS')" />
-
+		
 		<intercept-url pattern="/generalSettings.view" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/advancedSettings.view" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/userSettings.view" access="hasRole('ROLE_ADMIN')" />
@@ -54,22 +57,36 @@
 		
 		<intercept-url pattern="/deletePlaylist.view" access="hasRole('ROLE_PLAYLIST')" />
 		<intercept-url pattern="/savePlaylist.view" access="hasRole('ROLE_PLAYLIST')" />
+		
 		<intercept-url pattern="/download.view" access="hasRole('ROLE_DOWNLOAD')" />
+		
 		<intercept-url pattern="/upload.view" access="hasRole('ROLE_UPLOAD')" />
+		
 		<intercept-url pattern="/createShare.view" access="hasRole('ROLE_SHARE')" />
+		
 		<intercept-url pattern="/changeCoverArt.view" access="hasRole('ROLE_COVERART')" />
 		<intercept-url pattern="/artistGenres.view"	access="hasRole('ROLE_COVERART')"/>
 		<intercept-url pattern="/editTags.view" access="hasRole('ROLE_COVERART')" />
 		<intercept-url pattern="/editArtist.view" access="hasRole('ROLE_COVERART')" />
 		<intercept-url pattern="/setMusicFileInfo.view" access="hasRole('ROLE_COMMENT')" />
+		
 		<intercept-url pattern="/podcastReceiverAdmin.view" access="hasRole('ROLE_PODCAST')" />
 		
 		<intercept-url pattern="/*" access="hasRole('ROLE_STREAM')" />
-
-		<form-login login-page="/login.view" default-target-url="/index.view" always-use-default-target="true" />
 		
+        <custom-filter before="FORM_LOGIN_FILTER" ref="authenticationFilter" />
+        
+		<form-login authentication-failure-handler-ref="simpleUrlAuthenticationFailureHandler" login-page="/login.view" default-target-url="/index.view"  always-use-default-target="true" />
+		
+        <logout logout-success-url="/login.view" />
+        
 		<remember-me key="madsonic" services-ref="rememberMeServices"/>
 	</http>
+
+	<beans:bean id="simpleUrlAuthenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:constructor-arg type="String" value="/login.view"></beans:constructor-arg>	
+	    <beans:property name="useForward" value="true"/>
+	</beans:bean>
 
 	<beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
         <beans:property name="userDetailsService" ref="securityService"/>
@@ -81,38 +98,44 @@
 	
     <beans:bean id="restRequestParameterProcessingFilter" class="org.madsonic.security.RESTRequestParameterProcessingFilter">
         <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="settingsService" ref="settingsService"/>		
     </beans:bean>
     
     <beans:bean id="restRequestEntryPoint" class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
-    	<beans:property name="realmName" value="REST requests realm" />
-    	<beans:property name="key" value="spring" />
+    	<beans:property name="realmName" value="madsonic" />
+    	<beans:property name="key" value="spring" />    	
     </beans:bean>
     
+	<!-- <beans:bean id="restRequestFilter" class="org.springframework.security.web.FilterChainProxy">
+	<filter-chain-map request-matcher="ant">
+		<filter-chain pattern="/rest/**" filters="restRequestEntryPoint"/>
+	</filter-chain-map>
+	<beans:property name="firewall">
+		<beans:bean class="org.madsonic.security.RESTHttpFirewall"/>
+	</beans:property>
+	</beans:bean> -->
+	
+    <beans:bean id="authenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+       	<beans:property name="authenticationManager" ref="authenticationManager" /> 
+       	<beans:property name="postOnly" value="false" />
+ 	    <beans:property name="authenticationFailureHandler" ref="madsonicAuthenticationFailureHandler"/>
+	    <beans:property name="authenticationSuccessHandler" ref="madsonicAuthenticationSuccessHandler"/>
+    </beans:bean>
+
+	<beans:bean id="madsonicAuthenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+	    <beans:property name="defaultFailureUrl" value="/login.view?error=true"/> 
+	</beans:bean>
+	
+	<beans:bean id="madsonicAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+	    <beans:property name="defaultTargetUrl" value="/index.view" />
+	</beans:bean>
+    
 	<authentication-manager alias="authenticationManager">
-<!--	<authentication-provider ref="ldapAuthenticationProvider"/> -->
 		<authentication-provider user-service-ref="securityService">
 			<password-encoder ref="passwordEncoder">
 				<salt-source ref="saltSource" />
 			</password-encoder>
 		</authentication-provider>
 	</authentication-manager>
-
-	<!-- <ldap-server url="ldap://localhost:389/OU=Company,DC=labor,DC=local" manager-dn="CN=Administrator,OU=Accounts,OU=Company,DC=labor,DC=local" manager-password="pass"/> -->
-	
-	<beans:bean id="ldapAuthenticationProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
-        <beans:constructor-arg ref="bindAuthenticator"/>
-        <beans:constructor-arg ref="userDetailsServiceBasedAuthoritiesPopulator"/>
-    </beans:bean>
-
-    <beans:bean id="bindAuthenticator" class="org.madsonic.ldap.MadsonicLdapBindAuthenticator">
-        <beans:property name="securityService" ref="securityService"/>
-        <beans:property name="settingsService" ref="settingsService"/>
-    </beans:bean>
-
-    <beans:bean id="userDetailsServiceBasedAuthoritiesPopulator" class="org.madsonic.ldap.UserDetailsServiceBasedAuthoritiesPopulator">
-        <beans:property name="userDetailsService" ref="securityService"/>
-    </beans:bean>
-	
-	
 	
 </beans:beans>

@@ -44,7 +44,7 @@
                                         <copy file="../madsonic-booter/src/main/script/madsonic.sh" todir="${project.build.directory}/deb/usr/share/madsonic"/>
                                         <copy file="../madsonic-booter/target/madsonic-booter-jar-with-dependencies.jar" toFile="${project.build.directory}/deb/usr/share/madsonic/madsonic-booter.jar"/>
                                         <copy file="../madsonic-main/target/madsonic.war" todir="${project.build.directory}/deb/usr/share/madsonic"/>
-                                        <copy file="../madsonic-transcode-x86/linux/Audioffmpeg" todir="${project.build.directory}/deb/var/madsonic/transcode"/>
+                                        <copy file="../madsonic-genre/genremap.cfg" todir="${project.build.directory}/deb/var/madsonic/config"/>
                                         <copy file="../madsonic-transcode-x86/linux/ffmpeg" todir="${project.build.directory}/deb/var/madsonic/transcode"/>
                                         <copy file="../madsonic-transcode-x86/linux/lame" todir="${project.build.directory}/deb/var/madsonic/transcode"/>
                                         <copy file="../madsonic-transcode-x86/linux/xmp" todir="${project.build.directory}/deb/var/madsonic/transcode"/>
@@ -55,9 +55,8 @@
                                             <arg value="${project.build.directory}/deb/DEBIAN/postinst"/>
                                             <arg value="${project.build.directory}/deb/DEBIAN/prerm"/>
                                             <arg value="${project.build.directory}/deb/DEBIAN/postrm"/>
-                                            <arg value="${project.build.directory}/deb/usr/share/madsonic/madsonic.sh"/>
                                             <arg value="${project.build.directory}/deb/etc/init.d/madsonic"/>
-                                            <arg value="${project.build.directory}/deb/var/madsonic/transcode/Audioffmpeg"/>
+                                            <arg value="${project.build.directory}/deb/usr/share/madsonic/madsonic.sh"/>
                                             <arg value="${project.build.directory}/deb/var/madsonic/transcode/ffmpeg"/>
                                             <arg value="${project.build.directory}/deb/var/madsonic/transcode/lame"/>
                                             <arg value="${project.build.directory}/deb/var/madsonic/transcode/xmp"/>

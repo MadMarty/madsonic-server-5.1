@@ -60,6 +60,7 @@ import org.madsonic.service.MusicIndexService;
 import org.madsonic.service.PlayerService;
 import org.madsonic.service.SecurityService;
 import org.madsonic.service.SettingsService;
+
 import org.madsonic.service.metadata.JaudiotaggerParser;
 import org.madsonic.util.FileUtil;
 import org.madsonic.util.StringUtil;
@@ -75,7 +76,7 @@ public class LeftController extends ParameterizableViewController {
 
     // Update this time if you want to force a refresh in clients.
     private static final Calendar LAST_COMPATIBILITY_TIME = Calendar.getInstance();
-    
+
     static {
         LAST_COMPATIBILITY_TIME.set(2014, Calendar.MAY, 1, 0, 0, 0);
         LAST_COMPATIBILITY_TIME.set(Calendar.MILLISECOND, 0);
@@ -89,6 +90,12 @@ public class LeftController extends ParameterizableViewController {
     private PlayerService playerService;
     private PlaylistService playlistService;
 
+	private final int DEFAULT_GROUP_NONE = SettingsService.DEFAULT_GROUP_NONE;
+    private final int DEFAULT_GROUP_ALL = SettingsService.DEFAULT_GROUP_ALL;
+    private final int DEFAULT_GROUP_MUSIC = SettingsService.DEFAULT_GROUP_MUSIC;
+    private final int DEFAULT_GROUP_VIDEO = SettingsService.DEFAULT_GROUP_VIDEO;
+    private final int DEFAULT_GROUP_MOVIES = SettingsService.DEFAULT_GROUP_MOVIES;
+    private final int DEFAULT_GROUP_SERIES = SettingsService.DEFAULT_GROUP_SERIES;    
     /**
      * Note: This class intentionally does not implement org.springframework.web.servlet.mvc.LastModified
      * as we don't need browser-side caching of left.jsp.  This method is only used by RESTController.
@@ -150,18 +157,18 @@ public class LeftController extends ParameterizableViewController {
         int userGroupId = securityService.getCurrentUserGroupId(request);
         
         List<MusicFolder> allFolders = new ArrayList<MusicFolder>();
-        
-        //todo: get grouping setting 
-        
-        List<MusicFolder> allOtherFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), 0);
-        List<MusicFolder> allMusicFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), 1);
-        List<MusicFolder> allVideoFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), 2);
+        List<MusicFolder> allOtherFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), DEFAULT_GROUP_NONE);
+        List<MusicFolder> allMusicFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), DEFAULT_GROUP_MUSIC);
+        List<MusicFolder> allVideoFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), DEFAULT_GROUP_VIDEO);
+        List<MusicFolder> allMoviesFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), DEFAULT_GROUP_MOVIES);
+        List<MusicFolder> allSeriesFolders = settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(), DEFAULT_GROUP_SERIES);
         
         allFolders.addAll(allOtherFolders);
         allFolders.addAll(allMusicFolders);
         allFolders.addAll(allVideoFolders);
+        allFolders.addAll(allMoviesFolders);
+        allFolders.addAll(allSeriesFolders);
         
-        // TODO: new musicFolder Sort
         Comparator<MusicFolder> comparator = new MusicFolderComparator();
         Set<MusicFolder> set = new TreeSet<MusicFolder>(comparator);
         set.addAll(allFolders);
@@ -172,10 +179,12 @@ public class LeftController extends ParameterizableViewController {
         List<MusicFolder> musicFoldersToUse ;
         
         switch(selectedMusicFolderId){ 
-        case -1: musicFoldersToUse = allFolders; break; 
-        case -2: musicFoldersToUse = allMusicFolders; break; 
-        case -3: musicFoldersToUse = allVideoFolders; break;             
-        default: musicFoldersToUse = selectedMusicFolder == null ? allOtherFolders : Arrays.asList(selectedMusicFolder);
+	        case -1: musicFoldersToUse = allFolders; break; 
+	        case -2: musicFoldersToUse = allMusicFolders; break; 
+	        case -3: musicFoldersToUse = allVideoFolders; break; 
+	        case -4: musicFoldersToUse = allMoviesFolders; break; 
+	        case -5: musicFoldersToUse = allSeriesFolders; break; 
+	        default: musicFoldersToUse = selectedMusicFolder == null ? allOtherFolders : Arrays.asList(selectedMusicFolder);
         break; 
         } 
         
@@ -185,6 +194,12 @@ public class LeftController extends ParameterizableViewController {
         if ( allVideoFolders.size() > 0) {
             map.put("VideoFolderEnabled", true);
         }
+        if ( allMoviesFolders.size() > 0) {
+            map.put("MoviesFolderEnabled", true);
+        }
+        if ( allSeriesFolders.size() > 0) {
+            map.put("SeriesFolderEnabled", true);
+        }        
         
         String selectedGenre = getSelectedGenre(request);
         
@@ -196,12 +211,9 @@ public class LeftController extends ParameterizableViewController {
 
         map.put("player", playerService.getPlayer(request, response));
         map.put("scanning", mediaScannerService.isScanning());
-        
         map.put("musicFolders", allOtherFolders);
-        
         map.put("selectedMusicFolder", selectedMusicFolder);
         map.put("selectedMusicFolderId", selectedMusicFolderId);
-        
         map.put("selectedGenre", selectedGenre);
 
         List <String> _allGenres = mediaFileService.getArtistGenresforFolder(musicFoldersToUse, userGroupId);
@@ -228,7 +240,9 @@ public class LeftController extends ParameterizableViewController {
         switch(selectedMusicFolderId){ 
 	        case -1: selectedIndex = settingsService.getAllIndexString(); break; 
 	        case -2: selectedIndex = settingsService.getMusicIndexString(); break; 
-	        case -3: selectedIndex = settingsService.getVideoIndexString(); break;             
+	        case -3: selectedIndex = settingsService.getVideoIndexString(); break;
+	        case -4: selectedIndex = settingsService.getVideoIndexString(); break;   
+	        case -5: selectedIndex = settingsService.getVideoIndexString(); break;   
 	        default: selectedIndex = "1"; break; 
         } 
 
@@ -239,19 +253,8 @@ public class LeftController extends ParameterizableViewController {
         map.put("captionCutoff", userSettings.getMainVisibility().getCaptionCutoff());
         map.put("partyMode", userSettings.isPartyModeEnabled());
         map.put("organizeByFolderStructure", settingsService.isOrganizeByFolderStructure());
-
         map.put("listType", userSettings.getListType());
-        
 		map.put("ShowShortcuts", settingsService.isShowShortcuts());
-		
-        if (statistics != null) {
-            map.put("statistics", statistics);
-            long bytes = statistics.getTotalLengthInBytes();
-            long hours = statistics.getTotalDurationInSeconds() / 3600L;
-            map.put("hours", hours);
-            map.put("bytes", StringUtil.formatBytes(bytes, locale));
-        }
-
         map.put("indexedArtists", musicFolderContent.getIndexedArtists());
         map.put("singleSongs", musicFolderContent.getSingleSongs());
         map.put("indexes", musicFolderContent.getIndexedArtists().keySet());
@@ -259,6 +262,14 @@ public class LeftController extends ParameterizableViewController {
         map.put("customScrollbar", userSettings.isCustomScrollbarEnabled()); 		
         map.put("customAccordion", userSettings.isCustomAccordionEnabled()); 
         map.put("playlistEnabled", settingsService.isPlaylistEnabled());
+
+        if (statistics != null) {
+            map.put("statistics", statistics);
+            long bytes = statistics.getTotalLengthInBytes();
+            long hours = statistics.getTotalDurationInSeconds() / 3600L;
+            map.put("hours", hours);
+            map.put("bytes", StringUtil.formatBytes(bytes, locale));
+        }
         
 //      map.put("sortMediaFileFolder", settingsService.isSortMediaFileFolder());
         

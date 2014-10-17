@@ -18,6 +18,13 @@
  */
 package org.madsonic.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.madsonic.Logger;
 import org.madsonic.dao.AlbumDao;
 import org.madsonic.dao.ArtistDao;
@@ -25,24 +32,12 @@ import org.madsonic.dao.MediaFileDao;
 import org.madsonic.dao.MusicFolderDao;
 import org.madsonic.dao.PlaylistDao;
 import org.madsonic.dao.TranscodingDao;
-import org.madsonic.domain.Playlist;
 import org.madsonic.service.MediaScannerService;
 import org.madsonic.service.PlaylistService;
 import org.madsonic.service.SecurityService;
 import org.madsonic.service.SettingsService;
-import org.madsonic.util.StringUtil;
-
-import org.apache.commons.logging.Log;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
-import org.springframework.web.servlet.view.RedirectView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Controller for the page used to administrate the set of internet radio/tv stations.
@@ -80,7 +75,6 @@ public class CleanupSettingsController extends ParameterizableViewController {
         if (request.getParameter("FullCleanupNow") != null) {
         	
 			playlistService.backupAllPlaylists();
-
         	playlistDao.deleteAllPlaylists();			
 			
         	musicFolderDao.DisableAllMusicFolder();
@@ -127,6 +121,13 @@ public class CleanupSettingsController extends ParameterizableViewController {
             map.put("reload", true);			
         }
 
+        if (request.getParameter("resetStats") != null) {
+        	
+            mediaScannerService.scanLibrary();
+            securityService.resetStats();
+			map.put("done", true);
+        }         
+        
         if (request.getParameter("resetPlaylists") != null) {
         	playlistDao.deleteAllImportedPlaylists();
             mediaScannerService.scanLibrary();
@@ -156,43 +157,67 @@ public class CleanupSettingsController extends ParameterizableViewController {
 			mediaFolderDao.cleanupStatistics();			
 			map.put("done", true);
             map.put("reload", true);			
-        }        
-
-        if (request.getParameter("reset2Subsonic") != null) {
-        	transcodingDao.reset2Subsonic();
-			map.put("done", true);
-        }	        
-        if (request.getParameter("reset2FLV") != null) {
+        }
+        
+        if (request.getParameter("reset2MadsonicFLV") != null) {
         	transcodingDao.reset2FLV();
-			map.put("done", true);
-        }	        
+			map.put("warn", true);
+			map.put("warnInfo", "Reset transcoding profil to:<br> FLV only");
+        }
+        
         if (request.getParameter("reset2WEBM") != null) {
         	transcodingDao.reset2WEBM();
 			map.put("done", true);
-        }	        
-        if (request.getParameter("reset2MadsonicFLV") != null) {
-        	transcodingDao.reset2MadsonicFLV();
-			map.put("done", true);
-        }	        
+        }
+        
+        if (request.getParameter("reset2MadsonicDefault") != null) {
+        	transcodingDao.reset2MadsonicDefault();
+    		settingsService.setDownsamplingCommand("ffmpeg -i %s -map 0:0 -b:a %bk -v 0 -f mp3 -");
+    		settingsService.setHlsCommand("ffmpeg -ss %o -t %d -i %s -async 1 -b:v %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f mpegts -c:v libx264 -preset superfast -c:a libmp3lame -threads 0 -");
+    		settingsService.save();
+			map.put("warn", true);
+			map.put("warnInfo", "Reset transcoding profil to: Madsonic default");
+			
+        }
+        
+        if (request.getParameter("reset2MadsonicOld") != null) {
+        	transcodingDao.reset2MadsonicOld();
+    		settingsService.setDownsamplingCommand("ffmpeg -i %s -map 0:0 -b:a %bk -v 0 -f mp3 -");
+    		settingsService.setHlsCommand("ffmpeg -ss %o -t %d -i %s -async 1 -b:v %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f mpegts -vcodec libx264 -preset superfast -c:a libmp3lame -threads 0 -");
+    		settingsService.save();
+			map.put("warn", true);
+			map.put("warnInfo", "Reset transcoding profil to:<br> ffmpeg compatibility");
+        }
+        
         if (request.getParameter("reset2MadsonicWEBM") != null) {
         	transcodingDao.reset2MadsonicWEBM();
-			map.put("done", true);
-        }	        
+			map.put("warn", true);
+			map.put("warnInfo", "Reset transcoding profil to:<br> WEBM only");
+        }
+        
         if (request.getParameter("reset2MadsonicMP4") != null) {
         	transcodingDao.reset2MadsonicMP4();
-			map.put("done", true);
-        }	        
+			map.put("warn", true);
+			map.put("warnInfo", "Reset transcoding profil to:<br> MP4 only");
+        }
+
+        if (request.getParameter("reset2Subsonic") != null) {
+        	transcodingDao.reset2Subsonic();
+    		settingsService.setDownsamplingCommand("ffmpeg -i %s -map 0:0 -b:a %bk -v 0 -f mp3 -");
+    		settingsService.setHlsCommand("ffmpeg -ss %o -t %d -i %s -async 1 -b:v %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f mpegts -c:v libx264 -preset superfast -c:a libmp3lame -threads 0 -");
+			map.put("warn", true);
+			map.put("warnInfo", "Reset transcoding profil to<br> Subsonic default");
+        }
+        
         
         if (request.getParameter("expunge") != null) {
             expunge();
 			map.put("done", true);
-        }		
-		
+        }
+        
         if (request.getParameter("exportPlaylists") != null) {
 			playlistService.exportAllPlaylists();
 			map.put("done", true);
-//			map.put("bug", true);
-//			map.put("bugInfo", "your Bug )c:=");
 	        }		
         
         if (request.getParameter("resetControl") != null) {
@@ -201,7 +226,6 @@ public class CleanupSettingsController extends ParameterizableViewController {
             }		
         	map.put("exportfolder", playlistExportFolderPath);		
         	map.put("backupfolder", playlistBackupFolderPath);			
-        	
 			map.put("scanning", mediaScannerService.isScanning());	
 			
         ModelAndView result = super.handleRequestInternal(request, response);

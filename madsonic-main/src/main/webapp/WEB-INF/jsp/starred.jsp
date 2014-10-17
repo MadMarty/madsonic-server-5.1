@@ -53,11 +53,25 @@
     <fmt:message key="starred.title"/>
 </h1>
 
-<c:if test="${empty model.artists and empty model.albums and empty model.songs}">
-    <p style="padding-top: 1em"><em><fmt:message key="starred.empty"/></em></p>
-</c:if>
+<h2>
+    <c:forTokens items="artists albums songs links videos sets" delims=" " var="cat" varStatus="loopStatus">
+        <c:if test="${loopStatus.count > 1}">&nbsp;<img src="<spring:theme code="sepImage"/>" alt="">&nbsp;</c:if>
+        <sub:url var="url" value="starred.view">
+            <sub:param name="listType" value="${cat}"/>
+        </sub:url>
+        <c:choose>
+            <c:when test="${model.listType eq cat}">
+                <span class="headerSelected"><fmt:message key="starred.${cat}.title"/></span>
+            </c:when>
+            <c:otherwise>
+                <a href="${url}"><fmt:message key="starred.${cat}.title"/></a>
+            </c:otherwise>
+        </c:choose>
+    </c:forTokens>
+</h2>
+
 <!--
-	<c:if test="${not empty model.albums}">
+<c:if test="${not empty model.albums}">
     <h2><fmt:message key="search.hits.albums"/></h2>
 <div>
     <c:forEach items="${model.albums}" var="album" varStatus="loopStatus">
@@ -77,8 +91,8 @@
                     <div class="detail"><fmt:message key="common.unknown"/></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="detail"><b><str:truncateNicely lower="22" upper="22">${album.artist}</str:truncateNicely></b></div>
-                    <div class="detail"><str:truncateNicely lower="22" upper="22">${album.name}</str:truncateNicely></div>
+                    <div class="detail"><b><str:truncateNicely lower="12" upper="18">${album.artist}</str:truncateNicely></b></div>
+                    <div class="detail"><str:truncateNicely lower="12" upper="18">${album.name}</str:truncateNicely></div>
                 </c:otherwise>
             </c:choose>
         </div> 
@@ -86,242 +100,330 @@
 
 	</div>
     </c:if>
--->
-<c:if test="${not empty model.artists}">
-    <h2><fmt:message key="search.hits.artists"/></h2>
+	-->
+	
+
+	<c:if test="${model.listType eq 'artists' and empty model.artists}">
+	<p style="padding-top: 1em"><em><fmt:message key="starred.empty"/></em></p>
+	</c:if>
+	<c:if test="${model.listType eq 'artists'}">
+    <h2><br></h2>
     <table style="border-collapse:collapse">
         <c:forEach items="${model.artists}" var="artist" varStatus="loopStatus">
-
             <sub:url value="/main.view" var="mainUrl">
                 <sub:param name="path" value="${artist.path}"/>
             </sub:url>
-
             <tr>
+			<td>
                 <c:import url="playAddDownload.jsp">
                     <c:param name="id" value="${artist.id}"/>
-                    <c:param name="playEnabled" value="${model.user.streamRole and not model.partyModeEnabled}"/>
-                    <c:param name="addEnabled" value="${model.user.streamRole and (not model.partyModeEnabled or not artist.directory)}"/>
-                    <c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyModeEnabled}"/>
-                    <c:param name="starEnabled" value="true"/>
+					<c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playVisible}"/>
+					<c:param name="playAddEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playAddVisible}"/>
+					<c:param name="playMoreEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playMoreVisible}"/>
+					<c:param name="addEnabled" value="${model.user.streamRole and (not model.partyMode or not artist.directory) and model.buttonVisibility.addContextVisible}"/>
+					<c:param name="addNextEnabled" value="${model.user.streamRole and (not model.partyMode or not artist.directory) and model.buttonVisibility.addNextVisible}"/>
+					<c:param name="addLastEnabled" value="${model.user.streamRole and (not model.partyMode or not artist.directory) and model.buttonVisibility.addLastVisible}"/>						
+					<c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyMode and model.buttonVisibility.downloadVisible}"/>
+					<c:param name="starEnabled" value="true"/>
                     <c:param name="starred" value="${not empty artist.starredDate}"/>
                     <c:param name="asTable" value="true"/>
                 </c:import>
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+				</td>
+				<td style="padding-left:1.5em;padding-right:1.0em;">
+				<c:import url="coverArtThumb.jsp">
+							<c:param name="albumId" value="${artist.id}"/>
+							<c:param name="artistName" value="${artist.name}"/>
+							<c:param name="coverArtSize" value="50"/>
+							<c:param name="scale" value="1.0"/>
+							<c:param name="showLink" value="true"/>
+							<c:param name="showZoom" value="false"/>
+							<c:param name="showChange" value="false"/>
+							<c:param name="showArtist" value="false"/>
+							<c:param name="typArtist" value="true"/>
+							<c:param name="appearAfter" value="${loopStatus.count * 15}"/>
+				</c:import>
+				</td>	
+                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1em;padding-right:1em">
                     <a href="${mainUrl}">${artist.name}</a>
                 </td>
             </tr>
         </c:forEach>
     </table>
-</c:if>
+	</c:if>
 
-<c:if test="${not empty model.albums}">
-    <h2><fmt:message key="search.hits.albums"/></h2>
+	<c:if test="${model.listType eq 'albums' and empty model.albums}">
+	<p style="padding-top: 1em"><em><fmt:message key="starred.empty"/></em></p>
+	</c:if>
+	<c:if test="${model.listType eq 'albums'}">
+    <h2><br></h2>
     <table style="border-collapse:collapse">
         <c:forEach items="${model.albums}" var="album" varStatus="loopStatus">
 
-            <sub:url value="/main.view" var="mainUrl">
-                <sub:param name="path" value="${album.path}"/>
-            </sub:url>
+				<sub:url value="/main.view" var="mainUrl">
+					<sub:param name="path" value="${album.path}"/>
+				</sub:url>
 
-            <tr>
-                <c:import url="playAddDownload.jsp">
-                    <c:param name="id" value="${album.id}"/>
-                    <c:param name="playEnabled" value="${model.user.streamRole and not model.partyModeEnabled}"/>
-                    <c:param name="addEnabled" value="${model.user.streamRole and (not model.partyModeEnabled or not album.directory)}"/>
-                    <c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyModeEnabled}"/>
-                    <c:param name="starEnabled" value="true"/>
-                    <c:param name="starred" value="${not empty album.starredDate}"/>
-                    <c:param name="asTable" value="true"/>
-                </c:import>
+				<tr>
+				<td>
+					<c:import url="playAddDownload.jsp">
+						<c:param name="id" value="${album.id}"/>
+                        <c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playVisible}"/>
+                        <c:param name="playAddEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playAddVisible}"/>
+                        <c:param name="playMoreEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playMoreVisible}"/>
+                        <c:param name="addEnabled" value="${model.user.streamRole and (not model.partyMode or not album.directory) and model.buttonVisibility.addContextVisible}"/>
+                        <c:param name="addNextEnabled" value="${model.user.streamRole and (not model.partyMode or not album.directory) and model.buttonVisibility.addNextVisible}"/>
+                        <c:param name="addLastEnabled" value="${model.user.streamRole and (not model.partyMode or not album.directory) and model.buttonVisibility.addLastVisible}"/>						
+                        <c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyMode and model.buttonVisibility.downloadVisible}"/>
+						<c:param name="starEnabled" value="true"/>
+						<c:param name="starred" value="${not empty album.starredDate}"/>
+						<c:param name="asTable" value="true"/>
+					</c:import>
+					</td>					
+					<td style="padding-left:1.5em;padding-right:1.0em;">
+					<c:import url="coverArtThumb.jsp">
+								<c:param name="albumId" value="${album.id}"/>
+								<c:param name="artistName" value="${album.name}"/>
+								<c:param name="coverArtSize" value="50"/>
+								<c:param name="scale" value="0.5"/>
+								<c:param name="showLink" value="true"/>
+								<c:param name="showZoom" value="false"/>
+								<c:param name="showChange" value="false"/>
+								<c:param name="showArtist" value="false"/>
+								<c:param name="typArtist" value="true"/>
+								<c:param name="appearAfter" value="${loopStatus.count * 15}"/>
+					</c:import>
+					</td>			
+					
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1em;padding-right:1em">
+						<a href="${mainUrl}">${album.albumSetName}</a>
+					</td>
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1em">
+						<span class="detail">${album.artist}</span>
+					</td>
+				</tr>
 
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
-                    <a href="${mainUrl}">${album.albumSetName}</a>
-                </td>
+			</c:forEach>
+		</table>
+	</c:if>
 
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
-                    <span class="detail">${album.artist}</span>
-                </td>
-            </tr>
-
-        </c:forEach>
-    </table>
-</c:if>
-
-<c:if test="${not empty model.songs}">
-    <h2><fmt:message key="search.hits.songs"/></h2>
-    <table style="border-collapse:collapse">
-        <c:forEach items="${model.songs}" var="song" varStatus="loopStatus">
-
-            <sub:url value="/main.view" var="mainUrl">
-                <sub:param name="path" value="${song.parentPath}"/>
-            </sub:url>
-
-            <tr>
-                <c:import url="playAddDownload.jsp">
-                    <c:param name="id" value="${song.id}"/>
-                    <c:param name="playEnabled" value="${model.user.streamRole and not model.partyModeEnabled}"/>
-                    <c:param name="addEnabled" value="${model.user.streamRole and (not model.partyModeEnabled or not song.directory)}"/>
-                    <c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyModeEnabled}"/>
-                    <c:param name="starEnabled" value="true"/>
-                    <c:param name="starred" value="${not empty song.starredDate}"/>
-                    <c:param name="video" value="${song.video and model.player.web}"/>
-                    <c:param name="asTable" value="true"/>
-                </c:import>
-
-		<td ${htmlclass} style="padding-left:0.25em"><input type="checkbox" class="checkbox" id="songIndex${loopStatus.count - 1}">
-		<span id="songId${loopStatus.count - 1}" style="display: none">${song.id}</span></td>				
-	
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
-                        ${song.title}
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
-                    <a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
-                    <span class="detail">${song.artist}</span>
-                </td>
-            </tr>
-
-        </c:forEach>
-    </table>
-</c:if>
-
-
-<c:if test="${not empty model.videos}">
-    <h2><fmt:message key="search.hits.videos"/></h2>
-    <table style="border-collapse:collapse">
-        <c:forEach items="${model.videos}" var="song" varStatus="loopStatus">
-
-            <sub:url value="/main.view" var="mainUrl">
-                <sub:param name="id" value="${song.id}"/>
-            </sub:url>
-
-            <tr>
-                <c:import url="playAddDownload.jsp">
-                    <c:param name="id" value="${song.id}"/>
-                    <c:param name="playEnabled" value="${model.user.streamRole and not model.partyModeEnabled}"/>
-                    <c:param name="addEnabled" value="${model.user.streamRole and (not model.partyModeEnabled or not song.directory)}"/>
-                    <c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyModeEnabled}"/>
-                    <c:param name="starEnabled" value="true"/>
-                    <c:param name="starred" value="${not empty song.starredDate}"/>
-                    <c:param name="video" value="${song.video and model.player.web}"/>
-                    <c:param name="asTable" value="true"/>
-                </c:import>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
-                        ${song.title}
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
-                    <a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
-                    <span class="detail">${song.artist}</span>
-                </td>
-            </tr>
-
-        </c:forEach>
-    </table>
-</c:if>
-
-
-<c:if test="${not empty model.links}">
-    <h2><fmt:message key="search.hits.links"/></h2>
-    <table style="border-collapse:collapse">
-        <c:forEach items="${model.links}" var="song" varStatus="loopStatus">
-
-            <sub:url value="/main.view" var="mainUrl">
-                <sub:param name="path" value="${song.parentPath}"/>
-            </sub:url>
-
-            <tr>
-                <c:import url="playAddDownload.jsp">
-                    <c:param name="id" value="${song.id}"/>
-                    <c:param name="playEnabled" value="${model.user.streamRole and not model.partyModeEnabled}"/>
-                    <c:param name="addEnabled" value="${model.user.streamRole and (not model.partyModeEnabled or not song.directory)}"/>
-                    <c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyModeEnabled}"/>
-                    <c:param name="starEnabled" value="true"/>
-                    <c:param name="starred" value="${not empty song.starredDate}"/>
-                    <c:param name="video" value="${song.video and model.player.web}"/>
-                    <c:param name="asTable" value="true"/>
-                </c:import>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
-                        ${song.title}
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
-                    <a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
-                    <span class="detail">${song.artist}</span>
-                </td>
-            </tr>
-
-        </c:forEach>
-    </table>
-</c:if>
-
-<c:if test="${not empty model.sets}">
-    <h2><fmt:message key="search.hits.sets"/></h2>
-    <table style="border-collapse:collapse">
-        <c:forEach items="${model.sets}" var="song" varStatus="loopStatus">
-
-            <sub:url value="/main.view" var="mainUrl">
-                <sub:param name="id" value="${song.id}"/>
-            </sub:url>
-
-            <tr>
-                <c:import url="playAddDownload.jsp">
-                    <c:param name="id" value="${song.id}"/>
-                    <c:param name="playEnabled" value="false"/>
-                    <c:param name="addEnabled" value="false"/>
-                    <c:param name="downloadEnabled" value="false"/>
-                    <c:param name="starEnabled" value="true"/>
-                    <c:param name="starred" value="${not empty song.starredDate}"/>
-                    <c:param name="video" value="${song.video and model.player.web}"/>
-                    <c:param name="asTable" value="true"/>
-                </c:import>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
-                        ${song.title}
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
-                    <a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
-                </td>
-
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
-                    <span class="detail">${song.artist}</span>
-                </td>
-            </tr>
-
-        </c:forEach>
-    </table>
-</c:if>
-<br>
-<c:if test="${not empty model.songs}">
-
+	<c:if test="${model.listType eq 'songs' and empty model.songs}">
+	<p style="padding-top: 1em"><em><fmt:message key="starred.empty"/></em></p>
+	</c:if>
+	<c:if test="${model.listType eq 'songs'}">
+    <h2>	
 	<select id="moreActions" onchange="actionSelected(this.options[selectedIndex].id);" style="margin-bottom:1.0em">
 		<option id="top" selected="selected"><fmt:message key="main.more"/></option>
-		<option style="color:blue;"><fmt:message key="playlist.more.starred"/></option>
-		<option id="savePlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.save"/></option>
-		<option style="color:blue;"><fmt:message key="main.more.selection"/></option>
-		<option id="selectAll">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectall"/></option>
-		<option id="selectNone">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectnone"/></option>
-		<option id="appendPlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.append"/></option>
-		<option id="saveasPlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.save"/></option>
+		<optgroup label="<fmt:message key="playlist.more.starred"/>"/>
+		<option id="savePlaylist"><fmt:message key="playlist.save"/></option>
+		<optgroup label="<fmt:message key="main.more.selection"/>"/>
+		<option id="selectAll"><fmt:message key="playlist.more.selectall"/></option>
+		<option id="selectNone"><fmt:message key="playlist.more.selectnone"/></option>
+		<option id="appendPlaylist"><fmt:message key="playlist.append"/></option>
+		<option id="saveasPlaylist"><fmt:message key="playlist.save"/></option>
 		</select>
 
 		<div id="dialog-select-playlist" title="<fmt:message key="main.addtoplaylist.title"/>" style="display: none;">
 			<p><fmt:message key="main.addtoplaylist.text"/></p>
 			<div id="dialog-select-playlist-list"></div>
 		</div>
-</c:if>
+		
+		</h2>
+		<table style="border-collapse:collapse">
+			<c:forEach items="${model.songs}" var="song" varStatus="loopStatus">
+
+				<sub:url value="/main.view" var="mainUrl">
+					<sub:param name="path" value="${song.parentPath}"/>
+				</sub:url>
+
+				<tr>
+				<td>
+					<c:import url="playAddDownload.jsp">
+						<c:param name="id" value="${song.id}"/>
+						<c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playVisible}"/>
+						<c:param name="playAddEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playAddVisible}"/>
+						<c:param name="playMoreEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playMoreVisible}"/>
+						<c:param name="addEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addContextVisible}"/>
+						<c:param name="addNextEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addNextVisible}"/>
+						<c:param name="addLastEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addLastVisible}"/>						
+						<c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyMode and model.buttonVisibility.downloadVisible}"/>
+						<c:param name="starEnabled" value="true"/>
+						<c:param name="starred" value="${not empty song.starredDate}"/>
+						<c:param name="video" value="${song.video and model.player.web}"/>
+						<c:param name="asTable" value="true"/>
+					</c:import>
+				</td>
+				<td style="padding-left:1.5em;padding-right:1.0em;">
+				<c:import url="coverArtThumb.jsp">
+							<c:param name="albumId" value="${song.id}"/>
+							<c:param name="artistName" value="${song.name}"/>
+							<c:param name="coverArtSize" value="50"/>
+							<c:param name="scale" value="0.5"/>
+							<c:param name="showLink" value="true"/>
+							<c:param name="showZoom" value="false"/>
+							<c:param name="showChange" value="false"/>
+							<c:param name="showArtist" value="false"/>
+							<c:param name="typArtist" value="true"/>
+							<c:param name="appearAfter" value="${loopStatus.count * 15}"/>
+				</c:import>
+				</td>
+					<td ${htmlclass} style="padding-left:0.25em"><input type="checkbox" class="checkbox" id="songIndex${loopStatus.count - 1}">
+					<span id="songId${loopStatus.count - 1}" style="display: none">${song.id}</span></td>				
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1em;padding-right:1em">
+							${song.title}
+					</td>
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1em">
+						<a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
+					</td>
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1em">
+						<span class="detail">${song.artist}</span>
+					</td>
+				</tr>
+			</c:forEach>
+    </table>
+	</c:if>
+
+	<c:if test="${model.listType eq 'videos' and empty model.videos}">	
+	<p style="padding-top: 1em"><em><fmt:message key="starred.empty"/></em></p>
+	</c:if>
+	<c:if test="${model.listType eq 'videos'}">
+	<h2><br></h2>
+    <table style="border-collapse:collapse">
+        <c:forEach items="${model.videos}" var="song" varStatus="loopStatus">
+
+				<sub:url value="/main.view" var="mainUrl">
+					<sub:param name="id" value="${song.id}"/>
+				</sub:url>
+
+				<tr>
+					<c:import url="playAddDownload.jsp">
+						<c:param name="id" value="${song.id}"/>
+						<c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playVisible}"/>
+						<c:param name="playAddEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playAddVisible}"/>
+						<c:param name="playMoreEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playMoreVisible}"/>
+						<c:param name="addEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addContextVisible}"/>
+						<c:param name="addNextEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addNextVisible}"/>
+						<c:param name="addLastEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addLastVisible}"/>						
+						<c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyMode and model.buttonVisibility.downloadVisible}"/>
+						<c:param name="starEnabled" value="true"/>
+						<c:param name="starred" value="${not empty song.starredDate}"/>
+						<c:param name="video" value="${song.video and model.player.web}"/>
+						<c:param name="asTable" value="true"/>
+					</c:import>
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.75em;padding-right:1.25em">
+							${song.title}
+					</td>
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
+						<a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
+					</td>
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
+						<span class="detail">${song.artist}</span>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
+
+	<c:if test="${model.listType eq 'links' and empty model.links}">	
+		<p style="padding-top: 1em"><em><fmt:message key="starred.empty"/></em></p>
+	</c:if>	
+	<c:if test="${model.listType eq 'links'}">
+		<h2><br></h2>
+		<table style="border-collapse:collapse">
+			<c:forEach items="${model.links}" var="song" varStatus="loopStatus">
+
+				<sub:url value="/main.view" var="mainUrl">
+					<sub:param name="path" value="${song.parentPath}"/>
+				</sub:url>
+
+				<tr>
+					<c:import url="playAddDownload.jsp">
+						<c:param name="id" value="${song.id}"/>
+						<c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playVisible}"/>
+						<c:param name="playAddEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playAddVisible}"/>
+						<c:param name="playMoreEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playMoreVisible}"/>
+						<c:param name="addEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addContextVisible}"/>
+						<c:param name="addNextEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addNextVisible}"/>
+						<c:param name="addLastEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addLastVisible}"/>						
+						<c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyMode and model.buttonVisibility.downloadVisible}"/>
+						<c:param name="starEnabled" value="true"/>
+						<c:param name="starred" value="${not empty song.starredDate}"/>
+						<c:param name="video" value="${song.video and model.player.web}"/>
+						<c:param name="asTable" value="true"/>
+					</c:import>
+
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.75em;padding-right:1.25em">
+							${song.title}
+					</td>
+
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
+						<a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
+					</td>
+
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
+						<span class="detail">${song.artist}</span>
+					</td>
+				</tr>
+
+			</c:forEach>
+		</table>
+	</c:if>
+
+	<c:if test="${model.listType eq 'sets' and empty model.sets}">	
+		<p style="padding-top: 1em"><em><fmt:message key="starred.empty"/></em></p>
+	</c:if>	
+	<c:if test="${model.listType eq 'sets'}">
+		<h2><br></h2>
+		<table style="border-collapse:collapse">
+			<c:forEach items="${model.sets}" var="song" varStatus="loopStatus">
+
+				<sub:url value="/main.view" var="mainUrl">
+					<sub:param name="id" value="${song.id}"/>
+				</sub:url>
+
+				<tr>
+				<td>
+					<c:import url="playAddDownload.jsp">
+						<c:param name="id" value="${song.id}"/>
+						<c:param name="playEnabled" value="false"/>
+						<c:param name="addEnabled" value="false"/>
+                        <c:param name="downloadEnabled" value="false"/>
+						<c:param name="starEnabled" value="true"/>
+						<c:param name="starred" value="${not empty song.starredDate}"/>
+						<c:param name="video" value="${song.video and model.player.web}"/>
+						<c:param name="asTable" value="true"/>
+					</c:import>
+				</td>
+				<td style="padding-left:1.5em;padding-right:1.0em;">
+				<c:import url="coverArtThumb.jsp">
+							<c:param name="albumId" value="${song.id}"/>
+							<c:param name="artistName" value="${song.name}"/>
+							<c:param name="coverArtSize" value="50"/>
+							<c:param name="scale" value="1.0"/>
+							<c:param name="showLink" value="true"/>
+							<c:param name="showZoom" value="false"/>
+							<c:param name="showChange" value="false"/>
+							<c:param name="showArtist" value="false"/>
+							<c:param name="typArtist" value="true"/>
+							<c:param name="appearAfter" value="${loopStatus.count * 15}"/>
+				</c:import>
+				</td>	
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+							${song.title}
+					</td>
+
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
+						<a href="${mainUrl}"><span class="detail">${song.albumName}</span></a>
+					</td>
+
+					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
+						<span class="detail">${song.artist}</span>
+					</td>
+				</tr>
+
+			</c:forEach>
+		</table>
+	</c:if>	
+
 
 <!-- CONTENT -->
 </div>
@@ -335,7 +437,7 @@
         if (id == "top") {
             return;
         } else if (id == "savePlaylist") {
-            onSavePlaylist();			
+            onSaveStarredPlaylist();			
         } else if (id == "selectAll") {
             selectAll(true);
         } else if (id == "selectNone") {
@@ -419,6 +521,27 @@
             $().toastmessage("showSuccessToast", "<fmt:message key="playlist.toast.saveasplaylist"/>");
 			});
 		}
+	
+	
+		function onSaveStarredPlaylist() {
+		
+            selectAll(true);
+			
+			var mediaFileIds = new Array();
+			
+			for (var i = 0; i < ${fn:length(model.songs)}; i++) {
+			
+				var checkbox = $("#songIndex" + i);
+				if (checkbox && checkbox.is(":checked")) {
+					mediaFileIds.push($("#songId" + i).html());
+				}
+			}
+			playlistService.saveStarredPlaylist(mediaFileIds, function (){
+			parent.left.updatePlaylists();
+            $().toastmessage("showSuccessToast", "<fmt:message key="playlist.toast.saveasplaylist"/>");
+			});
+		}
+	
 	
 		function onSaveasPlaylist() {
 		

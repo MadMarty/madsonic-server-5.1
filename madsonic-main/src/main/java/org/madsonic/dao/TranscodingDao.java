@@ -135,13 +135,13 @@ public class TranscodingDao extends AbstractDao {
         LOG.info("##Transcoding reseted to Subsonic defaults");
     }    
 
-    public void reset2MadsonicFLV() {
+    public void reset2MadsonicDefault() {
         update("delete from transcoding2");
         update("delete from player_transcoding2");
         
-        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->flv', 'avi mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'flv', 'ffmpeg -ss %o -i %s -async 1 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f flv -c:v libx264 -preset superfast -threads 0 -')");		
-        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->mkv', 'avi mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts flv', 'mkv', 'ffmpeg -ss %o -i %s -c:v libx264 -preset superfast -b:v %bk -c:a libvorbis -f matroska -threads 0 -')");		
-        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->webm', 'avi mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts flv', 'webm', 'ffmpeg -ss %o -t %d -i %s -async 1 -vf lutyuv=y=val*1.3 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f webm -c:v libvpx -preset superfast -c:a libvorbis -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->flv', 'avi flv mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'flv', 'ffmpeg -ss %o -i %s -async 1 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f flv -c:v libx264 -preset superfast -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->mkv', 'avi flv mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'mkv', 'ffmpeg -ss %o -i %s -c:v libx264 -preset superfast -b:v %bk -c:a libvorbis -f matroska -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->webm', 'avi flv mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'webm', 'ffmpeg -ss %o -t %d -i %s -async 1 -vf lutyuv=y=val*1.3 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f webm -c:v libvpx -preset superfast -c:a libvorbis -threads 0 -')");		
         update("insert into transcoding2(name, source_formats, target_format, step1) values('wtv->flv', 'wtv', 'flv', 'ffmpeg -ss %o -i %s -async 30 -b %bk -r 23-.976 -s 720x360 -ar 44100 -ac 2 -v 0 -f flv -c:v libx264 -preset fast -threads 0 -')");		
         update("insert into transcoding2(name, source_formats, target_format, step1) values('hdrun->flv', 'hdrun', 'flv', 'ffmpeg -ss %o -i %z -async 1 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f flv -c:v libx264 -preset superfast -threads 0 -')");		
         update("insert into transcoding2(name, source_formats, target_format, step1) values('hdrun->mkv', 'hdrun', 'mkv', 'ffmpeg -ss %o -i %z -c:v libx264 -preset superfast -b:v %bk -c:a libvorbis -f matroska -threads 0 -')");		
@@ -151,7 +151,6 @@ public class TranscodingDao extends AbstractDao {
 		update("insert into transcoding2(name, source_formats, target_format, step1) values('audio->mp3', 'ogg oga aac wav wma aif aiff ape m4a mpc shn flac', 'mp3', 'ffmpeg -i %s -map 0:0 -b:a %bk -v 0 -f mp3 -')");		
 		update("insert into transcoding2(name, source_formats, target_format, step1, step2) values('mod->mp3', 'alm 669 mdl far xm mod fnk imf it liq mod wow mtm ptm rtm stm s3m ult dmf dbm med okt emod sfx m15 mtn amf gdm stx gmc psm j2b umx amd rad hsc flx gtk mgt mtp', 'mp3', 'xmp -Dlittle-endian -q -c %s', 'lame -r -b %b -S --resample 44.1 - -')");
 		update("insert into player_transcoding2(player_id, transcoding_id) select distinct p.id, t.id from player p, transcoding2 t where t.name <> 'audio->ogg'");
-        
         
 //		update("insert into transcoding2(name, source_formats, target_format, step1) values('flv video', 'avi mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'flv', 'ffmpeg -ss %o -i %s -async 1 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f flv -c:v libx264 -preset superfast -threads 0 -')");		
 //		update("insert into transcoding2(name, source_formats, target_format, step1) values('mkv video', 'avi mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts flv', 'mkv', 'ffmpeg -ss %o -i %s -c:v libx264 -preset superfast -b:v %bk -c:a libvorbis -f matroska -threads 0 -')");		
@@ -168,8 +167,27 @@ public class TranscodingDao extends AbstractDao {
 //		update("insert into transcoding2(name, source_formats, target_format, step1, step2) values('flac audio', 'flac', 'mp3', 'flac --decode --stdout %s', 'ffmpeg -i - -acodec libmp3lame -ab 320k -f mp3 -')");
 //		update("insert into transcoding2(name, source_formats, target_format, step1, default_active) values('SubWiji', 'mp3', 'mp3', 'ffmpeg -f mp3 -i %s -ab %bk -v 0 -f mp3 -', false)");
 //		update("insert into player_transcoding2(player_id, transcoding_id) select distinct p.id, t.id from player p, transcoding2 t where t.name <> 'ogg audio'");
-        LOG.info("##Transcoding reseted to new FLV Madsonic defaults");
+        LOG.info("##Transcoding reseted to Madsonic defaults");
     }    
+
+    public void reset2MadsonicOld() {
+        update("delete from transcoding2");
+        update("delete from player_transcoding2");
+        
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->flv', 'avi flv mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'flv', 'ffmpeg -ss %o -i %s -async 1 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f flv -vcodec libx264 -preset superfast -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->mkv', 'avi flv mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'mkv', 'ffmpeg -ss %o -i %s -vcodec libx264 -preset superfast -b:v %bk -c:a libvorbis -f matroska -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('video->webm', 'avi flv mpg mpeg mp4 m4v mkv mov wmv ogv divx m2ts', 'webm', 'ffmpeg -ss %o -t %d -i %s -async 1 -vf lutyuv=y=val*1.3 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f webm -c:v libvpx -preset superfast -c:a libvorbis -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('wtv->flv', 'wtv', 'flv', 'ffmpeg -ss %o -i %s -async 30 -b %bk -r 23-.976 -s 720x360 -ar 44100 -ac 2 -v 0 -f flv -vcodec libx264 -preset fast -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('hdrun->flv', 'hdrun', 'flv', 'ffmpeg -ss %o -i %z -async 1 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f flv -vcodec libx264 -preset superfast -threads 0 -')");		
+        update("insert into transcoding2(name, source_formats, target_format, step1) values('hdrun->mkv', 'hdrun', 'mkv', 'ffmpeg -ss %o -i %z -vcodec libx264 -preset superfast -b:v %bk -c:a libvorbis -f matroska -threads 0 -')");		
+		update("insert into transcoding2(name, source_formats, target_format, step1, step2) values('tv->flv', 'tv', 'flv', 'tail -n1 %s', 'ffmpeg -ss %o -i - -async 1 -b %bk -s %wx%h -ar 44100 -ac 2 -v 0 -f flv -vcodec libx264 -preset superfast -threads 0 -')");
+		update("insert into transcoding2(name, source_formats, target_format, step1, step2) values('tv->mkv', 'tv', 'mkv', 'tail -n1 %s', 'ffmpeg -ss %o -i - -vcodec libx264 -preset superfast -b:v %bk -c:a libvorbis -f matroska -threads 0 -')");
+		update("insert into transcoding2(name, source_formats, target_format, step1, default_active) values('audio->ogg', 'aac wav wma aif aiff ape mp3 m4a mpc shn flac', 'ogg', 'ffmpeg -i %s -map 0:0 -vn -c:a libvorbis -ar 44100 -b:a %bk -v 0 -f ogg -', false)");		
+		update("insert into transcoding2(name, source_formats, target_format, step1) values('audio->mp3', 'ogg oga aac wav wma aif aiff ape m4a mpc shn flac', 'mp3', 'ffmpeg -i %s -map 0:0 -b:a %bk -v 0 -f mp3 -')");		
+		update("insert into transcoding2(name, source_formats, target_format, step1, step2) values('mod->mp3', 'alm 669 mdl far xm mod fnk imf it liq mod wow mtm ptm rtm stm s3m ult dmf dbm med okt emod sfx m15 mtn amf gdm stx gmc psm j2b umx amd rad hsc flx gtk mgt mtp', 'mp3', 'xmp -Dlittle-endian -q -c %s', 'lame -r -b %b -S --resample 44.1 - -')");
+		update("insert into player_transcoding2(player_id, transcoding_id) select distinct p.id, t.id from player p, transcoding2 t where t.name <> 'audio->ogg'");
+        LOG.info("##Transcoding reseted to old Madsonic defaults");
+    }     
     
     public void reset2MadsonicWEBM() {
         update("delete from transcoding2");

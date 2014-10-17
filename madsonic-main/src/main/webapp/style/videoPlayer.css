@@ -26,7 +26,8 @@ body {
     height: 360px;
     position: absolute;
     z-index: 1;
-    background-color: #000;
+    background-color: #333;
+    background-image: url('../icons/default/background.png');
     display: block;
 }
 
@@ -45,12 +46,12 @@ body {
 }
 
 #progress_slider {
-    margin-top: 15px;
-    margin-bottom: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 0px;
     padding-top: 2px;
-    width: 625px; 
+    width: 620px; 
     height: 1px;
     display: none;
 }
@@ -64,8 +65,9 @@ body {
 }
 #volume_slider {
     float:left;
-    margin-top: 8px;
+    margin-top: 11px;
     margin-left: 10px;
+    margin-right: 120px;
     width: 90px;
     height: 2px;
 }
@@ -120,7 +122,7 @@ body {
     width: 32px;
     height: 32px;
     margin-left: 15px;
-    margin-top: -5px;
+    margin-top: -3px;
     display: none;
     background-image: url('../icons/video/audio_off.png');
     cursor: pointer;
@@ -131,7 +133,7 @@ body {
     width: 32px;
     height: 32px;
     margin-left: 15px;
-    margin-top: -5px;
+    margin-top: -3px;
     display: block;
     background-image: url('../icons/video/audio_on.png');
     cursor: pointer;
@@ -141,7 +143,7 @@ body {
     font-size: 12px;
     float: left;
     color: #fff;
-    margin-top: 1px;
+    margin-top: 4px;
     margin-left: 10px;
     display: block;
 }
@@ -150,15 +152,29 @@ body {
     font-size: 12px;
     float: left;
     color: #c4c4c4;
-    margin-top: 1px;
+    margin-top: 4px;
     margin-left: 10px;
     display: block;
+}
+
+#bitrate_menu {
+    font-size: 12px;
+    float: left;
+    color: #fff;
+    background-color: #333;
+    display: block;
+	border: 1px solid #666;
 }
 
 .ui-slider .ui-slider-handle {
     width: 11px;
     height: 11px;
     cursor: pointer;
+}
+
+option {
+    background-color: #333;
+    color: #ffffff;
 }
 
 /*

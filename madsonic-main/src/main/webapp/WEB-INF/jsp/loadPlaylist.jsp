@@ -130,6 +130,7 @@
 </div>
 
 <h1>
+<img src="<spring:theme code="playlistImage"/>" alt="">
     <c:choose>
         <c:when test="${model.load}">
             <fmt:message key="playlist.load.title"/>
@@ -154,7 +155,7 @@
 <sub:url var="sortByChanged" value="loadPlaylist.view">
 <sub:param name="listType" value="changed"/>
 </sub:url>
-sort by <a href="${sortByName}"> name</a> | <a href="${sortByCreated}">created</a> | <a href="${sortByChanged}">changed</a>
+sort by  <a href="${sortByName}"> name</a> <img src="<spring:theme code="sepImage"/>" alt=""> <a href="${sortByCreated}">created</a> <img src="<spring:theme code="sepImage"/>" alt=""> <a href="${sortByChanged}">changed</a>
 </p>
 </h2>
 <br>

@@ -146,13 +146,8 @@
             this.log("no session");
             return;
         }
-		
-//      this.log("loading..." + song.remoteStreamUrl);
-//      var mediaInfo = new chrome.cast.media.MediaInfo(song.remoteStreamUrl);
-
-        this.log("loading..." + song.streamUrl);
-        var mediaInfo = new chrome.cast.media.MediaInfo(song.streamUrl);
-		
+        this.log("loading..." + song.remoteStreamUrl);
+        var mediaInfo = new chrome.cast.media.MediaInfo(song.remoteStreamUrl);
         mediaInfo.contentType = song.contentType;
         mediaInfo.streamType = chrome.cast.media.StreamType.BUFFERED;
         mediaInfo.duration = song.duration;
@@ -163,11 +158,7 @@
         mediaInfo.metadata.albumName = song.album;
         mediaInfo.metadata.artist = song.artist;
         mediaInfo.metadata.trackNumber = song.trackNumber;
-		
-//      mediaInfo.metadata.images = [new chrome.cast.Image(song.remoteCoverArtUrl + "&size=384")];
-        mediaInfo.metadata.images = [new chrome.cast.Image(song.coverArtUrl + "&size=384")];
-		
-		
+        mediaInfo.metadata.images = [new chrome.cast.Image(song.remoteCoverArtUrl + "&size=384")];
         mediaInfo.metadata.releaseYear = song.year;
 
         var request = new chrome.cast.media.LoadRequest(mediaInfo);

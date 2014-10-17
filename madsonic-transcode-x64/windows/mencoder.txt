@@ -20,6 +20,7 @@ mplayer.exe       - the main executable
 mencoder.exe      - a full-featured video encoder
 mplayer.man.html  - usage and command line options
 README.txt        - this document
+fonts/            - FontConfig configuration
 licenses/         - license information for 3rd-party libraries used
                     by mplayer
 codecs/           - binary codecs (Real, QuickTime etc.) directory;
@@ -29,6 +30,7 @@ codecs/           - binary codecs (Real, QuickTime etc.) directory;
 
 mplayer/config      - configuration file with adjustable options
 mplayer/input.conf  - keybinding configuration file
+open-fonts/         - Alternative fonts for FontConfig/ASS subtitles
 
 A list of Windows frontends for MPlayer can be found at
 http://www.mplayerhq.hu/design7/projects.html

@@ -49,7 +49,8 @@ public class GeneralSettingsController extends SimpleFormController {
     User user = securityService.getCurrentUser(request);
     UserSettings userSettings = settingsService.getUserSettings(user.getUsername());
 
-    model.put("customScrollbar", userSettings.isCustomScrollbarEnabled());     
+    model.put("customScrollbar", userSettings.isCustomScrollbarEnabled());  
+
     return model;
     }
 
@@ -118,6 +119,10 @@ public class GeneralSettingsController extends SimpleFormController {
         command.setShowHomeName(settingsService.showHomeName());
         command.setShowHomeTop100(settingsService.showHomeTop100());
         command.setShowHomeNew100(settingsService.showHomeNew100());
+        
+        command.setShowHomePagerTop(settingsService.showHomePagerTop());
+        command.setShowHomePagerBottom(settingsService.showHomePagerBottom());
+
         
         Theme[] themes = settingsService.getAvailableThemes();
         command.setThemes(themes);
@@ -236,6 +241,9 @@ public class GeneralSettingsController extends SimpleFormController {
         settingsService.setHomeName(command.isShowHomeName());
         settingsService.setHomeTop100(command.isShowHomeTop100());
         settingsService.setHomeNew100(command.isShowHomeNew100());
+        
+        settingsService.setHomePagerTop(command.isShowHomePagerTop());
+        settingsService.setHomePagerBottom(command.isShowHomePagerBottom());
         
         settingsService.save();
     }

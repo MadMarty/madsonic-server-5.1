@@ -230,26 +230,27 @@ public class SearchService {
     }
 
     
-//TODO:
+
     public List<MediaFile> getRandomSongs(MultiSearchCriteria criteria) {
     	
-        List<MediaFile> result = new ArrayList<MediaFile>();
-        String musicFolderPath = null;
-        
-        if (criteria.getMusicFolderId() != null && criteria.getUserGroupId() == null) {
-            MusicFolder musicFolder = settingsService.getMusicFolderById(criteria.getMusicFolderId());
-            musicFolderPath = musicFolder.getPath().getPath();
-        }
+    	List<MediaFile> result = new ArrayList<MediaFile>();
+		ArrayList<String> musicFolderPaths = new ArrayList<String>();   
+    	String musicFolderPath = null;
 
-        ArrayList<String> musicFolderPaths = new ArrayList<String>();       
-        List<MusicFolder> musicFolders = settingsService.getAllMusicFolders(criteria.getUserGroupId(), settingsService.isSortMediaFileFolder());
- 
-    	for (MusicFolder musicFolder : musicFolders) {
-    		if (musicFolder != null) {
-                musicFolderPaths.add(musicFolder.getPath().getPath());
-			}
+    	if (criteria.getMusicFolderId() != null && criteria.getUserGroupId() != null) {
+    		MusicFolder musicFolder = settingsService.getMusicFolderById(criteria.getMusicFolderId());
+    		musicFolderPath = musicFolder.getPath().getPath();
+    	} else {
+    
+    		List<MusicFolder> musicFolders = settingsService.getAllMusicFolders(criteria.getUserGroupId(), settingsService.isSortMediaFileFolder());
+
+    		for (MusicFolder musicFolder : musicFolders) {
+    			if (musicFolder != null) {
+    				musicFolderPaths.add(musicFolder.getPath().getPath());
+    			}
+    		}
     	}
-        
+    	
         IndexReader reader = null;
         try {
             reader = createIndexReader(SONG);
@@ -290,7 +291,7 @@ public class SearchService {
 				   List<String> allGenreTerms = new LinkedList<String>(Arrays.asList(StringUtil.splitMoods(_genre," ")));
 				   for (String genreTerm : allGenreTerms ) {
 	            		if (genreTerm != null) {
-	            			queryGenre.add(new TermQuery(new Term(FIELD_GENRE, genreTerm.toLowerCase() ) ), BooleanClause.Occur.SHOULD);
+	            			queryGenre.add(new TermQuery(new Term(FIELD_GENRE, normalize(genreTerm).toLowerCase() ) ), BooleanClause.Occur.SHOULD);
 	            		}
 				   } 
 				}
@@ -301,7 +302,7 @@ public class SearchService {
 				   List<String> allMoodsTerms = new LinkedList<String>(Arrays.asList(StringUtil.splitMoods(_mood," ")));
 				   for (String moodTerm : allMoodsTerms ) {
 	            		if (moodTerm != null) {
-	            			queryMood.add(new TermQuery(new Term(FIELD_MOOD, moodTerm.toLowerCase() ) ), BooleanClause.Occur.SHOULD);
+	            			queryMood.add(new TermQuery(new Term(FIELD_MOOD, normalize(moodTerm.toLowerCase()) ) ), BooleanClause.Occur.SHOULD);
 	            		}
 				   } 
 				}
@@ -312,7 +313,7 @@ public class SearchService {
                 queryYear.add(rangeQuery, BooleanClause.Occur.SHOULD);
             }
             if (musicFolderPath != null) {
-            	queryFolder.add(new TermQuery(new Term(FIELD_FOLDER, musicFolderPath)), BooleanClause.Occur.SHOULD);
+            	queryFolder.add(new TermQuery(new Term(FIELD_FOLDER, musicFolderPath)), BooleanClause.Occur.MUST);
             }
 
             if (musicFolderPaths != null) {
@@ -331,20 +332,21 @@ public class SearchService {
             }
 
             if (criteria.getGenres() != null) {
-            	queryMaster.add(queryGenre, BooleanClause.Occur.SHOULD);
+            	queryMaster.add(queryGenre, BooleanClause.Occur.MUST);
             }
 
             if (criteria.getMoods() != null) {
-            	queryMaster.add(queryMood, BooleanClause.Occur.SHOULD);
+            	queryMaster.add(queryMood, BooleanClause.Occur.MUST);
             }
             
             if (criteria.getFromYear() != null) {
-            	
-            	queryMaster.add(queryYear, BooleanClause.Occur.SHOULD);
-            	
+            	queryMaster.add(queryYear, BooleanClause.Occur.MUST);
             }
-        	queryMaster.add(queryFolder, BooleanClause.Occur.MUST);
-        
+
+            if (criteria.getMusicFolderId() != null) {
+            	queryMaster.add(queryFolder, BooleanClause.Occur.MUST);
+            }
+            
             TopDocs topDocs = searcher.search(queryMaster, null, Integer.MAX_VALUE);
             Random random = new Random(System.currentTimeMillis());
 
@@ -427,6 +429,7 @@ public class SearchService {
         } finally {
             FileUtil.closeQuietly(reader);
         }
+//      LOG.warn("getRandomSongs result size: " + result.size());
         return result;
     }
 

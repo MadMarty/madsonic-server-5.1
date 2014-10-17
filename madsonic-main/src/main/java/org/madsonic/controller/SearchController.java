@@ -68,13 +68,17 @@ public class SearchController extends SimpleFormController {
         command.setUser(user);
         command.setPartyModeEnabled(userSettings.isPartyModeEnabled());
 
-        String any = StringUtils.trimToNull(command.getQuery());
+        String query = StringUtils.trimToNull(command.getQuery());
 
-        if (any != null) {
+        if (query != null) {
+
+            if (!query.endsWith("*")) {
+                query += "*";
+            }
 
             SearchCriteria criteria = new SearchCriteria();
             criteria.setCount(MATCH_COUNT);
-            criteria.setQuery(any);
+            criteria.setQuery(query);
 
             SearchResult artists = searchService.search(criteria, SearchService.IndexType.ARTIST, userGroupId);
             command.setArtists(artists.getMediaFiles());

@@ -60,7 +60,6 @@ import org.madsonic.util.FileUtil;
  * @author Sindre Mehus
  */
 
-
 @SuppressWarnings("deprecation")
 public class SecurityService implements InitializingBean, UserDetailsService {
 
@@ -356,6 +355,11 @@ public class SecurityService implements InitializingBean, UserDetailsService {
 	        LOG.debug("## Updated user " + User.USERNAME_GUEST);
         }
     }
+    
+    public void resetStats() {
+    	userDao.resetStats();
+    }
+    
     
     /**
      * Creates a new user.

@@ -58,7 +58,6 @@
 				<option value="clone" ${command.newClone eq true ? "selected" : ""}>-- clone User --</option> 
             </select>
         </td>
-		<td><c:import url="helpToolTip.jsp"><c:param name="topic" value="editUser"/></c:import></td>
     </tr>
 
     <tr>
@@ -74,11 +73,6 @@
             </select>
 		</c:if>
         </td>
-		<td>
-		<c:if test="${command.newUser ne true and command.newClone ne true}">
-			<c:import url="helpToolTip.jsp"><c:param name="topic" value="selectUser"/></c:import>
-		</c:if>
-		</td>
     </tr>
 	
     <tr>

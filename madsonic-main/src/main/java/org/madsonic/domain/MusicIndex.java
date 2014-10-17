@@ -122,7 +122,6 @@ public class MusicIndex implements Serializable {
         private final String name;
         private final String sortableName;
 
-
         public SortableArtist(String name, String sortableName) {
             this.name = name;
             this.sortableName = sortableName;
@@ -137,7 +136,8 @@ public class MusicIndex implements Serializable {
         }
 
         public int compareTo(SortableArtist artist) {
-            return sortableName.compareToIgnoreCase(artist.sortableName);
+            int n = sortableName.compareToIgnoreCase(artist.sortableName);
+            return n == 0 ? sortableName.compareTo(artist.sortableName) : n;
         }
 
         @Override
@@ -148,15 +148,13 @@ public class MusicIndex implements Serializable {
             if (o == null || getClass() != o.getClass()) {
                 return false;
             }
-            SortableArtist artist = (SortableArtist) o;
-            return sortableName.equalsIgnoreCase(artist.sortableName);
+            return compareTo((SortableArtist) o) == 0;
         }
 
         @Override
         public int hashCode() {
             return sortableName.hashCode();
         }
-
     }
 
     public static class SortableArtistWithMediaFiles extends SortableArtist {

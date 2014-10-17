@@ -33,7 +33,6 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.madsonic.domain.PlayQueue;
 import org.madsonic.domain.Player;
 import org.madsonic.domain.RandomSearchCriteria;
-import org.madsonic.service.MediaFileService;
 import org.madsonic.service.PlayerService;
 import org.madsonic.service.SearchService;
 
@@ -45,9 +44,8 @@ import org.madsonic.service.SearchService;
 public class RandomPlayQueueController extends ParameterizableViewController {
 
     private PlayerService playerService;
-    private List<ReloadFrame> reloadFrames;
-    private MediaFileService mediaFileService;
     private SearchService searchService;
+    private List<ReloadFrame> reloadFrames;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -76,12 +74,13 @@ public class RandomPlayQueueController extends ParameterizableViewController {
         PlayQueue playQueue = player.getPlayQueue();
 
         RandomSearchCriteria criteria = new RandomSearchCriteria(size, genre, fromYear, toYear, musicFolderId);
-        playQueue.addFiles(false, searchService.getRandomSongs(criteria));
+        playQueue.addFiles(true, searchService.getRandomSongs(criteria));
 
         if (request.getParameter("autoRandom") != null) {
             playQueue.setRandomSearchCriteria(criteria);
         }
-
+        player.setPlayQueue(playQueue);
+        
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("reloadFrames", reloadFrames);
 
@@ -96,10 +95,6 @@ public class RandomPlayQueueController extends ParameterizableViewController {
 
     public void setReloadFrames(List<ReloadFrame> reloadFrames) {
         this.reloadFrames = reloadFrames;
-    }
-
-    public void setMediaFileService(MediaFileService mediaFileService) {
-        this.mediaFileService = mediaFileService;
     }
 
     public void setSearchService(SearchService searchService) {

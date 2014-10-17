@@ -147,6 +147,12 @@ public class UserDao extends AbstractDao {
         writeRoles(user);
     }
 
+    public void resetStats() {
+        String sql = "update user set bytes_streamed=0,bytes_downloaded=0, bytes_uploaded=0";
+        getJdbcTemplate().update(sql);
+    }
+    
+    
     /**
      * Returns the name of the roles for the given user.
      *

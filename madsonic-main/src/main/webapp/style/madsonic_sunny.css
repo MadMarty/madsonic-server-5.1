@@ -28,7 +28,7 @@ label  {
 }
 
 .mainframe table{
-	font-size:110%;
+/*	font-size:100%; */
 }
 
 
@@ -65,24 +65,30 @@ table {
 }
 
 .leftframe .bgcolor2 {
-    background-image:url( "../icons/madsonic_sunny/background_.png" ); /* bg-repeat-left.png */
+    background-image:url( "../icons/madsonic_sunny/backgroundwhite.png" ); /* bg-repeat-left.png */
     background-repeat:repeat;
     background-attachment:fixed;	
 }
 
 /* Main frame image & colour */
 .mainframe.splash  {
-    background-image:url('../icons/madsonic_sunny/background1.jpg');
+    background-image:url('../icons/madsonic_sunny/background.png');
     background-repeat:no-repeat;
     background-attachment:fixed;
-    background-color: #222;
+    background-position: top left;
+}
+
+/* Main frame image & colour */
+.loginsplash  {
+    background-image:url('../icons/madsonic_sunny/backgroundalpha.png');
+    background-repeat:no-repeat;
     background-position: top left;
     background-size: cover;
 }
 
 /* Main frame image & colour */
 .mainframe  {
-    background-image:url('../icons/madsonic_sunny/background_.png');
+    background-image:url('../icons/madsonic_sunny/backgroundwhite.png');
     background-repeat:no-repeat;
     background-attachment:fixed;
     background-position: top left;
@@ -171,6 +177,20 @@ h1,.mainframe h1 a{
 	font-weight: 400;
 	font-family: "Open Sans",arial !important;
 	color: #A4A4A4;
+}
+
+.mainframe .dense {
+white-space: nowrap;
+font-size: 9pt;
+margin: 8px;
+/* line-height: 1.5em; */
+}
+
+.mainframe .dense a {
+white-space: nowrap;
+font-size: 9pt;
+font-weight: 600;
+/* line-height: 1.5em; */
 }
 
 .rank {
@@ -322,7 +342,7 @@ a:hover, a:hover * {
 */ 
 
 .leftframe a:link, .leftframe a:active, .leftframe a:visited, .leftframe a:link *, .leftframe a:active *, .leftframe a:visited * {
-   font-size: 10pt; 
+   font-size: 9pt; 
 }
 
 .genre a:link, .genre a:active, .genre a:visited, .genre a:link *, .genre a:active *, .genre a:visited * {
@@ -341,7 +361,7 @@ a:hover, a:hover * {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	width:45px;
+	width:100%;
 } 
 
 .innerbox {
@@ -361,7 +381,7 @@ a:hover, a:hover * {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	width: 40px;
+	width:100%;
 }
 
 .detail a img {
@@ -388,11 +408,11 @@ a:hover, a:hover * {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	width: 40px;
+	width: 100%;
 }
 
 .detail {
-	line-height: 1.65em;
+	/*line-height: 1.50em;*/
 }
  
 .detailcolordark {
@@ -413,13 +433,13 @@ a:hover, a:hover * {
 
 .detailcolor {
 	/*line-height: 1.50em;*/
-	font-size: 8pt;
+	/* font-size: 8pt;*/
 	color: #000;
 }
 
 /* Colour for warning messages. */
 .warning {
-   color: #e7238b;
+   color: rgb(255, 163, 0);
    font-size: 9pt;
 }
 
@@ -591,7 +611,7 @@ body ::-webkit-scrollbar-button:vertical:increment {
 }
 
 .context-menu-item span {
-	font-size: 8pt;
+	font-size: 9pt;
 }
 
 span {
@@ -658,7 +678,57 @@ left: 2px;
 }
 
 #media_control {
-    width: 640px;
-    height: 65px;
-    background-color: #999; 
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#play {
+	background-image: url('../icons/video/dark/play.png') !important;
+}
+
+#pause {
+	background-image: url('../icons/video/dark/pause.png') !important;
+}
+
+#audio_on {
+	background-image: url('../icons/video/dark/audio_on.png') !important;
+}
+
+#audio_off {
+	background-image: url('../icons/video/dark/audio_off.png') !important;
+}
+#progress {
+    color: #888 !important;
+}
+
+#duration {
+    color: #888 !important;
+}
+
+#bitrate_menu {
+    color: #888 !important;
+    background-color: #fff !important;
+	border: 1px solid #E2E2E2 !important;
+}
+
+option {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+
+#overlay {
+    background-color: #aaa !important;
+ }
+ 
+ #toogleGenre {
+	top: -28px;
+}
+
+#casticonidle {
+	background-image: url('../icons/madsonic_sunny/cast_idle.png') !important;
+}
+
+#casticonactive {
+	background-image: url('../icons/madsonic_sunny/cast_active.png') !important;
 }

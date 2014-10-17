@@ -35,6 +35,7 @@ import org.apache.commons.lang.StringUtils;
 public class PlayQueue { 
 
     private List<MediaFile> files = new ArrayList<MediaFile>();
+    
     private boolean repeatEnabled;
     private boolean pandoraEnabled;
     

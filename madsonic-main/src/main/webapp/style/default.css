@@ -1,8 +1,6 @@
 
 @import "madsonic-dark/jquery-ui-1.10.4.custom.css"; 
 
-@import "niceforms-default2.css";
-
 @import "playericonsSilver.css";
 
 /*
@@ -77,6 +75,18 @@ a:hover, a:hover * {
 
 /* Color for warning messages. */
 .warning {
+    color: red;
+}
+
+.status {
+	color: #FAE157;
+}
+
+.info {
+	color: rgb(44, 180, 44);
+}
+
+.error {
     color: red;
 }
 
@@ -156,6 +166,11 @@ form {
 input, select, textarea {
     font-size: 9pt;
 }
+
+select {
+	margin-left: 2px;	
+}
+
 input#query {
 	width: 168px;
 }
@@ -198,7 +213,7 @@ img {
 .detail {
     white-space: nowrap;
     font-size: 8pt;
-    line-height: 1.40em;
+    /* line-height: 1.40em; */
 }
 
 .album {
@@ -389,4 +404,33 @@ div#content_1_2 .mCustomScrollBox>.mCSB_scrollTools{
 .divIdCoverBack {
 top: -58px; 
 left: 0px;
+}
+
+#media_control {
+	padding-top: 10px;
+	padding-bottom: 15px;
+}
+
+#bitrate_menu {
+    color: #999 !important;
+}
+
+#toogleGenre {
+	opacity: 1.0;
+	clear: both;
+	position: relative;
+	top: -28px;
+	right: 0;
+	left: 250px;
+	width: 100px;
+	z-index: 1;
+}
+
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
+.help {
+	padding: 2px 4px 4px;
 }

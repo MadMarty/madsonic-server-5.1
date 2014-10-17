@@ -26,12 +26,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.madsonic.Logger;
 import org.madsonic.service.MediaFileService;
 import org.madsonic.service.SecurityService;
 import org.madsonic.service.SettingsService;
 import org.madsonic.domain.User;
 import org.madsonic.domain.UserSettings;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
@@ -46,8 +46,11 @@ public class RadioController extends ParameterizableViewController {
     private MediaFileService mediaFileService;
     private SecurityService securityService;    
     
+    private long cacheTimestamp;    
     private List <String> cachedGenre;
 
+    private static final Logger LOG = Logger.getLogger(RadioController.class);
+    
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -57,11 +60,14 @@ public class RadioController extends ParameterizableViewController {
 		
         int userGroupId = securityService.getCurrentUserGroupId(request);        
         
-        if (cachedGenre == null) {
+        if (cachedGenre == null || cacheTimestamp < settingsService.getLastScanned().getTime()) {
         	cachedGenre = mediaFileService.getGenres(userGroupId);
+        	cacheTimestamp = settingsService.getLastScanned().getTime();
+        	LOG.debug("## genre recached");        	
         }        
         
 		map.put("genres", cachedGenre);
+		
         map.put("currentYear", Calendar.getInstance().get(Calendar.YEAR));
         map.put("musicFolders", settingsService.getAllMusicFolders(userGroupId, settingsService.isSortMediaFileFolder(),1));
         map.put("customScrollbar", userSettings.isCustomScrollbarEnabled()); 		

@@ -1,33 +1,35 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+    <beans:bean id="service" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <beans:property name="serviceUrl" value="rmi://localhost:9412/MadsonicDeployerService"/>
+        <beans:property name="serviceInterface" value="org.madsonic.booter.deployer.MadsonicDeployerService"/>
+        <beans:property name="lookupStubOnStartup" value="false"/>
+        <beans:property name="refreshStubOnConnectFailure" value="true"/>
+    </beans:bean>
 
-    <bean id="service" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-        <property name="serviceUrl" value="rmi://localhost:9412/MadsonicDeployerService"/>
-        <property name="serviceInterface" value="org.madsonic.booter.deployer.MadsonicDeployerService"/>
-        <property name="lookupStubOnStartup" value="false"/>
-        <property name="refreshStubOnConnectFailure" value="true"/>
-    </bean>
+    <beans:bean id="agent" class="org.madsonic.booter.agent.MadsonicAgent">
+        <beans:constructor-arg ref="service"/>
+        <beans:property name="frame" ref="frame"/>
+    </beans:bean>
 
-    <bean id="agent" class="org.madsonic.booter.agent.MadsonicAgent">
-        <constructor-arg ref="service"/>
-        <property name="frame" ref="frame"/>
-    </bean>
+    <beans:bean id="frame" class="org.madsonic.booter.agent.MadsonicFrame">
+        <beans:constructor-arg ref="agent"/>
+        <beans:constructor-arg ref="statusPanel"/>
+        <beans:constructor-arg ref="settingsPanel"/>
+    </beans:bean>
 
-    <bean id="frame" class="org.madsonic.booter.agent.MadsonicFrame">
-        <constructor-arg ref="agent"/>
-        <constructor-arg ref="statusPanel"/>
-        <constructor-arg ref="settingsPanel"/>
-    </bean>
+    <beans:bean id="settingsPanel" class="org.madsonic.booter.agent.SettingsPanel">
+        <beans:constructor-arg ref="agent"/>
+    </beans:bean>
 
-    <bean id="settingsPanel" class="org.madsonic.booter.agent.SettingsPanel">
-        <constructor-arg ref="agent"/>
-    </bean>
+    <beans:bean id="statusPanel" class="org.madsonic.booter.agent.StatusPanel">
+        <beans:constructor-arg ref="agent"/>
+    </beans:bean>
 
-    <bean id="statusPanel" class="org.madsonic.booter.agent.StatusPanel">
-        <constructor-arg ref="agent"/>
-    </bean>
-
-</beans>
+</beans:beans>

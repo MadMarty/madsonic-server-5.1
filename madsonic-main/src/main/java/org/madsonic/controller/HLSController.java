@@ -115,8 +115,7 @@ public class HLSController implements Controller {
 
     private void generateVariantPlaylist(HttpServletRequest request, int id, Player player, List<Pair<Integer, Dimension>> bitRates, PrintWriter writer) {
         writer.println("#EXTM3U");
-        writer.println("#EXT-X-VERSION:1");
-//        writer.println("#EXT-X-TARGETDURATION:" + SEGMENT_DURATION);
+        writer.println("#EXT-X-VERSION:3");
 
         String contextPath = getContextPath(request);
         for (Pair<Integer, Dimension> bitRate : bitRates) {
@@ -129,12 +128,16 @@ public class HLSController implements Controller {
             }
             writer.println();
         }
-//        writer.println("#EXT-X-ENDLIST");
     }
 
     private void generateNormalPlaylist(HttpServletRequest request, int id, Player player, Pair<Integer, Dimension> bitRate, int totalDuration, PrintWriter writer) {
         writer.println("#EXTM3U");
-        writer.println("#EXT-X-VERSION:1");
+        writer.println("#EXT-X-VERSION:3");
+        
+//      writer.println("#EXT-X-VERSION:5");
+//      writer.println("#EXT-X-MEDIA-SEQUENCE:0");
+//      writer.println("#EXT-X-PLAYLIST-TYPE:VOD");
+        
         writer.println("#EXT-X-TARGETDURATION:" + SEGMENT_DURATION);
 
         for (int i = 0; i < totalDuration / SEGMENT_DURATION; i++) {

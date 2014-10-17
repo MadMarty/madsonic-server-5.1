@@ -4,7 +4,6 @@
     <%@ include file="head.jsp" %>
     <%@ include file="jquery.jsp" %>
 
-
     <c:if test="${model.customScrollbar}">
 	<link href="<c:url value="/style/customScrollbar.css"/>" rel="stylesheet">
 	<script type="text/javascript" src="<c:url value="/script/jquery.mousewheel.min.js"/>"></script>
@@ -26,7 +25,6 @@
                     $(this).dialog("close");
                 }
             }});
-			
     }
 	
         function toggleStar(mediaFileId, imageId) {
@@ -83,7 +81,7 @@
 	<!--<h2><fmt:message key="search.hits.artists"/></h2> -->
 		<h1></h1>
 		<div class="coverbox">
-		<table style="border-collapse:collapse">
+		<table style="border-collapse:collapse;width: 80%;">
 			<c:forEach items="${model.artists}" var="artist" varStatus="loopStatus">
 				<sub:url value="/main.view" var="mainUrl">
 					<sub:param name="path" value="${artist.path}"/>
@@ -101,16 +99,17 @@
 					</c:import>
 				</td>
 					<td>
-					<c:import url="coverArt.jsp">
+					<c:import url="coverArtThumb.jsp">
 						<c:param name="albumId" value="${artist.id}"/>
 						<c:param name="artistName" value="${artist.name}"/>
-						<c:param name="coverArtSize" value="45"/>
+						<c:param name="coverArtSize" value="80"/>
 						<c:param name="showLink" value="true"/>
 						<c:param name="showZoom" value="false"/>
 						<c:param name="showChange" value="false"/>
 						<c:param name="showArtist" value="false"/>
 						<c:param name="typArtist" value="true"/>
-						<c:param name="appearAfter" value="20"/>
+						<c:param name="scale" value="1"/>
+						<c:param name="appearAfter" value="5"/>
 					</c:import>
 					</td>
 					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.25em;padding-right:1.25em;padding-bottom:1.0em">
@@ -148,8 +147,8 @@
 				<td style="padding-left:0.5em;padding-right:1.5em;padding-bottom:1.0em">
 					<c:import url="playAddDownload.jsp">
 						<c:param name="id" value="${album.id}"/>
-						<c:param name="playEnabled" value="false"/>
-						<c:param name="addEnabled" value="false"/>
+						<c:param name="playEnabled" value="true"/>
+						<c:param name="addEnabled" value="true"/>
 						<c:param name="downloadEnabled" value="false"/>
 						<c:param name="starEnabled" value="true"/>
 						<c:param name="starred" value="${not empty album.starredDate}"/>
@@ -157,25 +156,26 @@
 					</c:import>
 				</td>
 					<td>
-					<c:import url="coverArt.jsp">
+					<c:import url="coverArtThumb.jsp">
 						<c:param name="albumId" value="${album.id}"/>
 						<c:param name="artistName" value="${album.name}"/>
-						<c:param name="coverArtSize" value="45"/>
+						<c:param name="coverArtSize" value="90"/>
 						<c:param name="showLink" value="true"/>
 						<c:param name="showZoom" value="false"/>
 						<c:param name="showChange" value="false"/>
 						<c:param name="showArtist" value="false"/>
 						<c:param name="typArtist" value="true"/>
-						<c:param name="appearAfter" value="20"/>
+						<c:param name="appearAfter" value="5"/>
+						<c:param name="scale" value="0.5"/>						
 					</c:import>
 					</td>
 					
 					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.25em;padding-right:3.25em;padding-bottom:1.0em;">
-						<h1><a href="${mainUrl}">${album.albumSetName}</a></h1>
+						<h2><a href="${mainUrl}">${album.albumSetName}</a></h2>
 					</td>
 
 					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em;padding-right:1.25em;padding-bottom:1.0em;">
-						<h1><a href="${artistUrl}">${album.artist}</a></h1>
+						<h2><a href="${artistUrl}">${album.artist}</a></h2>
 					</td>
 				</tr>
 
@@ -213,65 +213,50 @@
 					<td style="padding-left:0.5em;padding-right:1.5em;">
 					<c:import url="playAddDownload.jsp">
 						<c:param name="id" value="${song.id}"/>
-						<c:param name="playEnabled" value="false"/>
-						<c:param name="addEnabled" value="false"/>
+						<c:param name="playEnabled" value="true"/>
+						<c:param name="addEnabled" value="true"/>
 						<c:param name="downloadEnabled" value="false"/>
 						<c:param name="starEnabled" value="true"/>
 						<c:param name="starred" value="${not empty song.starredDate}"/>
 						<c:param name="video" value="${song.video and model.player.web}"/>
 						<c:param name="asTable" value="false"/>
 					</c:import>
-					</td>
-
+					</td>								
 					<td>
-					<c:import url="coverArt.jsp">
+					<c:import url="coverArtThumb.jsp">
 						<c:param name="albumId" value="${song.id}"/>
 						<c:param name="artistName" value="${song.name}"/>
-						<c:param name="coverArtSize" value="45"/>
+						<c:param name="coverArtSize" value="50"/>
 						<c:param name="showLink" value="true"/>
 						<c:param name="showZoom" value="false"/>
 						<c:param name="showChange" value="false"/>
 						<c:param name="showArtist" value="false"/>
 						<c:param name="typArtist" value="true"/>
-						<c:param name="appearAfter" value="20"/>
+						<c:param name="appearAfter" value="5"/>
+						<c:param name="scale" value="0.5"/>						
 					</c:import>
 					</td>				
-
-					<td>
-					<c:import url="playAddDownload.jsp">
-						<c:param name="id" value="${song.id}"/>
-						<c:param name="playEnabled" value="true"/>
-						<c:param name="addEnabled" value="true"/>
-						<c:param name="downloadEnabled" value="false"/>
-						<c:param name="starEnabled" value="false"/>
-						<c:param name="starred" value=""/>
-						<c:param name="video" value="${song.video and model.player.web}"/>
-						<c:param name="asTable" value="false"/>
-					</c:import>
-					</td>								
 					
-					<span id="songId${loopStatus.count - 1}" style="display: none"><h1>${song.id}</h1></span></td>				
+					<span id="songId${loopStatus.count - 1}" style="display: none">${song.id}</span></td>				
 		
 					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.25em;padding-right:1.55em;">
 					<str:truncateNicely upper="40">${song.title}</str:truncateNicely>
 					</td>
 
 					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:3.25em">
-						<h1><a href="${mainUrl}"><str:truncateNicely upper="40">${song.albumName}</str:truncateNicely></a></h1>
+						<a href="${mainUrl}"><str:truncateNicely upper="40">${song.albumName}</str:truncateNicely></a>
 					</td>
 
 					<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em;">
-						<h1><a href="${artistUrl}">${song.artist}</a></h1>
+						<a href="${artistUrl}">${song.artist}</a>
 					</td>
 				</tr>
-
 			</c:forEach>
 		</table>
 	</c:if>
 	</div>
 	</c:when>
 </c:choose>
-
 
 <c:choose>
 	<c:when test="${model.listType eq 'topplayed'}">
@@ -297,54 +282,39 @@
 
 						<tr>
 							<td style="padding-left:0.5em;padding-right:1.5em;">
-								<c:import url="playAddDownload.jsp">
-									<c:param name="id" value="${song.id}"/>
-									<c:param name="playEnabled" value="false"/>
-									<c:param name="addEnabled" value="false"/>
-									<c:param name="downloadEnabled" value="false"/>
-									<c:param name="starEnabled" value="true"/>
-									<c:param name="starred" value="${not empty song.starredDate}"/>
-									<c:param name="asTable" value="false"/>
-								</c:import>
-							</td>
-							<td>
-								<c:import url="coverArt.jsp">
-									<c:param name="albumId" value="${song.id}"/>
-									<c:param name="artistName" value="${song.name}"/>
-									<c:param name="coverArtSize" value="45"/>
-									<c:param name="showLink" value="true"/>
-									<c:param name="showZoom" value="false"/>
-									<c:param name="showChange" value="false"/>
-									<c:param name="showArtist" value="false"/>
-									<c:param name="typArtist" value="true"/>
-									<c:param name="appearAfter" value="20"/>
-								</c:import>
-							<td>
 							<c:import url="playAddDownload.jsp">
 								<c:param name="id" value="${song.id}"/>
 								<c:param name="playEnabled" value="true"/>
 								<c:param name="addEnabled" value="true"/>
 								<c:param name="downloadEnabled" value="false"/>
-								<c:param name="starEnabled" value="false"/>
-								<c:param name="starred" value=""/>
+								<c:param name="starEnabled" value="true"/>
+								<c:param name="starred" value="${not empty song.starredDate}"/>
 								<c:param name="video" value="${song.video and model.player.web}"/>
 								<c:param name="asTable" value="false"/>
 							</c:import>
 							</td>								
-								
-							</td>	
-							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+							<td>								
+								<c:import url="coverArtThumb.jsp">
+									<c:param name="albumId" value="${song.id}"/>
+									<c:param name="artistName" value="${song.name}"/>
+									<c:param name="coverArtSize" value="50"/>
+									<c:param name="scale" value="0.5"/>									
+									<c:param name="showLink" value="true"/>
+									<c:param name="showZoom" value="false"/>
+									<c:param name="showChange" value="false"/>
+									<c:param name="showArtist" value="false"/>
+									<c:param name="typArtist" value="true"/>
+									<c:param name="appearAfter" value="5"/>
+								</c:import>
+							</td>		
+							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.25em;padding-right:1.25em">
 								<str:truncateNicely upper="40">${song.title}</str:truncateNicely>
 							</td>
 							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
-								<h1>
 								<a href="${mainUrl}"><str:truncateNicely upper="40">${song.albumName}</str:truncateNicely></a>
-								</h1>
 							</td>
 							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.50em">
-								<h1>
 								<a href="${artistUrl}"><str:truncateNicely upper="40">${song.artist}</str:truncateNicely></a>
-								</h1>
 							</td>
 							<c:choose>
 								<c:when test="${model.listType eq 'topplayed'}">
@@ -394,22 +364,37 @@
 							</c:if>
 						</sub:url>	
 						<tr>
+							<td style="padding-left:0.5em;padding-right:1.5em;">
 							<c:import url="playAddDownload.jsp">
 								<c:param name="id" value="${song.id}"/>
-								<c:param name="playEnabled" value="${model.user.streamRole and not model.partyModeEnabled}"/>
-								<c:param name="addEnabled" value="${model.user.streamRole and (not model.partyModeEnabled or not song.directory)}"/>
+								<c:param name="playEnabled" value="true"/>
+								<c:param name="addEnabled" value="true"/>
 								<c:param name="downloadEnabled" value="false"/>
 								<c:param name="starEnabled" value="true"/>
 								<c:param name="starred" value="${not empty song.starredDate}"/>
-								<c:param name="video" value="false"/>
-								<c:param name="asTable" value="true"/>
+								<c:param name="video" value="${song.video and model.player.web}"/>
+								<c:param name="asTable" value="false"/>
 							</c:import>
-
-							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+							</td>								
+							<td>								
+								<c:import url="coverArtThumb.jsp">
+									<c:param name="albumId" value="${song.id}"/>
+									<c:param name="artistName" value="${song.name}"/>
+									<c:param name="coverArtSize" value="50"/>
+									<c:param name="scale" value="0.5"/>
+									<c:param name="showLink" value="true"/>
+									<c:param name="showZoom" value="false"/>
+									<c:param name="showChange" value="false"/>
+									<c:param name="showArtist" value="false"/>
+									<c:param name="typArtist" value="true"/>
+									<c:param name="appearAfter" value="5"/>
+						</c:import>
+							</td>		
+							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.0em;padding-right:1.25em">
 								<str:truncateNicely upper="40">${song.title}</str:truncateNicely>
 							</td>
 
-							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
+							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.0em">
 								<a href="${mainUrl}"><span class="detail"><str:truncateNicely upper="40">${song.albumName}</str:truncateNicely></span></a>
 							</td>
 
@@ -466,54 +451,40 @@
 
 						<tr>
 							<td style="padding-left:0.5em;padding-right:1.5em;">
-								<c:import url="playAddDownload.jsp">
-									<c:param name="id" value="${song.id}"/>
-									<c:param name="playEnabled" value="false"/>
-									<c:param name="addEnabled" value="false"/>
-									<c:param name="downloadEnabled" value="false"/>
-									<c:param name="starEnabled" value="true"/>
-									<c:param name="starred" value="${not empty song.starredDate}"/>
-									<c:param name="asTable" value="false"/>
-								</c:import>
-							</td>
-							<td>
-								<c:import url="coverArt.jsp">
-									<c:param name="albumId" value="${song.id}"/>
-									<c:param name="artistName" value="${song.name}"/>
-									<c:param name="coverArtSize" value="45"/>
-									<c:param name="showLink" value="true"/>
-									<c:param name="showZoom" value="false"/>
-									<c:param name="showChange" value="false"/>
-									<c:param name="showArtist" value="false"/>
-									<c:param name="typArtist" value="true"/>
-									<c:param name="appearAfter" value="20"/>
-								</c:import>
-							<td>
 							<c:import url="playAddDownload.jsp">
 								<c:param name="id" value="${song.id}"/>
 								<c:param name="playEnabled" value="true"/>
 								<c:param name="addEnabled" value="true"/>
 								<c:param name="downloadEnabled" value="false"/>
-								<c:param name="starEnabled" value="false"/>
-								<c:param name="starred" value=""/>
+								<c:param name="starEnabled" value="true"/>
+								<c:param name="starred" value="${not empty song.starredDate}"/>
 								<c:param name="video" value="${song.video and model.player.web}"/>
 								<c:param name="asTable" value="false"/>
 							</c:import>
 							</td>								
-								
+							<td>								
+								<c:import url="coverArtThumb.jsp">
+									<c:param name="albumId" value="${song.id}"/>
+									<c:param name="artistName" value="${song.name}"/>
+									<c:param name="coverArtSize" value="50"/>
+									<c:param name="showLink" value="true"/>
+									<c:param name="showZoom" value="false"/>
+									<c:param name="showChange" value="false"/>
+									<c:param name="showArtist" value="false"/>
+									<c:param name="typArtist" value="true"/>
+									<c:param name="appearAfter" value="5"/>
+									<c:param name="scale" value="0.5"/>
+								</c:import>
 							</td>	
-							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+							
+							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.25em;padding-right:1.25em">
 								<str:truncateNicely upper="40">${song.title}</str:truncateNicely>
 							</td>
 							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
-								<h1>
 								<a href="${mainUrl}"><str:truncateNicely upper="40">${song.albumName}</str:truncateNicely></a>
-								</h1>
 							</td>
 							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.50em">
-								<h1>
 								<a href="${artistUrl}"><str:truncateNicely upper="40">${song.artist}</str:truncateNicely></a>
-								</h1>
 							</td>
 							<c:choose>
 								<c:when test="${model.listType eq 'topplayed'}">

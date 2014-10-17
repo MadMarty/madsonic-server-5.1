@@ -104,7 +104,7 @@ public class StatisticsController extends ParameterizableViewController {
         map.put("customScrollbar", userSettings.isCustomScrollbarEnabled()); 		
         map.put("partyModeEnabled", userSettings.isPartyModeEnabled());
         map.put("player", playerService.getPlayer(request, response));
-
+        map.put("buttonVisibility", userSettings.getButtonVisibility()); 
         map.put("listOffset", listOffset);
         map.put("listSize", listSize);		
         map.put("listType", listType);

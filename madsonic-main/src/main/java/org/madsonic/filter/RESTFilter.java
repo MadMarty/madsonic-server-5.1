@@ -18,10 +18,10 @@
  */
 package org.madsonic.filter;
 
-import org.madsonic.Logger;
-import org.madsonic.controller.RESTController;
-import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.util.NestedServletException;
+import static org.madsonic.controller.RESTController.ErrorCode.GENERIC;
+import static org.madsonic.controller.RESTController.ErrorCode.MISSING_PARAMETER;
+
+import java.io.IOException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -31,15 +31,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.util.NestedServletException;
 
 import org.madsonic.Logger;
 import org.madsonic.controller.RESTController;
-
-import static org.madsonic.controller.RESTController.ErrorCode.GENERIC;
-import static org.madsonic.controller.RESTController.ErrorCode.MISSING_PARAMETER;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.util.NestedServletException;
 
 /**
  * Intercepts exceptions thrown by RESTController.
@@ -59,6 +55,7 @@ public class RESTFilter implements Filter {
             HttpServletResponse response = (HttpServletResponse) res;
             response.addHeader("Access-Control-Allow-Origin", "*");
             chain.doFilter(req, res);
+            
         } catch (Throwable x) {
             handleException(x, (HttpServletRequest) req, (HttpServletResponse) res);
         }
@@ -90,9 +87,11 @@ public class RESTFilter implements Filter {
         return x.getClass().getSimpleName();
     }
 
+    @Override
     public void init(FilterConfig filterConfig) {
     }
 
+    @Override
     public void destroy() {
     }
 }

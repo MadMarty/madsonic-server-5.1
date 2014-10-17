@@ -38,6 +38,7 @@ public class MusicFolderSettingsCommand {
     private boolean scanning;
     private boolean fastCache;
     private boolean organizeByFolderStructure;
+    private boolean organizeByGenreMap;
     private List<MusicFolderInfo> musicFolders;
     private MusicFolderInfo newMusicFolder;
     private boolean reload;
@@ -106,7 +107,15 @@ public class MusicFolderSettingsCommand {
         this.organizeByFolderStructure = organizeByFolderStructure;
     }
 
-    public static class MusicFolderInfo {
+    public boolean isOrganizeByGenreMap() {
+		return organizeByGenreMap;
+	}
+
+	public void setOrganizeByGenreMap(boolean organizeByGenreMap) {
+		this.organizeByGenreMap = organizeByGenreMap;
+	}
+
+	public static class MusicFolderInfo {
 
         private Integer id;
         private String path;

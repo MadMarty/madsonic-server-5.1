@@ -169,6 +169,27 @@ public class PlaylistService {
         return playlist.getName();
     }    
 
+    public String saveStarredPlaylist(List<Integer> mediaFileIds) {
+		
+		HttpServletRequest request = WebContextFactory.get().getHttpServletRequest();
+		
+        Date now = new Date();
+        String username = securityService.getCurrentUsername(request);
+        String playlistName = "Starred ";
+        Playlist playlist = new Playlist();
+        playlist.setUsername(username);
+        playlist.setCreated(now);
+        playlist.setChanged(now);
+        playlist.setPublic(false);
+        playlist.setName(playlistName + " - " + username + " - " + now);
+        playlist.setShareLevel(0);
+
+        playlistService.createPlaylist(playlist);
+        appendToPlaylist(playlist.getId(), mediaFileIds);
+        return playlist.getName();
+    }    
+    
+    
     private List<PlaylistInfo.Entry> createEntries(List<MediaFile> files) {
         List<PlaylistInfo.Entry> result = new ArrayList<PlaylistInfo.Entry>();
         for (MediaFile file : files) {

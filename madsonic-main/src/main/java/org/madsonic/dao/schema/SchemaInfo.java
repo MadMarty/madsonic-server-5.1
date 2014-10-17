@@ -33,6 +33,6 @@ public class SchemaInfo extends Schema {
     public void execute(JdbcTemplate template) {
 
     	int version = template.queryForInt("select MAX (version) version from version");
-        LOG.info("Database schema is version: " + version);
+        LOG.debug("Database schema is version: " + version);
         }
 }

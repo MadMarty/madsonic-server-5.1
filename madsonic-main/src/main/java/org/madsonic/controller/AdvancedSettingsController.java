@@ -38,13 +38,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AdvancedSettingsController extends SimpleFormController {
 
-    private SettingsService settingsService;
+    private SettingsService settingsService; 
     private SecurityService securityService;    
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     protected Map referenceData(HttpServletRequest request) throws Exception {
     Map<String, Boolean> model = new HashMap<String, Boolean>();
-    
+
+
     User user = securityService.getCurrentUser(request);
     UserSettings userSettings = settingsService.getUserSettings(user.getUsername());
 

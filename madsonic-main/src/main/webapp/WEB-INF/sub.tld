@@ -5,11 +5,11 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
         version="2.0">
 
-    <description>Madsonic tag library</description>
-    <display-name>Madsonic tag library</display-name>
+    <description>Subsonic tag library</description>
+    <display-name>Subsonic tag library</display-name>
     <tlib-version>1.1</tlib-version>
     <short-name>sub</short-name>
-    <uri>http://madsonic.org/taglib/sub</uri>
+    <uri>http://subsonic.org/taglib/sub</uri>
 
     <tag>
         <description>

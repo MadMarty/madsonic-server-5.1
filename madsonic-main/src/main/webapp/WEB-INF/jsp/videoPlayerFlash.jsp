@@ -98,7 +98,7 @@
         </c:if>				
         <c:if test="${model.duration == 0}">
 				flashvars = {
-					file:"${model.remoteStreamUrl}"
+					file:"${model.streamUrl}"
 				};
         </c:if>
 		

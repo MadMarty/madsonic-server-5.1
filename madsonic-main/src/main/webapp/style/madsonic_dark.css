@@ -85,11 +85,29 @@ table {
 
 /* Main frame image & colour */
 .mainframe.splash  {
-    background-image:url('../icons/madsonic_dark/main.png');
+    background-image:url('../icons/madsonic_dark/background.png');
     background-repeat:no-repeat;
     background-attachment:fixed;
     background-color: #222;
     background-position: top left;
+}
+
+/* Main frame image & colour */
+.loginsplash  {
+    background-image:url('../icons/black/backgroundalpha.png');
+    background-repeat:no-repeat;
+    background-position: top left;
+    background-size: cover;
+	
+	border: 1px solid #111;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	opacity:0.95;
+	filter:alpha(opacity=95); /* For IE8 and earlier */
+	-moz-box-shadow:    0px 0px 25px 5px #111;
+    -webkit-box-shadow: 0px 0px 25px 5px #111;
+    box-shadow:         0px 0px 25px 5px #111;	
 }
 
 /* Main frame image & colour */
@@ -192,7 +210,7 @@ a:hover, a:hover * {
 
 /* Colour for warning messages. */
 .warning {
-    color: #990099;
+	color: rgb(255, 204, 0);
 }
 
 /* The primary foreground colour. */
@@ -329,10 +347,10 @@ select {
     border-radius: 5px;
     color: #333333 !important;
     font-size: 9pt;    
-    padding: 0px 10px 1px 5px;
-}
+    padding: 0px 2px 2px 2px;
+} 
 
-input[type=button],input[type=submit]{
+input[type=button], input[type=submit]{
     color: #dfdfdf ;
     text-shadow: 1px 1px 1px #111;
     padding: 4px 11px;
@@ -424,3 +442,20 @@ left: 0px;
 .logo {
 	padding-right:2em;
 }
+
+#media_control {
+	padding-top: 10px;
+	padding-bottom: 15px;
+}
+
+#bitrate_menu {
+    color: #999 !important;
+}
+
+#overlay {
+    background-color: #2e2e2e !important;
+ }
+ 
+ #toogleGenre {
+	top: -32px;
+} 

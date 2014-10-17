@@ -52,7 +52,7 @@ body {
 	background: -o-linear-gradient(top, #252525 0%,#050505 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, #252525 0%,#050505 100%); /* IE10+ */
 	background: linear-gradient(top, #252525 0%,#050505 100%); /* W3C */
-	height: 69px;	
+	/* height: 69px; */
 	border-bottom:1px solid #282828;
 	margin: 0 !important;
 	padding: 0 10px;

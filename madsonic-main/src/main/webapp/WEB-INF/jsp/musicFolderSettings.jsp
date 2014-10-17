@@ -50,18 +50,20 @@
 				<form:option value="1" label="Music - Artists"/>
 				<form:option value="2" label="Music - Various Artists"/>				
 				<form:option value="3" label="Music - Compilation"/>
-				<form:option value="4" label="Music - Other"/>
-				<form:option value="5" label="Video - Series"/>
-				<form:option value="6" label="Video - Movies"/>
-				<form:option value="7" label="Photo - Collection"/>
-				<form:option value="8" label="Photo - Flat"/>
-				<form:option value="9" label="Other"/>
+				<form:option value="4" label="Music - Podcasts"/>
+				<form:option value="5" label="Music - Others"/>
+				<form:option value="6" label="Video - Series"/>
+				<form:option value="7" label="Video - Movies"/>
+				<form:option value="8" label="Photo - Collection"/>
+				<form:option value="9" label="Photo - Flat"/>
+				<form:option value="10" label="Others"/>
 				</form:select></td>
             <td><form:select path="musicFolders[${loopStatus.count-1}].group" size="1">
 				<form:option value="0" label="dont group"/>
 				<form:option value="1" label="Music"/>
 				<form:option value="2" label="Video"/>
-				<form:option value="3" label="Photo"/>				
+				<form:option value="3" label="Movies"/>
+				<form:option value="4" label="Series"/>
 				</form:select></td>
             <td align="center" style="padding-left:1em"><form:checkbox path="musicFolders[${loopStatus.count-1}].enabled" cssClass="checkbox"/></td>
             <td align="center" style="padding-left:1em"><form:checkbox path="musicFolders[${loopStatus.count-1}].delete" cssClass="checkbox"/></td>
@@ -84,20 +86,22 @@
 		</form:select></td>	
             <td><form:select path="newMusicFolder.type" size="1">
 				<form:option value="1" label="Music - Artists"/>
-				<form:option value="2" label="Music - Various Artists"/>				
+				<form:option value="2" label="Music - Various Artists"/>
 				<form:option value="3" label="Music - Compilation"/>
-				<form:option value="4" label="Music - Other"/>
-				<form:option value="5" label="Video - Series"/>
-				<form:option value="6" label="Video - Movies"/>
-				<form:option value="7" label="Photo - Collection"/>
-				<form:option value="8" label="Photo - Flat"/>
-				<form:option value="9" label="Other"/>
+				<form:option value="4" label="Music - Podcasts"/>
+				<form:option value="5" label="Music - Others"/>
+				<form:option value="6" label="Video - Series"/>
+				<form:option value="7" label="Video - Movies"/>
+				<form:option value="8" label="Photo - Collection"/>
+				<form:option value="9" label="Photo - Flat"/>
+				<form:option value="10" label="Others"/>
 		</form:select></td>
             <td><form:select path="newMusicFolder.group" size="1">
 				<form:option value="0" label="dont group"/>
 				<form:option value="1" label="Music"/>
 				<form:option value="2" label="Video"/>
-				<form:option value="3" label="Photo"/>				
+				<form:option value="3" label="Movies"/>
+				<form:option value="4" label="Series"/>
 				</form:select></td>		
         <td align="center" style="padding-left:1em"><form:checkbox path="newMusicFolder.enabled" cssClass="checkbox"/></td>
         <td></td>
@@ -105,7 +109,7 @@
 
 </table>
 
-    <div style="padding-top: 1.2em;padding-bottom: 0.3em">
+    <div style="padding-top: 1.2em;padding-bottom: 1.3em;padding-right: 0.5em;padding-left: 0.3em;">
         <span style="white-space: nowrap">
             <fmt:message key="musicfoldersettings.scan"/>
             <form:select path="interval">
@@ -126,28 +130,30 @@
                 </c:forEach>
             </form:select>
         </span>
-    </div>
-
+    </div> 
     <p class="forward"><a href="musicFolderSettings.view?scanNow"><fmt:message key="musicfoldersettings.scannow"/></a></p>
-
     <c:if test="${command.scanning}">
         <p style="width:60%"><b><fmt:message key="musicfoldersettings.nowscanning"/></b></p>
     </c:if>
-
-    <div>
+	<div style="padding-bottom: 0.3em;">
         <form:checkbox path="fastCache" cssClass="checkbox" id="fastCache"/>
         <form:label path="fastCache"><fmt:message key="musicfoldersettings.fastcache"/></form:label>
     </div>
-
     <p class="detail" style="width:60%;white-space:normal;">
         <fmt:message key="musicfoldersettings.fastcache.description"/>
     </p>
-
+	<div style="padding-bottom: 0.3em;">
+        <form:checkbox path="organizeByGenreMap" cssClass="checkbox" id="organizeByGenreMap"/>
+        <form:label path="organizeByGenreMap"><fmt:message key="musicfoldersettings.organizebygenremap"/></form:label>
+    </div>
+    <p class="detail" style="width:60%;white-space:normal;">
+        <fmt:message key="musicfoldersettings.organizebygenremap.description"/>
+    </p>
+	<br>
     <p class="forward"><a href="musicFolderSettings.view?expunge"><fmt:message key="musicfoldersettings.expunge"/></a></p>
     <p class="detail" style="width:60%;white-space:normal;margin-top:-10px;">
         <fmt:message key="musicfoldersettings.expunge.description"/>
     </p>
-
     <%--<div>--%>
         <%--<form:checkbox path="organizeByFolderStructure" cssClass="checkbox" id="organizeByFolderStructure"/>--%>
         <%--<form:label path="organizeByFolderStructure"><fmt:message key="musicfoldersettings.organizebyfolderstructure"/></form:label>--%>
@@ -156,7 +162,6 @@
     <%--<p class="detail" style="width:60%;white-space:normal;">--%>
         <%--<fmt:message key="musicfoldersettings.organizebyfolderstructure.description"/>--%>
     <%--</p>--%>
-
     <p >
         <input type="submit" value="<fmt:message key="common.save"/>" style="margin-right:0.3em">
         <input type="button" value="<fmt:message key="common.cancel"/>" onclick="location.href='nowPlaying.view'">

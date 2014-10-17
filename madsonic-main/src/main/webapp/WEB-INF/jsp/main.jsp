@@ -45,7 +45,7 @@
     function init() {
         setupZoom('<c:url value="/"/>');
 
-        $("#dialog-select-playlist").dialog({resizable: true, height: 350, position: [400,'center'], modal: true, autoOpen: false,
+        $("#dialog-select-playlist").dialog({resizable: true, height: 350, position: [400,'center'], modal: false, autoOpen: false,
             buttons: {
                 "<fmt:message key="common.cancel"/>": function() {
                     $(this).dialog("close");
@@ -291,25 +291,31 @@ function RefreshMediaType() {
         <a href="#" onclick="parent.playQueue.onPlay(${model.dir.id});"> <img src="icons/default/main-play.png"> <fmt:message key="main.playall"/></a> 
 		<img src="<spring:theme code="sepImage"/>" style="margin-left: 5px;">
         <a href="#" onclick="parent.playQueue.onPlayRandom(${model.dir.id}, 9);"> <img src="icons/default/main-random.png"> <fmt:message key="main.playrandom"/> </a>
-		<c:if test="${model.user.lastFMRole}">
-			<c:if test="${not model.dir.album}">
-				<c:if test="${model.dir.mediaType ne 'VIDEOSET'}">
-				<img src="<spring:theme code="sepImage"/>" style="margin-left: 5px;">
-				<a href="#" onclick="parent.playQueue.onPlayTopTrack(&quot;${model.artist}&quot;);"> <img src="icons/default/main-play.png"> <fmt:message key="main.playtoptrack"/> <span style="font-size:75% !important;"> (${model.topPlayedfound}|${model.toplastFMfound})</span> </a> <a href="#" onclick="parent.playQueue.onUpdateTopTrack(&quot;${model.artist}&quot; , ${model.dir.id});"> <img src="<spring:theme code="spinnerImage"/>" style="width:14px;"></a>
+
+		<c:if test="${model.lastFMTopTrackSearch}">
+			<c:if test="${model.user.lastFMRole}">
+				<c:if test="${not model.dir.album}">
+					<c:if test="${model.dir.mediaType ne 'VIDEOSET'}">
+					<img src="<spring:theme code="sepImage"/>" style="margin-left: 5px;">
+					<a href="#" onclick="parent.playQueue.onPlayTopTrack(&quot;${model.artist}&quot;);"> <img src="icons/default/main-play.png"> <fmt:message key="main.playtoptrack"/> <span style="font-size:75% !important;"> (${model.topPlayedfound}|${model.toplastFMfound})</span> </a> <a href="#" onclick="parent.playQueue.onUpdateTopTrack(&quot;${model.artist}&quot; , ${model.dir.id});"> <img src="<spring:theme code="spinnerImage"/>" style="width:14px;"></a>
+					</c:if>
 				</c:if>
 			</c:if>
 		</c:if>
 		<img src="<spring:theme code="sepImage"/>" style="margin-left: 5px;">
+		
         <a href="#" onclick="parent.playQueue.onAdd(${model.dir.id});"> <img src="icons/default/main-addall.png"> <fmt:message key="main.addall"/></a>
-		<c:if test="${model.user.lastFMRole}">
-			<c:if test="${not model.dir.album}">
-				<c:if test="${model.dir.mediaType ne 'VIDEOSET'}">
-				<img src="<spring:theme code="sepImage"/>" style="margin-left: 5px;">
-				<a href="#" onclick="parent.playQueue.onAddTopTrack(&quot;${model.artist}&quot;);"> <img src="icons/default/main-addall.png"> <fmt:message key="main.addtoptrack"/></a>
+		<c:if test="${model.lastFMTopTrackSearch}">
+			<c:if test="${model.user.lastFMRole}">
+				<c:if test="${not model.dir.album}">
+					<c:if test="${model.dir.mediaType ne 'VIDEOSET'}">
+					<img src="<spring:theme code="sepImage"/>" style="margin-left: 5px;">
+					<a href="#" onclick="parent.playQueue.onAddTopTrack(&quot;${model.artist}&quot;);"> <img src="icons/default/main-addall.png"> <fmt:message key="main.addtoptrack"/></a>
+					</c:if>
 				</c:if>
 			</c:if>
 		</c:if>
-        <c:set var="needSep" value="true"/>
+		<c:set var="needSep" value="true"/>		
     </c:if>
 
     <c:if test="${model.dir.album}">
@@ -542,8 +548,8 @@ function RefreshMediaType() {
         <input type="hidden" name="action" value="create">
         <input type="hidden" name="id" value="${model.dir.id}">	
 		https://www.youtube.com/watch?v=
-        <input name="URL" size="15" value="FJuu6LNRDCA">
-		<input name="title" size="35" value="YouTube Video">
+        <input name="URL" size="15" value="mcixldqDIEQ">
+		<input name="title" size="35" value="Example YouTube Video">
         <input type="submit" value="Create Link">
     </form>
 </div>
@@ -700,9 +706,9 @@ function RefreshMediaType() {
 					<tr style="margin:0;padding:0;border:0">
 
 					<c:if test="${child.rank > 0}">
-						<td style="padding-right:0.25em;text-align:left;">
+						<td style="padding-right:0.10em;text-align:right;">
 							<c:if test="${model.buttonVisibility.rankVisible}">
-								<span class="rank">
+								<span class="rank" title="Rank" >
 								<c:if test="${child.rank < 10}">0</c:if>${child.rank}</span>
 							</c:if>
 						</td>							
@@ -711,7 +717,6 @@ function RefreshMediaType() {
 				<c:if test="${child.rank == 0}">
 					<td style="padding-right:0.25em;"></td>							
 				</c:if>
-				
                     <c:import url="playAddDownload.jsp">
                         <c:param name="id" value="${child.id}"/>
                         <c:param name="video" value="${child.video and model.player.web}"/>
@@ -759,7 +764,7 @@ function RefreshMediaType() {
 										<a href="${childUrl}" title="${child.albumSetName}"><span class="album" style="white-space:nowrap;vertical-align:bottom;"><str:truncateNicely upper="${cutoff}">${child.albumSetName}</str:truncateNicely></span></a>
 
 									<c:if test="${child.newAdded}">
-										<img id="newaddedImage" src="<spring:theme code="newaddedImage"/>" width="14" hight="14" title="new added">
+										<img id="newaddedImage" style="margin-left:5px;" src="<spring:theme code="newaddedImage"/>" width="14" hight="14" title="new added">
 									</c:if>
 									</td>
 									
@@ -784,7 +789,7 @@ function RefreshMediaType() {
                         <c:otherwise>
 						
 							<c:if test="${model.dir.mediaType ne 'VIDEOSET'}">
-                            <td ${htmlClass} style="padding-left:0.25em;padding-right:0.5em;"><input type="checkbox" class="checkbox" id="songIndex${loopStatus.count - 1}">
+                            <td ${htmlClass} style="padding-left:0.50em;padding-right:0.5em;"><input type="checkbox" class="checkbox" id="songIndex${loopStatus.count - 1}">
                                 <span id="songId${loopStatus.count - 1}" style="display: none">${child.id}</span></td>
 							</c:if>	
 
@@ -1040,7 +1045,7 @@ function RefreshMediaType() {
 					},
 					advanced:{
 						updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/
-						updateOnContentResize:false, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
+						updateOnContentResize:true, /*auto-update scrollbars on content resize (for dynamic content): boolean*/
 						autoExpandHorizontalScroll:false, /*auto-expand width for horizontal scrolling: boolean*/
 						autoScrollOnFocus:true, /*auto-scroll on focused elements: boolean*/
 						normalizeMouseWheelDelta:false /*normalize mouse-wheel delta (-1/1)*/

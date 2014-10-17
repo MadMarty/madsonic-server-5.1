@@ -94,7 +94,8 @@ public class MediaFileComparator implements Comparator<MediaFile> {
 		}        
         
         if (a.isDirectory() && b.isDirectory()) {
-            return a.getName().compareToIgnoreCase(b.getName());
+            int n = a.getName().compareToIgnoreCase(b.getName());
+            return n == 0 ? a.getPath().compareToIgnoreCase(b.getPath()) : n; // To make it consistent to MediaFile.equals()
         }
 
         // Compare by disc and track numbers, if present.

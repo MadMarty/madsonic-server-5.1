@@ -9,6 +9,7 @@
 @import "playericonsSilver.css";
 
 @import url('//fonts.googleapis.com/css?family=Bowlby+One+SC');
+@import url('//fonts.googleapis.com/css?family=Montserrat:400,700');
 
 @import "jquery.mCustomScrollbar.Silver.css";
 
@@ -45,15 +46,28 @@ h1, .detail, .albumComment {
 
 h1, .mainframe h1 a{
 	font-size: 1.3rem;
-	font-family: 'Bowlby One SC', Arial, serif; font-weight: 400;
+	font-family: 'Montserrat', Arial, serif; font-weight: 400;
     text-shadow: 0.0em 0.0em 0.15em #FFFFFF;	
 	margin: 15px 0 0;
     color: #848484;
 }
 
+body, h2, form, label, table, a {
+    font-family: 'Montserrat', Arial, serif; 
+	font-weight: 400;
+}
+h1, h1 a, .logo {
+    font-family: 'Montserrat', Arial, serif; 
+}
+
 /* Foreground colour used for h2, bold and tr. */
 h2, b, tr {
     color: #696969;
+}
+
+a {
+    font-size: 110%;
+    text-decoration: none;
 }
 
 /* Main frame image & colour */

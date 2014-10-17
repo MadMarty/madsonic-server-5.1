@@ -150,7 +150,6 @@
         }
         // request session
         var applicationID = "D13FB37F"; // Madsonic Custom receiver
-		
         var sessionRequest = new chrome.cast.SessionRequest(applicationID);
         var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
                 this.sessionListener.bind(this),
@@ -297,7 +296,7 @@
         this.currentMediaOffset = offset;
         this.currentMediaTime = 0;
 
-        var url = "${model.remoteStreamUrl}" + "&maxBitRate=" + ${model.maxBitRate} + "&format=mkv&timeOffset=" + offset;
+        var url = "${model.remoteStreamUrl}" + "&maxBitRate=" + this.getBitRate() + "&format=mkv&timeOffset=" + offset;
         console.log("casting " + url);
         var mediaInfo = new chrome.cast.media.MediaInfo(url);
         mediaInfo.contentType = 'video/x-matroska';
@@ -462,7 +461,7 @@
             this.currentMediaOffset = offset;
             this.currentMediaTime = 0;
 
-            var url = "${model.streamUrl}" + "&maxBitRate=" + ${model.maxBitRate} + "&timeOffset=" + offset;
+            var url = "${model.streamUrl}" + "&maxBitRate=" + this.getBitRate() + "&timeOffset=" + offset;
             console.log("playing local: " + url);
             console.log("playing duration: " + ${model.duration});
 			
@@ -483,11 +482,29 @@
 			});
 			$("#progress_slider").hide();
 			</c:if>		
+
+			<c:if test="${model.duration == 86400}">
+			this.localPlayer.load({
+			file: url,
+			autoStart: "true",
+			duration: this.currentMediaDuration, 
+			provider: "video",
+			skin: "<c:url value="/flash/madsonic.zip"/>"
+			});			
+			$("#progress_slider").hide();
+			$("#bitrate_menu").show();			
+			$("#duration").hide();
+			</c:if>		
+
 			
             this.localPlayer.play();
             this.seekInProgress = false;
         }
         this.updateMediaControlUI();
+    };
+
+    CastPlayer.prototype.getBitRate = function () {
+        return $("#bitrate_menu").val();
     };
 
     /**
@@ -507,6 +524,14 @@
                     this.onError.bind(this));
             this.updateMediaControlUI();
         }
+    };
+
+    /**
+     * Changes the bit rate.
+     */
+    CastPlayer.prototype.changeBitRate = function () {
+        // This effectively restarts streaming with the new bit rate.
+        this.seekMedia();
     };
 
     /**
@@ -675,6 +700,7 @@
         $("#audio_off").on('click', this.muteMedia.bind(this));
         $("#play").on('click', this.playMedia.bind(this));
         $("#pause").on('click', this.pauseMedia.bind(this));
+        $("#bitrate_menu").on('change', this.changeBitRate.bind(this));
 
 //        setInterval(this.updateDebug.bind(this), 100);
     };

@@ -126,7 +126,7 @@ Section "Madsonic"
 SectionEnd
 
 
-Section /o "Genre Auto-Merge"
+Section "GenreMap Template"
   SetOutPath "c:\madsonic\config"
  File ..\..\..\..\madsonic-genre\genremap.cfg
  
@@ -240,7 +240,7 @@ Function CheckInstalledJRE
     InstallJRE:
       # Launch Java web installer.
       MessageBox MB_OK "Java 7 was not found and will now be installed."
-      File /oname=$TEMP\jre-setup.exe jre-7u67-windows-i586-iftw.exe
+      File /oname=$TEMP\jre-setup.exe jre-7u71-windows-i586-iftw.exe
       ExecWait '"$TEMP\jre-setup.exe"' $0
       Delete "$TEMP\jre-setup.exe"
 

@@ -32,6 +32,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -73,7 +75,12 @@ public class PlaylistService {
 
     
     public List<Playlist> getAllPlaylists() {
-        return playlistDao.getAllPlaylists("name asc"); // Default
+        return sort(playlistDao.getAllPlaylists()); 
+    }
+
+    private List<Playlist> sort(List<Playlist> playlists) {
+        Collections.sort(playlists, new PlaylistComparator());
+        return playlists;
     }
     
     public List<Playlist> getAllPlaylists(String sortCriteria) {
@@ -631,6 +638,12 @@ public class PlaylistService {
             if (writer.checkError()) {
                 throw new IOException("Error when writing playlist.");
             }
+        }
+    }
+    private static class PlaylistComparator implements Comparator<Playlist> {
+        @Override
+        public int compare(Playlist p1, Playlist p2) {
+            return p1.getName().compareTo(p2.getName());
         }
     }
 }

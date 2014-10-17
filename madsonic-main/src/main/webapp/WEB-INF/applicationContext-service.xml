@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:si="http://www.springframework.org/schema/integration"
 	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation=
 	"http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 	http://www.springframework.org/schema/aop
-	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 	http://www.springframework.org/schema/integration
-	http://www.springframework.org/schema/integration/spring-integration.xsd
+	http://www.springframework.org/schema/integration/spring-integration-3.0.xsd
 	http://www.springframework.org/schema/task
-	http://www.springframework.org/schema/task/spring-task.xsd">
+	http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
 
 	<!-- SPRING SECURITY BEANS -->
@@ -351,6 +352,7 @@
     </bean>	
 	
     <bean id="JaudiotaggerParser" class="org.madsonic.service.metadata.JaudiotaggerParser" init-method="init">
+        <property name="settingsService" ref="settingsService"/>	
     </bean>	
 	
 </beans>

@@ -78,6 +78,7 @@ public class MusicFolderSettingsController extends SimpleFormController {
         command.setHour(String.valueOf(settingsService.getIndexCreationHour()));
         command.setFastCache(settingsService.isFastCacheEnabled());
         command.setOrganizeByFolderStructure(settingsService.isOrganizeByFolderStructure());
+        command.setOrganizeByGenreMap(settingsService.isOrganizeByGenreMap());
         command.setScanning(mediaScannerService.isScanning());
         command.setMusicFolders(wrap(settingsService.getAllMusicFolders(true, true)));
         command.setNewMusicFolder(new MusicFolderSettingsCommand.MusicFolderInfo());
@@ -120,6 +121,7 @@ public class MusicFolderSettingsController extends SimpleFormController {
         settingsService.setIndexCreationHour(Integer.parseInt(command.getHour()));
         settingsService.setFastCacheEnabled(command.isFastCache());
         settingsService.setOrganizeByFolderStructure(command.isOrganizeByFolderStructure());
+        settingsService.setOrganizeByGenreMap(command.isOrganizeByGenreMap());
         settingsService.save();
 
         mediaScannerService.schedule();

@@ -61,13 +61,13 @@
 		<img id="preview1" src="" alt="" style="padding-top: 5px; padding-right: 120px;">
    	   <!-- <img id="preview2" src="" alt="" style="padding-right: 50px;" -->
 	</div>
-
+	
     <table style="white-space:nowrap" class="indent">
 
         <tr>
             <td><fmt:message key="personalsettings.language"/></td>
             <td>
-                <form:select path="localeIndex" cssStyle="width:15em">
+                <form:select path="localeIndex" cssStyle="width:20em">
                     <form:option value="-1" label="${defaultLabel}"/>
                     <c:forEach items="${command.locales}" var="locale" varStatus="loopStatus">
                         <form:option value="${loopStatus.count - 1}" label="${locale}"/>
@@ -80,7 +80,7 @@
         <tr>
             <td><fmt:message key="personalsettings.theme"/></td>
             <td>
-                <form:select path="themeIndex" cssStyle="width:15em" onchange="changePreview(this.options[selectedIndex].label)">
+                <form:select path="themeIndex" cssStyle="width:20em" onchange="changePreview(this.options[selectedIndex].label)">
                     <form:option value="-1" label="${defaultLabel}"/>
                     <c:forEach items="${command.themes}" var="theme" varStatus="loopStatus">
                         <form:option value="${loopStatus.count - 1}" label="${theme.name}"/>
@@ -107,7 +107,7 @@
                 <tr>
                     <td><fmt:message key="common.rows"/></td>
                     <td>
-                        <form:select path="listRows">
+                        <form:select path="listRows" cssStyle="width:10em" >
                             <c:forTokens items="1 2 3 4 5 6 7 8 9 10 15 20 25 30 40 50 75 100" delims=" " var="listrows">
                                 <form:option value="${listrows}"><fmt:message key="home.listrows"><fmt:param value="${listrows}"/></fmt:message>${listrows gt 1 ? pluralizer : ""}</form:option>
                             </c:forTokens>
@@ -118,7 +118,7 @@
                 <tr>
                     <td><fmt:message key="common.columns"/></td>
                     <td>
-                        <form:select path="listColumns">
+                        <form:select path="listColumns" cssStyle="width:10em" >
                             <c:forEach begin="1" end="18" var="listcolumns">
                                 <form:option value="${listcolumns}"><fmt:message key="home.listcolumns"><fmt:param value="${listcolumns}"/></fmt:message>${listcolumns gt 1 ? pluralizer : ""}</form:option>
                             </c:forEach>
@@ -421,16 +421,16 @@
 					set_width:false, /*optional element width: boolean, pixels, percentage*/
 					set_height:false, /*optional element height: boolean, pixels, percentage*/
 					horizontalScroll:false, /*scroll horizontally: boolean*/
-					scrollInertia:850, /*scrolling inertia: integer (milliseconds)*/
+					scrollInertia:650, /*scrolling inertia: integer (milliseconds)*/
 					mouseWheel:true, /*mousewheel support: boolean*/
-					mouseWheelPixels:"300", /*mousewheel pixels amount: integer, "auto"*/
+					mouseWheelPixels:"200", /*mousewheel pixels amount: integer, "auto"*/
 					autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
 					autoHideScrollbar:false, /*auto-hide scrollbar when idle*/
 					scrollButtons:{ /*scroll buttons*/
 						enable:true, /*scroll buttons support: boolean*/
 						scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
 						scrollSpeed:"auto", /*scroll buttons continuous scrolling speed: integer, "auto"*/
-						scrollAmount:300 /*scroll buttons pixels scroll amount: integer (pixels)*/
+						scrollAmount:200 /*scroll buttons pixels scroll amount: integer (pixels)*/
 					},
 					advanced:{
 						updateOnBrowserResize:true, /*update scrollbars on browser resize (for layouts based on percentages): boolean*/

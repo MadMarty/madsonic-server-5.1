@@ -102,8 +102,26 @@
 	</c:when>
         <c:otherwise>
 			<c:if test="${not empty model.songs}">
-			<h2></h2>
+				<table>
+					<tr style="padding-top:2.5em">
+					</tr>
+					<tr>
+						<sub:url value="statistics.view" var="previousUrl">
+							<sub:param name="listOffset" value="${model.listOffset - model.listSize}"/>
+							<sub:param name="listType" value="${model.listType}"/>
+							</sub:url>
+						<sub:url value="statistics.view" var="nextUrl">
+							<sub:param name="listOffset" value="${model.listOffset + model.listSize}"/>
+							<sub:param name="listType" value="${model.listType}"/>
+							</sub:url>
 
+						<td style="padding-right:1.5em"><div class="back"><a href="${previousUrl}"><fmt:message key="common.previous"/></a></div></td>
+						<td style="padding-right:1.5em"><fmt:message key="statistics.title"><fmt:param value="${model.listOffset + 1}"/><fmt:param value="${model.listOffset + model.listSize}"/></fmt:message></td>
+						<td><div class="forwardright"><a href="${nextUrl}"><fmt:message key="common.next"/></a></div></td>				
+						
+					</tr>
+				</table>
+				<br>
 				<table style="border-collapse:collapse">
 					<c:forEach items="${model.songs}" var="song" varStatus="loopStatus">
 
@@ -114,13 +132,20 @@
 						<tr>
 							<c:import url="playAddDownload.jsp">
 								<c:param name="id" value="${song.id}"/>
-								<c:param name="playEnabled" value="${model.user.streamRole and not model.partyModeEnabled}"/>
-								<c:param name="addEnabled" value="${model.user.streamRole and (not model.partyModeEnabled or not song.directory)}"/>
-								<c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyModeEnabled}"/>
-								<c:param name="starEnabled" value="true"/>
-								<c:param name="starred" value="${not empty song.starredDate}"/>
 								<c:param name="video" value="${song.video and model.player.web}"/>
+								<c:param name="playEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playVisible}"/>
+								<c:param name="playAddEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playAddVisible}"/>
+								<c:param name="playMoreEnabled" value="${model.user.streamRole and not model.partyMode and model.buttonVisibility.playMoreVisible}"/>
+								<c:param name="addEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addContextVisible}"/>
+								<c:param name="addNextEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addNextVisible}"/>
+								<c:param name="addLastEnabled" value="${model.user.streamRole and (not model.partyMode or not song.directory) and model.buttonVisibility.addLastVisible}"/>						
+								<c:param name="downloadEnabled" value="${model.user.downloadRole and not model.partyMode and model.buttonVisibility.downloadVisible}"/>
+								<c:param name="artist" value="${fn:escapeXml(song.artist)}"/>
+								<c:param name="title" value="${song.title}"/>
+								<c:param name="starEnabled" value="${model.buttonVisibility.starredVisible}"/>
+								<c:param name="starred" value="${not empty song.starredDate}"/>
 								<c:param name="asTable" value="true"/>
+								<c:param name="YoutubeEnabled" value="${model.buttonVisibility.youtubeVisible}"/>							
 							</c:import>
 
 							<td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
@@ -156,25 +181,6 @@
 							</tr>
 							
 					</c:forEach>
-				</table>
-				<table>
-					<tr style="padding-top:2.5em">
-					</tr>
-					<tr>
-						<sub:url value="statistics.view" var="previousUrl">
-							<sub:param name="listOffset" value="${model.listOffset - model.listSize}"/>
-							<sub:param name="listType" value="${model.listType}"/>
-							</sub:url>
-						<sub:url value="statistics.view" var="nextUrl">
-							<sub:param name="listOffset" value="${model.listOffset + model.listSize}"/>
-							<sub:param name="listType" value="${model.listType}"/>
-							</sub:url>
-
-						<td style="padding-right:1.5em"><div class="back"><a href="${previousUrl}"><fmt:message key="common.previous"/></a></div></td>
-						<td style="padding-right:1.5em"><fmt:message key="statistics.title"><fmt:param value="${model.listOffset + 1}"/><fmt:param value="${model.listOffset + model.listSize}"/></fmt:message></td>
-						<td><div class="forwardright"><a href="${nextUrl}"><fmt:message key="common.next"/></a></div></td>				
-						
-					</tr>
 				</table>
 			</c:if>
 </c:otherwise>	

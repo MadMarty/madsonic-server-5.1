@@ -2,10 +2,6 @@
 
 <html><head>
     <%@ include file="head.jsp" %>
-    <style type="text/css">
-        #progressBar {width: 350px; height: 10px; border: 1px solid black; display:none;}
-        #progressBarContent {width: 0; height: 10px; background: url("<c:url value="/icons/default/progress.png"/>") repeat;}
-    </style>
     <script type="text/javascript" src="<c:url value="/dwr/engine.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/dwr/util.js"/>"></script>
 </head>
@@ -15,7 +11,7 @@
     <img id="pageimage" src="<spring:theme code="moreImage"/>" alt="" />
     <fmt:message key="more.title"/><span class="desc"></span>
 </h1>
-
+<br>
 <a href="http://www.madsonic.org" target="_blank"><img alt="Apps" src="icons/default/madsonic.png" style="float: right;margin-left: 3em; margin-right: 3em"/></a>
 <h2><img src="<spring:theme code="androidImage"/>" alt=""/>&nbsp;<fmt:message key="more.madsonic.title"/></h2>
 <fmt:message key="more.madsonic.text"/>

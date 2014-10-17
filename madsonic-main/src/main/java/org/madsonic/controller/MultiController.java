@@ -21,6 +21,7 @@ package org.madsonic.controller;
 import org.madsonic.Logger;
 import org.madsonic.domain.Playlist;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,11 +36,10 @@ import org.madsonic.service.PlaylistService;
 import org.madsonic.service.SecurityService;
 import org.madsonic.service.SettingsService;
 import org.madsonic.util.StringUtil;
-
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -47,7 +47,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
-
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
@@ -69,30 +68,26 @@ public class MultiController extends MultiActionController {
     private SecurityService securityService;
     private SettingsService settingsService;
     private PlaylistService playlistService;
-
+    
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-//        User defaultUser = securityService.getUserByName(User.USERNAME_DEFAULT);
-    	
     	// Auto-login if "user" and "password" parameters are given.
         String username = request.getParameter("user");
         String password = request.getParameter("password");
         
         if (username != null && password != null) {
-        	
             username = StringUtil.urlEncode(username);
-            password = StringUtil.urlEncode(password);
-            
-//          password = StringUtil.urlEncode(decrypt(password));
+            password = StringUtil.urlEncode(decrypt(password));
             
             // LOCKOUT default user for logon
-            if (username.equalsIgnoreCase("default")  ) {
+            User defaultUser = securityService.getUserByName(User.USERNAME_DEFAULT);
+            
+            if (username.equalsIgnoreCase(defaultUser.getUsername())  ) {
                 Map<String, Object> map = new HashMap<String, Object>();
             	map.put("username", "");
             	map.put("password", "");
                 return new ModelAndView("login", "model", map);
             }
-            
             return new ModelAndView(new RedirectView("j_spring_security_check?j_username=" + username + 
 					     "&j_password=" + password + "&_spring_security_remember_me=checked"));
         }
@@ -104,7 +99,8 @@ public class MultiController extends MultiActionController {
         map.put("loginMessage", settingsService.getLoginMessage());
 
         User admin = securityService.getUserByName(User.USERNAME_ADMIN);
-        
+
+        // Check if admin user default password       
         if (admin != null) {
 	        if ("a40546cc4fd6a12572828bb803380888ad1bfdab".equals(admin.getPassword())) {
 	            map.put("insecure", true);

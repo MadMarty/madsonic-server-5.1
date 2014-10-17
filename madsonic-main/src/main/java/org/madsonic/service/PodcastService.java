@@ -143,7 +143,7 @@ public class PodcastService {
 
         scheduledRefresh = scheduledExecutor.scheduleAtFixedRate(task, initialDelayMillis, periodMillis, TimeUnit.MILLISECONDS);
         Date firstTime = new Date(System.currentTimeMillis() + initialDelayMillis);
-        LOG.info("Automatic Podcast update scheduled to run every " + hoursBetween + " hour(s), starting at " + firstTime);
+        LOG.info("Automatic Podcast scan: every " + hoursBetween + " hour(s), NEXT: " + firstTime);
     }
 
     /**

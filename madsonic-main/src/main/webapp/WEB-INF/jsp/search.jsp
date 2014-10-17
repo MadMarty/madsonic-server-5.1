@@ -14,6 +14,7 @@
 
 <div class="searchbox">
 
+<!--
 <form:form commandName="command" method="post" action="search.view" name="searchForm">
     <table>
         <tr>
@@ -22,8 +23,8 @@
             <td style="padding-left:0.25em"><input type="submit" onclick="search(0)" value="<fmt:message key="search.search"/>"/></td>
         </tr>
     </table>
-
 </form:form>
+-->
 
 <c:if test="${command.indexBeingCreated}">
     <p class="warning"><fmt:message key="search.index"/></p>
@@ -43,29 +44,35 @@
             </sub:url>
 
             <tr class="artistRow" ${loopStatus.count > 6 ? "style='display:none'" : ""}>
-			
-					<td>
-					<c:import url="coverArt.jsp">
+				<td style="padding-left:0.5em;padding-right:1.5em;">
+				<c:import url="playAddDownload.jsp">
+					<c:param name="id" value="${match.id}"/>
+					<c:param name="playEnabled" value="${command.user.streamRole and not command.partyModeEnabled}"/>
+					<c:param name="addEnabled" value="${command.user.streamRole and (not command.partyModeEnabled or not match.directory)}"/>
+					<c:param name="downloadEnabled" value="${command.user.downloadRole and not command.partyModeEnabled}"/>
+					<c:param name="starEnabled" value="false"/>
+					<c:param name="starred" value="${not empty match.starredDate}"/>
+					<c:param name="video" value="${match.video and model.player.web}"/>
+					<c:param name="asTable" value="false"/>
+				</c:import>
+				</td>								
+				<td class="bgcolor2">								
+					<c:import url="coverArtThumb.jsp">
 						<c:param name="albumId" value="${match.id}"/>
 						<c:param name="artistName" value="${match.name}"/>
-						<c:param name="coverArtSize" value="40"/>
+						<c:param name="coverArtSize" value="50"/>
+						<c:param name="scale" value="0.5"/>
 						<c:param name="showLink" value="true"/>
 						<c:param name="showZoom" value="false"/>
 						<c:param name="showChange" value="false"/>
 						<c:param name="showArtist" value="false"/>
 						<c:param name="typArtist" value="true"/>
-						<c:param name="appearAfter" value="10"/>
+						<c:param name="appearAfter" value="5"/>
+						
 					</c:import>
-					</td>
-			
-                <c:import url="playAddDownload.jsp">
-                    <c:param name="id" value="${match.id}"/>
-                    <c:param name="playEnabled" value="${command.user.streamRole and not command.partyModeEnabled}"/>
-                    <c:param name="addEnabled" value="${command.user.streamRole and (not command.partyModeEnabled or not match.directory)}"/>
-                    <c:param name="downloadEnabled" value="${command.user.downloadRole and not command.partyModeEnabled}"/>
-                    <c:param name="asTable" value="true"/>
-                </c:import>
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+				</td>	
+		
+                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.75em;padding-right:1.25em">
                     <a href="${mainUrl}">${match.name}</a>
                 </td>
             </tr>
@@ -89,33 +96,39 @@
 				
             <tr class="albumRow" ${loopStatus.count > 8 ? "style='display:none'" : ""}>
 
-			<td>
-			<c:import url="coverArt.jsp">
-				<c:param name="albumId" value="${match.id}"/>
-				<c:param name="artistName" value="${match.name}"/>
-				<c:param name="coverArtSize" value="40"/>
-				<c:param name="showLink" value="true"/>
-				<c:param name="showZoom" value="false"/>
-				<c:param name="showChange" value="false"/>
-				<c:param name="showArtist" value="false"/>
-				<c:param name="typArtist" value="true"/>
-				<c:param name="appearAfter" value="10"/>
-			</c:import>
-			</td>
-			
-			<c:import url="playAddDownload.jsp">
-                    <c:param name="id" value="${match.id}"/>
-                    <c:param name="playEnabled" value="${command.user.streamRole and not command.partyModeEnabled}"/>
-                    <c:param name="addEnabled" value="${command.user.streamRole and (not command.partyModeEnabled or not match.directory)}"/>
-                    <c:param name="downloadEnabled" value="${command.user.downloadRole and not command.partyModeEnabled}"/>
-                    <c:param name="asTable" value="true"/>
-                </c:import>
 
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+				<td style="padding-left:0.5em;padding-right:1.5em;">
+				<c:import url="playAddDownload.jsp">
+					<c:param name="id" value="${match.id}"/>
+					<c:param name="playEnabled" value="${command.user.streamRole and not command.partyModeEnabled}"/>
+					<c:param name="addEnabled" value="${command.user.streamRole and (not command.partyModeEnabled or not match.directory)}"/>
+					<c:param name="downloadEnabled" value="${command.user.downloadRole and not command.partyModeEnabled}"/>
+					<c:param name="starEnabled" value="false"/>
+					<c:param name="starred" value="${not empty match.starredDate}"/>
+					<c:param name="video" value="${match.video and model.player.web}"/>
+					<c:param name="asTable" value="false"/>
+				</c:import>
+				</td>								
+				<td class="bgcolor2">								
+					<c:import url="coverArtThumb.jsp">
+						<c:param name="albumId" value="${match.id}"/>
+						<c:param name="artistName" value="${match.name}"/>
+						<c:param name="coverArtSize" value="50"/>
+						<c:param name="scale" value="0.5"/>
+						<c:param name="showLink" value="true"/>
+						<c:param name="showZoom" value="false"/>
+						<c:param name="showChange" value="false"/>
+						<c:param name="showArtist" value="false"/>
+						<c:param name="typArtist" value="true"/>
+						<c:param name="appearAfter" value="5"/>
+						
+					</c:import>
+				</td>			
+                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.75em;padding-right:1.25em">
                     <a href="${mainUrl}"><str:truncateNicely upper="55">${match.albumSetName}</str:truncateNicely></a>
                 </td>
 
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
+                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.75em;padding-right:1.25em">
                     <span class="detail"><str:truncateNicely upper="55">${match.artist}</str:truncateNicely></span>
                 </td>
             </tr>
@@ -138,26 +151,44 @@
 
             <tr class="songRow" ${loopStatus.count > 20 ? "style='display:none'" : ""}>
 
-		<td>
-		<c:import url="playAddDownload.jsp">
-	                <c:param name="id" value="${match.id}"/>
-			<c:param name="playEnabled" value="${command.user.streamRole and not command.partyModeEnabled}"/>
-			<c:param name="addEnabled" value="${command.user.streamRole and (not command.partyModeEnabled or not match.directory)}"/>
-			<c:param name="downloadEnabled" value="${command.user.downloadRole and not command.partyModeEnabled}"/>
-			<c:param name="video" value="${match.video and command.player.web}"/>
-			<c:param name="asTable" value="true"/>
-		</c:import>
-		</td>
-				
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:0.25em;padding-right:1.25em">
+							<td style="padding-left:0.5em;padding-right:1.5em;">
+							<c:import url="playAddDownload.jsp">
+								<c:param name="id" value="${match.id}"/>
+								<c:param name="playEnabled" value="${command.user.streamRole and not command.partyModeEnabled}"/>
+								<c:param name="addEnabled" value="${command.user.streamRole and (not command.partyModeEnabled or not match.directory)}"/>
+								<c:param name="downloadEnabled" value="${command.user.downloadRole and not command.partyModeEnabled}"/>
+								<c:param name="starEnabled" value="false"/>
+								<c:param name="starred" value="${not empty match.starredDate}"/>
+								<c:param name="video" value="${match.video and model.player.web}"/>
+								<c:param name="asTable" value="false"/>
+							</c:import>
+							</td>								
+							<td class="bgcolor2">								
+								<c:import url="coverArtThumb.jsp">
+									<c:param name="albumId" value="${match.id}"/>
+									<c:param name="artistName" value="${match.name}"/>
+									<c:param name="coverArtSize" value="50"/>
+									<c:param name="scale" value="0.5"/>
+									<c:param name="showLink" value="true"/>
+									<c:param name="showZoom" value="false"/>
+									<c:param name="showChange" value="false"/>
+									<c:param name="showArtist" value="false"/>
+									<c:param name="typArtist" value="true"/>
+									<c:param name="appearAfter" value="5"/>
+									
+								</c:import>
+							</td>				
+			
+		
+                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-left:1.75em;padding-right:1.25em">
                     <str:truncateNicely upper="60">${match.title}</str:truncateNicely>
 		</td>
 
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.25em">
+                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.75em">
                     <a href="${mainUrl}"><span class="detail"><str:truncateNicely upper="60">${match.albumName}</str:truncateNicely></span></a>
                 </td>
 
-                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:0.25em">
+                <td ${loopStatus.count % 2 == 1 ? "class='bgcolor2'" : ""} style="padding-right:1.75em">
                     <span class="detail"><str:truncateNicely upper="60">${match.artist}</str:truncateNicely></span>
                 </td>
             </tr>

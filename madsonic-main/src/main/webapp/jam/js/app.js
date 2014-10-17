@@ -10,7 +10,7 @@ JamStash.service('globals', function (utils) {
         Password: "guest"),
         Server: "http://subsonic.org/demo"),
         */
-        Url: "http://Jamstash.com/beta/#/archive/",
+        Url: "http://beta.jamstash.com/#/archive/", 
         Username: "",
         Password: "",
         Server: "",
@@ -35,7 +35,7 @@ JamStash.service('globals', function (utils) {
         Repeat: false,
         Debug: false
     };
-    this.SavedCollections = [];
+    this.DefaultCollection = [];
     this.SavedGenres = [];
     this.BaseURL = function () { return this.settings.Server + '/rest'; };
     this.BaseParams = function () { return 'u=' + this.settings.Username + '&p=' + this.settings.Password + '&f=' + this.settings.Protocol + '&v=' + this.settings.ApiVersion + '&c=' + this.settings.ApplicationName; };
@@ -52,6 +52,47 @@ JamStash.config(function ($sceDelegateProvider) {
 // Then
 $routeParams ==> {chapterId:1, sectionId:2, search:'moby'}
 */
+/*
+JamStash.config(function ($stateProvider) {
+    $stateProvider
+    .state('root', {
+        url: '',
+        views: {
+            'settings': {
+                url: '/settings',
+                templateUrl: 'js/partials/settings.html',
+                controller: 'SettingsCtrl'
+            },
+            'library': {
+                url: '/library',
+                templateUrl: 'js/partials/library.html',
+                controller: 'SubsonicCtrl'
+            }
+        }
+    })
+});
+
+JamStash.config(function ($stateProvider) {
+    $stateProvider
+        .state('root', {
+            url: '/',
+            templateUrl: 'js/partials/library.html',
+            controller: 'SubsonicCtrl'
+        })
+        .state('settings', {
+            url: '/settings',
+            templateUrl: 'js/partials/settings.html',
+            controller: 'SettingsCtrl'
+        })
+        .state('library', {
+            url: '/library',
+            templateUrl: 'js/partials/library.html',
+            controller: 'SubsonicCtrl'
+        });
+})
+
+*/
+
 JamStash.config(function ($routeProvider) {
     $routeProvider
         .when('/index', { redirectTo: '/library' })

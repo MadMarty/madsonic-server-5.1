@@ -15,4 +15,4 @@ PARAMETERS
     <div style="font-weight:bold;"><fmt:message key="helppopup.${param.topic}.title"><fmt:param value="Madsonic"/></fmt:message></div>
     <div><fmt:message key="helppopup.${param.topic}.text"><fmt:param value="Madsonic"/></fmt:message></div>
 </div>
-<img src="${imageUrl}" alt="${help}" title="${help}" onmouseover="TagToTip('placeholder-${param.topic}', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240, CLICKSTICKY, true, CLICKCLOSE, true)" onmouseout="UnTip()"/>
+<img src="${imageUrl}" class="help" alt="${help}" title="${help}" onmouseover="TagToTip('placeholder-${param.topic}', BALLOON, true, ABOVE, true, OFFSETX, -17, PADDING, 8, WIDTH, -240, CLICKSTICKY, true, CLICKCLOSE, true)" onmouseout="UnTip()"/>

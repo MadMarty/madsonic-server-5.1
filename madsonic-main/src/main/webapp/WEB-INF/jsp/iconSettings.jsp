@@ -66,6 +66,9 @@
 	<td><form:checkbox path="showIconAbout" id="showIconAbout"/><label for="showIconAbout">About</label></td>
 </tr>
 <tr>
+	<td><form:checkbox path="showIconRandom" id="showIconRandom"/><label for="showIconRandom">Random</label></td>
+</tr>
+<tr>
   </tr>
   <tr>
   </tr>

@@ -69,6 +69,10 @@ public class VideoPlayerController extends ParameterizableViewController {
             map.put("skipOffsets", createSkipOffsets(duration));
             timeOffset = Math.min(duration, timeOffset);
             duration -= timeOffset;
+        } else {
+        	if ( "hdrun".equalsIgnoreCase(file.getFormat())) {
+            	duration = 86400; // hdrun fix 24h
+        	}
         }
 		
         String playerId = playerService.getPlayer(request, response).getId();
@@ -93,7 +97,7 @@ public class VideoPlayerController extends ParameterizableViewController {
         if (file.getPath().toLowerCase().endsWith("url")) {
 			 UrlFile urlFile = new UrlFile(file.getPath());   
 			 String YoutubeId = StringUtil.getYoutubeVideoId(urlFile.getString("InternetShortcut", "URL", null));
-			 streamUrl = "https://www.youtube.com/watch?v=" + YoutubeId;
+			 streamUrl = StringUtil.getYoutubeVideoUrl() + YoutubeId;
 			 duration = 0;
         }        
         

@@ -26,7 +26,7 @@ document.forms["searchForm"].submit();
     <table>
       <tr>
       <td>
-         <input type="text" name="query" id="query" size="30" value="">
+         <input type="text" name="query" id="query" size="50" value="">
       </td>
         <td>
          <input type="submit" id="submitform" onclick="passpar()">

@@ -18,6 +18,8 @@
         var next = getNextSong(true);
         if (next) {
             $rootScope.playSong(false, next);
+        } else {
+            $rootScope.restartSong();
         }
     };
     getNextSong = function (previous) {
@@ -133,6 +135,10 @@
             if (globals.settings.Debug) { console.log('HTML5::loadStorage not supported on your browser, ' + html.length + ' characters'); }
         }
     };
+    $rootScope.restartSong = function (loadonly, data) {
+        var audio = $(player1).data("jPlayer");
+        audio.play(0);
+    };
     $rootScope.playSong = function (loadonly, data) {
         if (globals.settings.Debug) { console.log('Play: ' + JSON.stringify(data, null, 2)); }
         angular.forEach($rootScope.queue, function(item, key) {
@@ -172,8 +178,7 @@
             // End UnityShim
         }
         if ($rootScope.queue.length > 0) {
-            $('#QueuePreview').stop().scrollTo('#' + id, 400);
-            //$rootScope.showQueue();
+            $('#queue').stop().scrollTo('#' + id, 400);
         }
         var spechtml = '';
         var data = $(player1).data().jPlayer;
@@ -216,6 +221,7 @@
         if (globals.settings.ForceFlash) {
             audioSolution = "flash,html";
         }
+        if (globals.settings.Debug) { console.log('Setting Audio Solution: ' + audioSolution); }
         //var salt = Math.floor(Math.random() * 100000);
         //url += '&salt=' + salt;
         $(el).jPlayer("destroy");
@@ -228,10 +234,10 @@
             volume: volume,
             errorAlerts: false,
             warningAlerts: false,
-            cssSelectorAncestor: "#player",
+            cssSelectorAncestor: "",
             cssSelector: {
-                play: "#PlayTrack",
-                pause: "#PauseTrack",
+                play: ".PlayTrack",
+                pause: ".PauseTrack",
                 seekBar: "#audiocontainer .scrubber",
                 playBar: "#audiocontainer .progress",
                 mute: "#action_Mute",
@@ -246,9 +252,17 @@
                     $(this).jPlayer("setMedia", {
                         oga: url
                     });
+				} else if (suffix == 'm4a') {
+					$(this).jPlayer("setMedia", {
+						m4a: url
+					});
                 } else if (suffix == 'mp3') {
                     $(this).jPlayer("setMedia", {
                         mp3: url
+                    });
+                } else if (suffix == 'm4a') {
+                    $(this).jPlayer("setMedia", {
+                        m4a: url
                     });
                 }
                 if (!loadonly) { // Start playing

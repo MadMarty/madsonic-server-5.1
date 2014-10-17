@@ -105,6 +105,9 @@ public class GeneralSettingsCommand {
     private boolean showHomeTop100; 
     private boolean showHomeNew100; 
     
+    private boolean showHomePagerTop;
+    private boolean showHomePagerBottom;
+    
     private int leftframeSize;
     private int playQueueSize;
     
@@ -665,6 +668,22 @@ public class GeneralSettingsCommand {
 
 	public void setPlaylistBackupFolder(String playlistBackupFolder) {
 		this.playlistBackupFolder = playlistBackupFolder;
+	}
+
+	public boolean isShowHomePagerTop() {
+		return showHomePagerTop;
+	}
+
+	public void setShowHomePagerTop(boolean showHomePagerTop) {
+		this.showHomePagerTop = showHomePagerTop;
+	}
+
+	public boolean isShowHomePagerBottom() {
+		return showHomePagerBottom;
+	}
+
+	public void setShowHomePagerBottom(boolean showHomePagerBottom) {
+		this.showHomePagerBottom = showHomePagerBottom;
 	}
 
 }

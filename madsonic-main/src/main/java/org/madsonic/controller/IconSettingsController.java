@@ -61,6 +61,7 @@ public class IconSettingsController extends SimpleFormController {
         command.setShowIconPlaylists(settingsService.showIconPlaylists());
         command.setShowIconPlaylistEditor(settingsService.showIconPlaylistEditor());
         command.setShowIconMore(settingsService.showIconMore());
+        command.setShowIconRandom(settingsService.showIconRandom());
         command.setShowIconAbout(settingsService.showIconAbout());
         command.setShowIconGenre(settingsService.showIconGenre());
         command.setShowIconMoods(settingsService.showIconMoods());
@@ -90,7 +91,8 @@ public class IconSettingsController extends SimpleFormController {
         settingsService.setshowIconStatistics(command.isShowIconStatistics());
         settingsService.setshowIconPlaylists(command.isShowIconPlaylists());
         settingsService.setshowIconPlaylistEditor(command.isShowIconPlaylistEditor());
-        settingsService.setshowIconMore(command.isShowIconMore());        
+        settingsService.setshowIconMore(command.isShowIconMore()); 
+        settingsService.setshowIconRandom(command.isShowIconRandom()); 
         settingsService.setshowIconGenre(command.isShowIconGenre());
         settingsService.setshowIconMoods(command.isShowIconMoods());
         settingsService.setshowIconAbout(command.isShowIconAbout());        

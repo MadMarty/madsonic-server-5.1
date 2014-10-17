@@ -329,6 +329,11 @@
 		playQueueService.playMoodRadio(moods, count, year, playQueueCallback);
     }	
 	
+	function onPlayRandomRadio(count, genre, mood, year, musicFolderId) {
+		startPlayer = true;
+		playQueueService.playRandomRadio(count, genre, mood, year, musicFolderId, playQueueCallback);
+    }	
+	
     function onShuffle() {
         playQueueService.shuffle(playQueueCallback);
     }
@@ -681,7 +686,7 @@ function skip(index) {
 
 <div id="content_3" class="content_playqueue">
 	<!-- CONTENT -->			
-	<div class="bgcolor2" style="position:fixed; top:0; left:0; width:100%; padding-top:0.1em; margin-left:6px;z-index:1000;">
+	<div class="bgcolor2" style="position:fixed; top:0; left:0; width:100%; padding-top:0.4em; margin-left:6px;z-index:1000;">
 	<table style="border-collapse: collapse;" class="123">
 	 <tr style="white-space:nowrap; margin: 0 0 0.1em 0; padding: 0;">
             <c:if test="${model.user.settingsRole and fn:length(model.players) gt 1}">
@@ -692,15 +697,15 @@ function skip(index) {
 			</select></td>
             </c:if>
 
-			<td style="padding-left:4px;padding-right: 8px;">
-				<img id="castOn" src="<spring:theme code="castIdleImage"/>" onclick="CastPlayer.launchCastApp()" style="cursor:pointer; display:none">
-				<img id="castOff" src="<spring:theme code="castActiveImage"/>" onclick="CastPlayer.stopCastApp()" style="cursor:pointer; display:none">
+			<td style="padding-left:4px;">
+				<img id="castOn" src="<spring:theme code="castIdleImage"/>" onclick="CastPlayer.launchCastApp()" style="cursor:pointer; display:none;padding-right:10px;">
+				<img id="castOff" src="<spring:theme code="castActiveImage"/>" onclick="CastPlayer.stopCastApp()" style="cursor:pointer; display:none;padding-right:10px;">
 			</td>
 			
 			<c:if test="${model.user.streamRole and not model.player.web}">
-                <td style="padding-left:8px;margin-right:8px;">
-                    <img id="start" src="<spring:theme code="castPlayImage"/>" onclick="onStart()" style="cursor:pointer">
-                    <img id="stop" src="<spring:theme code="castPauseImage"/>" onclick="onStop()" style="cursor:pointer; display:none">
+                <td style="padding-left:8px">
+                    <img id="start" src="<spring:theme code="castPlayImage"/>" onclick="onStart()" style="cursor:pointer;margin-right:10px;">
+                    <img id="stop" src="<spring:theme code="castPauseImage"/>" onclick="onStop()" style="cursor:pointer; display:none;margin-right:10px;">
                 </td>
 			</c:if>
 
@@ -762,26 +767,28 @@ function skip(index) {
 						</c:if>
 
 						<td style="white-space:nowrap;padding-left:0.5em;"><select id="moreActions" onchange="actionSelected(this.options[selectedIndex].id)">
-							<option id="top" selected="selected"><fmt:message key="playlist.more"/></option>
-							<option style="color:blue;"><fmt:message key="playlist.more.playlist"/></option>
-							<option id="savePlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.save"/></option>
-							<c:if test="${model.user.downloadRole}">
-								<option id="downloadPlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="common.download"/></option>
-							</c:if>
-							<c:if test="${model.user.shareRole}">
-								<option id="sharePlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="main.more.share"/></option>
-							</c:if>
-							<option id="sortByTrack">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.sortbytrack"/></option>
-							<option id="sortByAlbum">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.sortbyalbum"/></option>
-							<option id="sortByArtist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.sortbyartist"/></option>
-							<option style="color:blue;"><fmt:message key="playlist.more.selection"/></option>
-							<option id="selectAll">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectall"/></option>
-							<option id="selectNone">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.more.selectnone"/></option>
-							<option id="removeSelected">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.remove"/></option>
-							<c:if test="${model.user.downloadRole}">
-								<option id="download">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="common.download"/></option>
-							</c:if>
-							<option id="appendPlaylist">&nbsp;&nbsp;&nbsp;&nbsp;<fmt:message key="playlist.append"/></option>
+				                <option id="top" selected="selected"><fmt:message key="playlist.more"/></option>
+				                <optgroup label="<fmt:message key="playlist.more.playlist"/>">
+				                    <option id="savePlaylist"><fmt:message key="playlist.save"/></option>
+				                    <c:if test="${model.user.downloadRole}">
+				                    <option id="downloadPlaylist"><fmt:message key="common.download"/></option>
+				                    </c:if>
+				                    <c:if test="${model.user.shareRole}">
+				                    <option id="sharePlaylist"><fmt:message key="main.more.share"/></option>
+				                    </c:if>
+				                    <option id="sortByTrack"><fmt:message key="playlist.more.sortbytrack"/></option>
+				                    <option id="sortByAlbum"><fmt:message key="playlist.more.sortbyalbum"/></option>
+				                    <option id="sortByArtist"><fmt:message key="playlist.more.sortbyartist"/></option>
+				                </optgroup>
+				                <optgroup label="<fmt:message key="playlist.more.selection"/>">
+				                    <option id="selectAll"><fmt:message key="playlist.more.selectall"/></option>
+				                    <option id="selectNone"><fmt:message key="playlist.more.selectnone"/></option>
+				                    <option id="removeSelected"><fmt:message key="playlist.remove"/></option>
+				                    <c:if test="${model.user.downloadRole}">
+				                        <option id="download"><fmt:message key="common.download"/></option>
+				                    </c:if>
+				                    <option id="appendPlaylist"><fmt:message key="playlist.append"/></option>
+				                </optgroup>
 						</select>
 						</td>
 
@@ -792,7 +799,7 @@ function skip(index) {
 				<table style="border-collapse:collapse;white-space:nowrap;">
 				<tbody id="playlistBody">
 					<tr id="pattern" style="display:none;margin:0;padding:0;border:0">
-						<td class="bgcolor2" style="padding-right:0.25em;text-align:right">
+						<td class="bgcolor2" style="padding-right:0.25em;text-align:right;">
 							<c:if test="${model.buttonVisibility.rankVisible}">
 							<span id="rank"></span>
 							</c:if>
@@ -800,19 +807,19 @@ function skip(index) {
 						<td class="bgcolor2">
 						<c:if test="${model.buttonVisibility.starredVisible}">
 							<a href="javascript:void(0)">
-							<img id="starSong" class="starSong" onclick="onStar(this.id.substring(8) - 1)" src="<spring:theme code="ratingOffImage"/>" alt="" title="Star"></a></td>
+							<img id="starSong" class="controls starSong" onclick="onStar(this.id.substring(8) - 1)" src="<spring:theme code="ratingOffImage"/>" alt="" title="Star"></a></td>
 							</c:if>
 						<td class="bgcolor2"><a href="javascript:void(0)">
-							<img id="removeSong" onclick="onRemove(this.id.substring(10) - 1)" src="<spring:theme code="removeImage"/>"
+							<img id="removeSong" class="controls" onclick="onRemove(this.id.substring(10) - 1)" src="<spring:theme code="removeImage"/>"
 								 alt="<fmt:message key="playlist.remove"/>" title="<fmt:message key="playlist.remove"/>">&nbsp;</a></td>
 						<td class="bgcolor2"><a href="javascript:void(0)">
-							<img id="up" onclick="onUp(this.id.substring(2) - 1)" src="<spring:theme code="upImage"/>"
+							<img id="up" class="controls" onclick="onUp(this.id.substring(2) - 1)" src="<spring:theme code="upImage"/>"
 								 alt="<fmt:message key="playlist.up"/>" title="<fmt:message key="playlist.up"/>">&nbsp;</a></td>
 						<td class="bgcolor2"><a href="javascript:void(0)">
-							<img id="down" onclick="onDown(this.id.substring(4) - 1)" src="<spring:theme code="downImage"/>"
+							<img id="down" class="controls" onclick="onDown(this.id.substring(4) - 1)" src="<spring:theme code="downImage"/>"
 								 alt="<fmt:message key="playlist.down"/>" title="<fmt:message key="playlist.down"/>">&nbsp;</a></td>
 
-						<td class="bgcolor2" style="padding-left: 0.1em"><input type="checkbox" class="checkbox" id="songIndex"></td>
+						<td class="bgcolor2" style="padding-left: 0.4em"><input type="checkbox" class="checkbox" id="songIndex"></td>
 						<td style="padding-right:1.0em"></td>
 
 						<td><span class="detail" id="currentIndex"> </span></td>

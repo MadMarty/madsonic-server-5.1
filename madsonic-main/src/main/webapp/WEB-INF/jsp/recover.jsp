@@ -8,9 +8,10 @@
 <body class="mainframe bgcolor1" onload="document.getElementById('usernameOrEmail').focus()">
 
 <form action="recover.view" method="POST">
-    <div class="bgcolor2" style="border:1px solid black; padding:20px 50px 20px 50px; margin-top:100px">
+<center>
+    <div class="bgcolor2" style="border:1px solid black; padding:20px 50px 20px 50px; margin-top:200px;max-width:50em;">
 
-        <div style="margin-left: auto; margin-right: auto; width: 45em">
+        <div style="margin-left: auto; margin-right: auto; max-width:50em">
 
             <h1><fmt:message key="recover.title"/></h1>
             <p style="padding-top: 1em; padding-bottom: 0.5em"><fmt:message key="recover.text"/></p>
@@ -34,10 +35,11 @@
                 <p style="padding-top: 1em" class="warning"><fmt:message key="${model.error}"/></p>
             </c:if>
 
-            <div class="back" style="margin-top: 1.5em"><a href="login.view"><fmt:message key="common.back"/></a></div>
+            <div class="back" style="padding-left: 60px;margin-top: 1.5em; background-position: center center;"><a href="login.view"><fmt:message key="common.back"/></a></div>
 
         </div>
     </div>
+	</center>
 </form>
 </body>
 </html>

@@ -81,8 +81,8 @@
                                         <copy file="../madsonic-booter/src/main/script/madsonic.sh" todir="${project.build.directory}/rpm/buildroot/usr/share/madsonic"/>
                                         <copy file="../madsonic-booter/target/madsonic-booter-jar-with-dependencies.jar" tofile="${project.build.directory}/rpm/buildroot/usr/share/madsonic/madsonic-booter.jar"/>
                                         <copy file="../madsonic-main/target/madsonic.war" todir="${project.build.directory}/rpm/buildroot/usr/share/madsonic"/>
+                                        <copy file="../madsonic-genre/genremap.cfg" todir="${project.build.directory}/rpm/buildroot/var/madsonic/config"/>
                                         <copy file="../madsonic-transcode-x86/linux/ffmpeg" todir="${project.build.directory}/rpm/buildroot/var/madsonic/transcode"/>
-                                        <copy file="../madsonic-transcode-x86/linux/Audioffmpeg" todir="${project.build.directory}/rpm/buildroot/var/madsonic/transcode"/>
                                         <copy file="../madsonic-transcode-x86/linux/lame" todir="${project.build.directory}/rpm/buildroot/var/madsonic/transcode"/>
                                         <copy file="../madsonic-transcode-x86/linux/xmp" todir="${project.build.directory}/rpm/buildroot/var/madsonic/transcode"/>
 

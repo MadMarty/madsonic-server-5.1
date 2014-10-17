@@ -141,6 +141,26 @@
             }			
         }
     </script>
+
+    <script type="text/javascript">
+        var previousQuery = "";
+        var instantSearchTimeout;
+
+        function triggerInstantSearch() {
+            if (instantSearchTimeout) {
+                window.clearTimeout(instantSearchTimeout);
+            }
+            instantSearchTimeout = window.setTimeout(executeInstantSearch, 300);
+        }
+
+        function executeInstantSearch() {
+            var query = $("#query").val().trim();
+            if (query.length > 1 && query != previousQuery) {
+                previousQuery = query;
+                document.searchForm.submit();
+            }
+        }
+    </script>	
 </head>
 <body class="bgcolor2 leftframe" onload="init()">
 
@@ -165,7 +185,7 @@
 			<td style="padding-left:0.2em; padding-bottom:0em;">
 				<form method="post" action="search.view" target="main" name="searchForm">
 					<table><tr>
-						<td><input type="text" name="query" id="query" size="28" placeholder="${search} ..." style="padding-left:8px;"  onclick="select();"></td>
+						<td><input type="text" name="query" id="query" size="28" placeholder="${search} ..." style="padding-left:8px;margin-right:4px;"  onclick="select();" onkeyup="triggerInstantSearch();"></td>
 						<td><a href="javascript:document.searchForm.submit()"><img src="<spring:theme code="searchImage"/>" alt="${search}" title="${search}"></a></td>
 					</tr></table>
 				</form>
@@ -184,6 +204,12 @@
 				</c:if>
 				<c:if test="${model.VideoFolderEnabled eq true}">
 				<option ${model.selectedMusicFolderId == -3 ? "selected" : ""} value="-3">All Videos</option>
+				</c:if>
+				<c:if test="${model.MoviesFolderEnabled eq true}">
+				<option ${model.selectedMusicFolderId == -4 ? "selected" : ""} value="-4">All Movies</option>
+				</c:if>
+				<c:if test="${model.SeriesFolderEnabled eq true}">
+				<option ${model.selectedMusicFolderId == -5 ? "selected" : ""} value="-5">All Series</option>
 				</c:if>
 				<c:if test="${fn:length(model.musicFolders) > 0}">
 				<option value="-1"></option>

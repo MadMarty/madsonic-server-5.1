@@ -50,10 +50,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>madsonic</servlet-name>
-        <url-pattern>/wap</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>madsonic</servlet-name>
         <url-pattern>/play.m3u</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -215,9 +211,12 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
-	<filter-mapping>
+	
+	<filter-mapping> 
 		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
+	    <url-pattern>/*</url-pattern>
+	    <dispatcher>REQUEST</dispatcher>
+	    <dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
 </web-app>

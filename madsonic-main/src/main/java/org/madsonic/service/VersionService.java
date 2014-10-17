@@ -1,18 +1,18 @@
 /*
- This file is part of Subsonic.
+ This file is part of Madsonic.
 
- Subsonic is free software: you can redistribute it and/or modify
+ Madsonic is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
 
- Subsonic is distributed in the hope that it will be useful,
+ Madsonic is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Subsonic.  If not, see <http://www.gnu.org/licenses/>.
+ along with Madsonic.  If not, see <http://www.gnu.org/licenses/>.
 
  Copyright 2009 (C) Sindre Mehus
  */
@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,19 +42,22 @@ import java.util.regex.Pattern;
 
 /**
  * Provides version-related services, including functionality for determining whether a newer
- * version of Subsonic is available.
+ * version of Madsonic is available.
  *
  * @author Sindre Mehus
  */
 public class VersionService {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+    private static final DateFormat TIME_FORMAT = new SimpleDateFormat("hhmm");
+    
     private static final Logger LOG = Logger.getLogger(VersionService.class);
 
     private Version localVersion;
     private Version latestFinalVersion;
     private Version latestBetaVersion;
     private Date localBuildDate;
+    private Date localBuildTime;
     private String localBuildNumber;
 
     /**
@@ -65,8 +69,8 @@ public class VersionService {
     /**
      * Only fetch last version this often (in milliseconds.).
      */
-    private static final long LAST_VERSION_FETCH_INTERVAL     = 4L * 24L * 3600L * 1000L; 	// 4 Days
-    private static final long LAST_BETAVERSION_FETCH_INTERVAL = 2L * 24L * 3600L * 1000L; 	// One Day
+    private static final long LAST_VERSION_FETCH_INTERVAL     = 30L * 24L * 3600L * 1000L; 	// 30 Days
+    private static final long LAST_BETAVERSION_FETCH_INTERVAL = 7L * 24L * 3600L * 1000L; 	// 7 Days
 
     /**
      * URL from which to fetch latest versions.
@@ -74,15 +78,15 @@ public class VersionService {
     private static final String VERSION_URL = "http://madsonic.org/version.html";
 
     /**
-     * Returns the version number for the locally installed Subsonic version.
+     * Returns the version number for the locally installed Madsonic version.
      *
-     * @return The version number for the locally installed Subsonic version.
+     * @return The version number for the locally installed Madsonic version.
      */
     public synchronized Version getLocalVersion() {
         if (localVersion == null) {
             try {
                 localVersion = new Version(readLineFromResource("/version.txt"));
-                LOG.info("Resolved local Madsonic version to: " + localVersion);
+                LOG.debug("Resolved local Madsonic version to: " + localVersion);
             } catch (Exception x) {
                 LOG.warn("Failed to resolve local Madsonic version.", x);
             }
@@ -91,9 +95,9 @@ public class VersionService {
     }
 
     /**
-     * Returns the version number for the latest available Subsonic final version.
+     * Returns the version number for the latest available Madsonic final version.
      *
-     * @return The version number for the latest available Subsonic final version, or <code>null</code>
+     * @return The version number for the latest available Madsonic final version, or <code>null</code>
      *         if the version number can't be resolved.
      */
     public synchronized Version getLatestFinalVersion() {
@@ -102,9 +106,9 @@ public class VersionService {
     }
 
     /**
-     * Returns the version number for the latest available Subsonic beta version.
+     * Returns the version number for the latest available Madsonic beta version.
      *
-     * @return The version number for the latest available Subsonic beta version, or <code>null</code>
+     * @return The version number for the latest available Madsonic beta version, or <code>null</code>
      *         if the version number can't be resolved.
      */
     public synchronized Version getLatestBetaVersion() {
@@ -113,9 +117,9 @@ public class VersionService {
     }
 
     /**
-     * Returns the build date for the locally installed Subsonic version.
+     * Returns the build date for the locally installed Madsonic version.
      *
-     * @return The build date for the locally installed Subsonic version, or <code>null</code>
+     * @return The build date for the locally installed Madsonic version, or <code>null</code>
      *         if the build date can't be resolved.
      */
     public synchronized Date getLocalBuildDate() {
@@ -124,16 +128,34 @@ public class VersionService {
                 String date = readLineFromResource("/build_date.txt");
                 localBuildDate = DATE_FORMAT.parse(date);
             } catch (Exception x) {
-                LOG.warn("Failed to resolve local Subsonic build date.", x);
+                LOG.warn("Failed to resolve local Madsonic build date.", x);
             }
         }
         return localBuildDate;
     }
 
     /**
-     * Returns the build number for the locally installed Subsonic version.
+     * Returns the build time for the locally installed Madsonic version.
      *
-     * @return The build number for the locally installed Subsonic version, or <code>null</code>
+     * @return The build time for the locally installed Madsonic version, or <code>null</code>
+     *         if the build date can't be resolved.
+     */
+    public synchronized Date getLocalBuildTime() {
+        if (localBuildTime == null) {
+            try {
+                String date = readLineFromResource("/build_time.txt");
+                localBuildTime = TIME_FORMAT.parse(date);
+            } catch (Exception x) {
+                LOG.warn("Failed to resolve local Madsonic build time.", x);
+            }
+        }
+        return localBuildTime;
+    }    
+    
+    /**
+     * Returns the build number for the locally installed Madsonic version.
+     *
+     * @return The build number for the locally installed Madsonic version, or <code>null</code>
      *         if the build number can't be resolved.
      */
     public synchronized String getLocalBuildNumber() {
@@ -141,16 +163,16 @@ public class VersionService {
             try {
                 localBuildNumber = readLineFromResource("/build_number.txt");
             } catch (Exception x) {
-                LOG.warn("Failed to resolve local Subsonic build number.", x);
+                LOG.warn("Failed to resolve local Madsonic build number.", x);
             }
         }
         return localBuildNumber;
     }
 
     /**
-     * Returns whether a new final version of Subsonic is available.
+     * Returns whether a new final version of Madsonic is available.
      *
-     * @return Whether a new final version of Subsonic is available.
+     * @return Whether a new final version of Madsonic is available.
      */
     public boolean isNewFinalVersionAvailable() {
         Version latest = getLatestFinalVersion();
@@ -164,9 +186,9 @@ public class VersionService {
     }
 
     /**
-     * Returns whether a new beta version of Subsonic is available.
+     * Returns whether a new beta version of Madsonic is available.
      *
-     * @return Whether a new beta version of Subsonic is available.
+     * @return Whether a new beta version of Madsonic is available.
      */
     public boolean isNewBetaVersionAvailable() {
         Version latest = getLatestBetaVersion();
@@ -233,7 +255,7 @@ public class VersionService {
     }
 
     /**
-     * Resolves the latest available Subsonic version by screen-scraping a web page.
+     * Resolves the latest available Madsonic version by screen-scraping a web page.
      *
      * @throws IOException If an I/O error occurs.
      */

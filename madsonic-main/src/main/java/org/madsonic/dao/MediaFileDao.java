@@ -545,16 +545,27 @@ public class MediaFileDao extends AbstractDao {
 			rowMapper, DIRECTORY.name(), ARTIST.name(), MULTIARTIST.name(), username, count, offset);
 	}
 
-	
+    /**
+     * Returns the most recently starred artists.
+     *
+     * @param offset   		Number of artists to skip.
+     * @param count    		Maximum number of artists to return.
+     * @param user_group_id Returns starred artists for this group.
+     * @return 				The most recently starred artists for this user.
+     */
 	public List<MediaFile> getStarredLastArtists(int offset, int count, int user_group_id) {
-		return query("select id, path, folder, type, override, format, data, title, album, album_name, artist, album_artist, disc_number, " +
+		return query("select starred_media_file.media_File_ID, path, folder, type, override, format, data, title, album, album_name, artist, album_artist, disc_number, " +
 		"track_number, year, genre, mood, bit_rate, variable_bit_rate, duration_seconds, file_size, width, height, cover_art_path, " +
 		"parent_path, play_count, last_played, comment, media_file.created, changed, last_scanned, first_scanned, children_last_updated, present, version, rank " +
-		"from media_file RIGHT JOIN starred_media_file ON media_File.id = starred_media_file.media_File_ID " +
+		"FROM media_file RIGHT JOIN starred_media_file ON media_File.id = starred_media_file.media_File_ID " +
 		"WHERE media_file.present and media_file.type in (?,?,?) and media_file.folder in " +
-		"(select path from music_folder where id in (select music_folder_id from user_group_access where user_group_id=? and enabled)) ",  
-		rowMapper, DIRECTORY.name(), ARTIST.name(), MULTIARTIST.name(), user_group_id);
-		}	
+		"(select path from music_folder where id in (select music_folder_id from user_group_access where user_group_id=? and enabled)) " + 
+		"group by starred_media_file.media_File_ID, path, folder, type, override, format, data, title, album, album_name, artist, album_artist, disc_number, " +
+		"track_number, year, genre, mood, bit_rate, variable_bit_rate, duration_seconds, file_size, width, height, cover_art_path, " +
+		"parent_path, play_count, last_played, comment, media_file.created, changed, last_scanned, first_scanned, children_last_updated, present, version, rank  " +
+		"ORDER BY created desc limit ? offset ?",
+		rowMapper, DIRECTORY.name(), ARTIST.name(), MULTIARTIST.name(), user_group_id, count, offset);
+	}
 	
     /**
      * Returns the most recently starred files.

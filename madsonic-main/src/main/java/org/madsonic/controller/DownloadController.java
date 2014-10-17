@@ -18,6 +18,34 @@
  */
 package org.madsonic.controller;
 
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.zip.CRC32;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
+
+
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.web.servlet.mvc.LastModified;
+ 
 import org.madsonic.Logger;
 import org.madsonic.domain.MediaFile;
 import org.madsonic.domain.PlayQueue;
@@ -34,35 +62,7 @@ import org.madsonic.service.SettingsService;
 import org.madsonic.service.StatusService;
 import org.madsonic.util.FileUtil;
 import org.madsonic.util.HttpRange;
-import org.madsonic.util.StringUtil;
 import org.madsonic.util.Util;
-
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.math.LongRange;
-import org.apache.http.util.EncodingUtils;
-import org.apache.tools.zip.ZipEntry;
-import org.apache.tools.zip.ZipOutputStream;
-import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.bind.ServletRequestUtils;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
-import org.springframework.web.servlet.mvc.LastModified;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.zip.CRC32;
 
 /**
  * A controller used for downloading files to a remote client. If the requested path refers to a file, the
@@ -360,23 +360,23 @@ public class DownloadController implements Controller, LastModified {
     }
 
     
-    public static String UTF8 (String s)
-    {
-        byte bytes[]=EncodingUtils.getBytes(s,"UTF-8");
-        return new String(bytes);
-    }
-    
-    public static String cp866 (String s)
-    {
-        byte bytes[]=EncodingUtils.getBytes(s,"cp866");
-        return new String(bytes);
-    }
-   
-    public static String iso (String s)
-    {
-        byte bytes[]=EncodingUtils.getBytes(s,"ISO-8859-1");
-        return new String(bytes);
-    }
+//    public static String UTF8 (String s)
+//    {
+//        byte bytes[]=EncodingUtils.getBytes(s,"UTF-8");
+//        return new String(bytes);
+//    }
+//    
+//    public static String cp866 (String s)
+//    {
+//        byte bytes[]=EncodingUtils.getBytes(s,"cp866");
+//        return new String(bytes);
+//    }
+//   
+//    public static String iso (String s)
+//    {
+//        byte bytes[]=EncodingUtils.getBytes(s,"ISO-8859-1");
+//        return new String(bytes);
+//    }
         
     /**
      * Writes a file or a directory structure to a zip output stream. File entries in the zip file are relative

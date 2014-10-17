@@ -44,7 +44,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.LongRange;
-
+ 
 /**
  * Miscellaneous string utility methods.
  *
@@ -82,6 +82,7 @@ public final class StringUtil {
             {"webm", "audio/webm"},
 
             {"flv", "video/x-flv"},
+            {"hdrun", "video/x-flv"},
             {"avi", "video/avi"},
             {"mpg", "video/mpeg"},
             {"mpeg", "video/mpeg"},
@@ -692,6 +693,10 @@ public final class StringUtil {
     		}
     	}
     	return video_id;
+    }
+    
+    public static String getYoutubeVideoUrl() {
+    	return "https://www.youtube.com/watch?v=";
     }
 
     public static String getRESTProtocolVersion() {

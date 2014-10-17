@@ -118,7 +118,7 @@ public class MediaScannerService {
         long period = daysBetween * 24L * 3600L * 1000L;
         timer.schedule(task, firstTime, period);
 
-        LOG.info("Automatic media library scanning scheduled to run every " + daysBetween + " day(s), starting at " + firstTime);
+        LOG.info("Automatic library scan: every " + daysBetween + " day(s), NEXT: " + firstTime);
 
         // In addition, create index immediately if it doesn't exist on disk.
         if (settingsService.getLastScanned() == null) {
@@ -612,7 +612,7 @@ public class MediaScannerService {
         this.mediaFileService = mediaFileService;
     }
 
-    public void setlastFMService(LastFMService lastFMService) {
+    public void setLastFMService(LastFMService lastFMService) {
     }    
     
     public void setMediaFileDao(MediaFileDao mediaFileDao) {

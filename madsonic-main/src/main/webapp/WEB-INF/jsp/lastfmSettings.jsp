@@ -23,11 +23,11 @@
 <br>
 <p class="forward"><a href="lastfmSettings.view?ScanNow"><fmt:message key="lastfmSettings.artistcover.title"/></a></p>
 <p class="detail" style="padding-left: 20px;width:80%;white-space:normal;margin-top:-5px;"><fmt:message key="lastfmSettings.artistcover"/></p>
-<br>
+<br><!--
 <p class="forward"><a href="lastfmSettings.view?ScanInfo"><fmt:message key="lastfmSettings.artistsummary.title"/> (Full)</a></p>
 <p class="detail" style="padding-left: 20px;width:80%;white-space:normal;margin-top:-5px;"><fmt:message key="lastfmSettings.artistsummaryinfo1"/></p>
 <p class="detail" style="padding-left: 20px;width:80%;white-space:normal;margin-top:-5px;"><fmt:message key="lastfmSettings.artistsummaryinfo2"/></p>
-<br>
+<br>-->
 <p class="forward"><a href="lastfmSettings.view?ScanNewInfo"><fmt:message key="lastfmSettings.artistsummary.title"/> (only new)</a></p>
 <p class="detail" style="padding-left: 20px;width:80%;white-space:normal;margin-top:-5px;"><fmt:message key="lastfmSettings.artistsummaryinfo1"/></p>
 <p class="detail" style="padding-left: 20px;width:80%;white-space:normal;margin-top:-5px;"><fmt:message key="lastfmSettings.artistsummaryinfo2"/></p>
@@ -40,11 +40,27 @@
 <br>
 
 <table>
+
+<form method="post" action="lastfmSettings.view">
+
+<tr>
+<td>Enalbe LastFM TopTrack search</td>
+<td>
+<c:choose>
+	<c:when test="${model.LastFMTopTrackSearch}">
+		<input name="lastFMTopTrackSearch" checked type="checkbox" class="checkbox" id="lastFMTopTrackSearch"/>
+	</c:when>
+	<c:otherwise>
+		<input name="lastFMTopTrackSearch" type="checkbox" class="checkbox" id="lastFMTopTrackSearch"/>
+	</c:otherwise>
+</c:choose>
+
+</td>
+</tr>
 <tr>
 <td>Select LastFM TopTrack result size</td>
 <td>
-<form method="post" action="lastfmSettings.view">
-<select name="LastFMResultSize">
+<select name="lastFMResultSize">
 <c:if test="${model.LastFMResultSize eq '10'}"><option selected="selected">10</option></c:if>
 <c:if test="${model.LastFMResultSize ne '10'}"><option>10</option></c:if>
 <c:if test="${model.LastFMResultSize eq '20'}"><option selected="selected">20</option></c:if>

@@ -74,7 +74,7 @@ public class MoreController extends ParameterizableViewController {
         map.put("user", securityService.getCurrentUser(request));
         map.put("uploadDirectory", uploadDirectory);
         map.put("uploadDirectory2", uploadDirectory2);
-        map.put("genres", mediaFileService.getGenres());
+        map.put("genres", mediaFileService.getGenres(true));
         map.put("currentYear", Calendar.getInstance().get(Calendar.YEAR));
         map.put("musicFolders", settingsService.getAllMusicFolders());
         map.put("clientSidePlaylist", player.isExternalWithPlaylist() || player.isWeb());

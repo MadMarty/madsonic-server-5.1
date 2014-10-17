@@ -28,17 +28,17 @@ import org.madsonic.service.PlayerService;
 import org.madsonic.service.PlaylistService;
 import org.madsonic.service.SecurityService;
 import org.madsonic.service.SettingsService;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+ 
 /**
  * Controller for showing a user's starred items.
  *
@@ -53,6 +53,8 @@ public class StarredController extends ParameterizableViewController {
     private MediaFileService mediaFileService;
 	private PlaylistService playlistService;
 
+    private static final String DEFAULT_LIST_TYPE = "artists";
+	
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -61,32 +63,59 @@ public class StarredController extends ParameterizableViewController {
         String username = user.getUsername();
         UserSettings userSettings = settingsService.getUserSettings(username);
 
-        List<MediaFile> artists = mediaFileDao.getStarredDirectories(0, Integer.MAX_VALUE, username);
-        List<MediaFile> albums = mediaFileDao.getStarredAlbums(0, Integer.MAX_VALUE, username);
-        List<MediaFile> songs = mediaFileDao.getStarredFiles(0, Integer.MAX_VALUE, username);
-        List<MediaFile> links = mediaFileDao.getStarredLinks(0, Integer.MAX_VALUE, username);
-        List<MediaFile> sets = mediaFileDao.getStarredSets(0, Integer.MAX_VALUE, username);
-        List<MediaFile> videos = mediaFileDao.getStarredVideos(0, Integer.MAX_VALUE, username);
-        
+	    String listType = DEFAULT_LIST_TYPE; 
+	    
+		if (request.getParameter("listType") != null) {
+            listType = String.valueOf(request.getParameter("listType"));
+        }
 		
-        mediaFileService.populateStarredDate(artists, username);
-        mediaFileService.populateStarredDate(albums, username);
-        mediaFileService.populateStarredDate(songs, username);
-        mediaFileService.populateStarredDate(links, username);        
-        mediaFileService.populateStarredDate(sets, username);        
-        mediaFileService.populateStarredDate(videos, username);  
-        
-        map.put("user", user);
-        map.put("partyModeEnabled", userSettings.isPartyModeEnabled());
-        map.put("customScrollbar", userSettings.isCustomScrollbarEnabled()); 		
-        map.put("player", playerService.getPlayer(request, response));
-        
-        map.put("artists", artists);
+		map.put("listType", listType);
+		
+		List<MediaFile> artists = null;
+		List<MediaFile> albums = null;
+		List<MediaFile> songs = null;
+		List<MediaFile> links = null;
+		List<MediaFile> sets =  null;
+		List<MediaFile> videos =  null;
+		
+	    if (listType.equalsIgnoreCase("artists")){
+	        artists = mediaFileDao.getStarredDirectories(0, Integer.MAX_VALUE, username);
+	        mediaFileService.populateStarredDate(artists, username);
+	    }
+	    if (listType.equalsIgnoreCase("albums")){
+	        albums = mediaFileDao.getStarredAlbums(0, Integer.MAX_VALUE, username);
+	        mediaFileService.populateStarredDate(albums, username);
+	    }
+	    if (listType.equalsIgnoreCase("songs")){
+	        songs = mediaFileDao.getStarredFiles(0, Integer.MAX_VALUE, username);
+	        mediaFileService.populateStarredDate(songs, username);
+	    }
+	    if (listType.equalsIgnoreCase("links")){
+	        links = mediaFileDao.getStarredLinks(0, Integer.MAX_VALUE, username);
+	        mediaFileService.populateStarredDate(links, username);        
+	    }
+	    if (listType.equalsIgnoreCase("sets")){
+	        sets = mediaFileDao.getStarredSets(0, Integer.MAX_VALUE, username);
+	        mediaFileService.populateStarredDate(sets, username);        
+	    }
+	    if (listType.equalsIgnoreCase("videos")){
+	        videos = mediaFileDao.getStarredVideos(0, Integer.MAX_VALUE, username);
+	        mediaFileService.populateStarredDate(videos, username);  
+	    }
+	    
+        map.put("artists", artists);	        
         map.put("albums", albums);
         map.put("songs", songs);
         map.put("links", links);
         map.put("sets", sets);
         map.put("videos", videos);
+                
+        map.put("user", user);
+        map.put("partyModeEnabled", userSettings.isPartyModeEnabled());
+        map.put("customScrollbar", userSettings.isCustomScrollbarEnabled());
+        map.put("buttonVisibility", userSettings.getButtonVisibility());  
+        map.put("player", playerService.getPlayer(request, response));
+        
         
         map.put("coverArtSize", CoverArtScheme.SMALL.getSize());
         ModelAndView result = super.handleRequestInternal(request, response);
