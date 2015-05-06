@@ -14,6 +14,7 @@ import java.util.zip.ZipEntry;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.util.security.Constraint;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.server.ssl.SslSocketConnector;
@@ -108,6 +109,19 @@ public class MadsonicDeployer implements MadsonicDeployerService {
 
             if (isHttpsEnabled()) {
                 SslSocketConnector sslConnector = new SslSocketConnector();
+                SslContextFactory sslContextFactory = sslConnector.getSslContextFactory();
+                sslContextFactory = sslConnector.getSslContextFactory();
+                sslContextFactory.setExcludeCipherSuites(
+                        new String[] {
+                            "SSL_RSA_WITH_DES_CBC_SHA",
+                            "SSL_DHE_RSA_WITH_DES_CBC_SHA",
+                            "SSL_DHE_DSS_WITH_DES_CBC_SHA",
+                            "SSL_RSA_EXPORT_WITH_RC4_40_MD5",
+                            "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA",
+                            "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
+                            "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA"
+                        });
+                sslContextFactory.addExcludeProtocols(new String[]{"SSLv3","SSLv2Hello"});
                 sslConnector.setMaxIdleTime(MAX_IDLE_TIME_MILLIS);
                 sslConnector.setRequestHeaderSize(HEADER_BUFFER_SIZE);
                 sslConnector.setResponseHeaderSize(HEADER_BUFFER_SIZE);
