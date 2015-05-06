@@ -326,7 +326,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -344,6 +344,12 @@
 		</dependency>
 
 		<dependency>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+    <dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>string</artifactId>
 			<version>1.1.0</version>
@@ -413,8 +419,8 @@
 								<copy
 									file="${basedir}/src/main/resources/org/madsonic/i18n/ResourceBundle_en.properties"
 									tofile="${project.build.directory}/classes/org/madsonic/i18n/ResourceBundle.properties" />
-                                <echo file="${project.build.directory}/classes/version.txt">5.1.5200</echo>
-                                <echo file="${project.build.directory}/classes/build_number.txt">5200</echo>
+                                <echo file="${project.build.directory}/classes/version.txt">5.1.5240</echo>
+                                <echo file="${project.build.directory}/classes/build_number.txt">5240</echo>
                                 <echo file="${project.build.directory}/classes/build_date.txt">${DSTAMP}</echo>
                                 <echo file="${project.build.directory}/classes/build_time.txt">${TSTAMP}</echo>
 							</target>
@@ -540,7 +546,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
-						<version>2.4</version>
+						<version>2.6</version>
 						<configuration>
 							<webXml>${basedir}/target/web.xml</webXml>
 						</configuration>
@@ -593,7 +599,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
-						<version>2.2</version>
+						<version>2.6</version>
 					</plugin>
 				</plugins>
 			</build>
