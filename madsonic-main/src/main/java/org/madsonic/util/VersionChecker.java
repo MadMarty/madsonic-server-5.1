@@ -32,7 +32,7 @@ public class VersionChecker
     	 version = springVersion.getVersion();
     	} 
     	catch (Exception x) {}
-       	return version == null ? "3.2.11" : version.replace(".RELEASE", "");
+       	return version == null ? "3.2.14" : version.replace(".RELEASE", "");
     }
     
     public static String getSpringSecurityVersion()
@@ -42,6 +42,6 @@ public class VersionChecker
     		version = SpringSecurityCoreVersion.getVersion(); 
     		}
     		catch (Exception x) {}
-       	return version == null ? "3.2.5" : version.replace(".RELEASE", "");
+       	return version == null ? "3.2.8" : version.replace(".RELEASE", "");
     }
 }

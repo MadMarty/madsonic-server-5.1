@@ -16,6 +16,12 @@
         </param-value>
     </context-param>
 
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/tags/sub</taglib-uri>
+            <taglib-location>/WEB-INF/sub.tld</taglib-location>
+        </taglib>
+    </jsp-config>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

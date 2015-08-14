@@ -45,8 +45,8 @@ import junit.framework.TestCase;
 public class StringUtilTestCase extends TestCase {
 
 public void testVersionCheck() throws Exception {
-	assertEquals("3.2.11", VersionChecker.getSpringFrameworkVersion());
-	assertEquals("3.2.5", VersionChecker.getSpringSecurityVersion());
+	assertEquals("3.2.14", VersionChecker.getSpringFrameworkVersion());
+	assertEquals("3.2.8", VersionChecker.getSpringSecurityVersion());
 }
   
   public void testToHtml() throws Exception {

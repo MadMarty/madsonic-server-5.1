@@ -4,5 +4,5 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sub" uri="http://subsonic.org/taglib/sub" %>
+<%@ taglib prefix="sub" uri="http://madsonic.org/taglibs/sub" %>
 <%@ taglib prefix="str" uri="http://jakarta.apache.org/taglibs/string-1.1" %>

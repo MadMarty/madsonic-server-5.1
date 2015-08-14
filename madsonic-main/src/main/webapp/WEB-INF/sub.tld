@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
-        version="2.0">
-
-    <description>Subsonic tag library</description>
-    <display-name>Subsonic tag library</display-name>
-    <tlib-version>1.1</tlib-version>
+<taglib
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="2.1">
+    
+    <description>Madsonic tag library</description>
+    <display-name>Madsonic tag library</display-name>
+    <tlib-version>2.0</tlib-version>
     <short-name>sub</short-name>
-    <uri>http://subsonic.org/taglib/sub</uri>
+    <uri>http://madsonic.org/taglibs/sub</uri>
 
     <tag>
         <description>
@@ -20,7 +21,7 @@
             b) Parameter names are prepended with the suffix "Utf8Hex"
         </description>
         <name>url</name>
-        <tag-class>org.madsonic.taglib.UrlTag</tag-class>
+        <tag-class>org.madsonic.taglibs.UrlTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <description>
@@ -49,7 +50,7 @@
     <tag>
         <description>Adds a parameter to a containing 'url' tag.</description>
         <name>param</name>
-        <tag-class>org.madsonic.taglib.ParamTag</tag-class>
+        <tag-class>org.madsonic.taglibs.ParamTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <description>Name of the query string parameter.</description>
@@ -71,7 +72,7 @@
             to the current locale.
         </description>
         <name>formatBytes</name>
-        <tag-class>org.madsonic.taglib.FormatBytesTag</tag-class>
+        <tag-class>org.madsonic.taglibs.FormatBytesTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <description>The byte count.</description>
@@ -86,7 +87,7 @@
             Renders a Wiki text with markup to HTML, using the Radeox render engine.
         </description>
         <name>wiki</name>
-        <tag-class>org.madsonic.taglib.WikiTag</tag-class>
+        <tag-class>org.madsonic.taglibs.WikiTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <description>The Wiki markup text.</description>
@@ -101,7 +102,7 @@
             Escapes the characters in a string using JavaScript rules.
         </description>
         <name>escapeJavaScript</name>
-        <tag-class>org.madsonic.taglib.EscapeJavaScriptTag</tag-class>
+        <tag-class>org.madsonic.taglibs.EscapeJavaScriptTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <description>The string to escape.</description>
