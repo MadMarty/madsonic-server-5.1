@@ -701,6 +701,6 @@ public final class StringUtil {
 
     public static String getRESTProtocolVersion() {
         // TODO: Read from xsd.
-        return "1.12.0";
+        return "1.10.5";
     }
 }

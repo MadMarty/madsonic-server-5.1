@@ -764,7 +764,7 @@ public class SchemaMadsonic extends Schema {
 			//////////////////// 		
 		
 			if (!columnExists(template, "groupby", "music_folder")) {
-				template.execute("alter table music_folder add groupby int default 0 not null");
+				template.execute("alter table music_folder add groupby int default 1 not null");
 				LOG.info("Database table 'music_folder' was updated successfully.");            
 			}	
       ////////////////////

@@ -26,30 +26,38 @@
 
 package org.madsonic.lastfm;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import static org.madsonic.lastfm.util.StringUtilities.encode;
+import static org.madsonic.lastfm.util.StringUtilities.map;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.madsonic.lastfm.Result.Status;
 import org.madsonic.lastfm.cache.Cache;
-import org.madsonic.lastfm.cache.ExpirationPolicy;
 import org.madsonic.lastfm.cache.FileSystemCache;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import static org.madsonic.lastfm.util.StringUtilities.*;
 
 /**
  * The <code>Caller</code> class handles the low-level communication between the client and last.fm.<br/>
@@ -73,7 +81,7 @@ public class Caller {
 	private String apiRootUrl = DEFAULT_API_ROOT;
 
 	private Proxy proxy;
-	private String userAgent = "tst";
+	private String userAgent = "madsonic";
 
 	private boolean debugMode = false;
 
@@ -217,7 +225,6 @@ public class Caller {
 		params = new HashMap<String, String>(params); // create new Map in case params is an immutable Map
 		InputStream inputStream = null;
 		
-		
 		// try to load from cache
 		boolean fromCache = false;
 		String cacheEntryName = Cache.createCacheEntryName(method, params);
@@ -237,7 +244,7 @@ public class Caller {
 				params.put("api_sig", Authenticator.createSignature(method, params, session.getSecret()));
 			}
 			try {
-				HttpURLConnection urlConnection = openPostConnection(method, params);
+				HttpURLConnection urlConnection = openGetConnection(method, params);
 				inputStream = getInputStreamFromConnection(urlConnection);
 				
 				if (inputStream == null) {
@@ -257,8 +264,8 @@ public class Caller {
 						}
 					}
 				}
-			} catch (IOException e) {
-			//	throw new CallException(e);
+			} catch (Exception e) {
+				throw new CallException(e);
 			}
 		}
 		
@@ -315,12 +322,22 @@ public class Caller {
 		OutputStream outputStream = urlConnection.getOutputStream();
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
 		String post = buildPostBody(method, params);
-		log.info("Post body: " + post);
+		log.info("POST body: " + post);
 		writer.write(post);
 		writer.close();
 		return urlConnection;
 	}
 
+	private HttpURLConnection openGetConnection(String method, Map<String, String> params) throws IOException {
+		String get = buildPostBody(method, params);
+		log.info("GET body: " + get);
+		HttpURLConnection urlConnection = openConnection(apiRootUrl + "?" + get);
+		urlConnection.setRequestMethod("GET");
+		urlConnection.setDoOutput(true);
+		urlConnection.connect();
+		return urlConnection;
+	}	
+	
 	private InputStream getInputStreamFromConnection(HttpURLConnection connection) throws IOException {
 		int responseCode = connection.getResponseCode();
 
@@ -384,16 +401,5 @@ public class Caller {
 			}
 		}
 		return builder.toString();
-	}
-
-	private String createSignature(Map<String, String> params, String secret) {
-		Set<String> sorted = new TreeSet<String>(params.keySet());
-		StringBuilder builder = new StringBuilder(50);
-		for (String s : sorted) {
-			builder.append(s);
-			builder.append(encode(params.get(s)));
-		}
-		builder.append(secret);
-		return md5(builder.toString());
 	}
 }

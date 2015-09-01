@@ -716,6 +716,9 @@ option {
     color: #000 !important;
 }
 
+.status {
+    color: rgb(87, 207, 250);
+}
 
 #overlay {
     background-color: #aaa !important;

@@ -97,11 +97,12 @@
 				<form:option value="10" label="Others"/>
 		</form:select></td>
             <td><form:select path="newMusicFolder.group" size="1">
-				<form:option value="0" label="dont group"/>
+
 				<form:option value="1" label="Music"/>
 				<form:option value="2" label="Video"/>
 				<form:option value="3" label="Movies"/>
 				<form:option value="4" label="Series"/>
+				<form:option value="0" label="dont group"/>
 				</form:select></td>		
         <td align="center" style="padding-left:1em"><form:checkbox path="newMusicFolder.enabled" cssClass="checkbox"/></td>
         <td></td>

@@ -121,9 +121,9 @@ public class Artist extends MusicEntry {
 		Result result = Caller.getInstance().call("artist.getInfo", apiKey, params);
 		
 		if (result.isFromCache()){
-	        System.out.println("## from getInfo.Cache: " + artistOrMbid);			
+	    //    System.out.println("## from getInfo.Cache: " + artistOrMbid);			
 		}else {
-	        System.out.println("## No getInfo.Cache: " + artistOrMbid);			
+	    //    System.out.println("## No getInfo.Cache: " + artistOrMbid);			
 		}	
 		
 		return ResponseBuilder.buildItem(result, Artist.class);
